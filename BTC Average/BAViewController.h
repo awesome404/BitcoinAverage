@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BAViewController : UIViewController
+@interface BAViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    NSArray *theKeys;
+    NSMutableDictionary *theData;
+}
+
+- (void)refreshData;
 
 @end
