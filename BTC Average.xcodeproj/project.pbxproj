@@ -22,6 +22,7 @@
 		662CA3CD18AD89AD00FC558A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662CA3AC18AD89AC00FC558A /* UIKit.framework */; };
 		662CA3D518AD89AD00FC558A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 662CA3D318AD89AD00FC558A /* InfoPlist.strings */; };
 		662CA3D718AD89AD00FC558A /* BTC_AverageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CA3D618AD89AD00FC558A /* BTC_AverageTests.m */; };
+		66FEFB0C18AEA75B0044853D /* BATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FEFB0B18AEA75B0044853D /* BATableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		662CA3D218AD89AD00FC558A /* BTC AverageTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BTC AverageTests-Info.plist"; sourceTree = "<group>"; };
 		662CA3D418AD89AD00FC558A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		662CA3D618AD89AD00FC558A /* BTC_AverageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTC_AverageTests.m; sourceTree = "<group>"; };
+		66FEFB0A18AEA75B0044853D /* BATableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BATableViewController.h; sourceTree = "<group>"; };
+		66FEFB0B18AEA75B0044853D /* BATableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BATableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +119,8 @@
 			children = (
 				662CA3B718AD89AD00FC558A /* BAAppDelegate.h */,
 				662CA3B818AD89AD00FC558A /* BAAppDelegate.m */,
+				66FEFB0A18AEA75B0044853D /* BATableViewController.h */,
+				66FEFB0B18AEA75B0044853D /* BATableViewController.m */,
 				662CA3BA18AD89AD00FC558A /* Main_iPhone.storyboard */,
 				662CA3BD18AD89AD00FC558A /* Main_iPad.storyboard */,
 				662CA3C018AD89AD00FC558A /* BAViewController.h */,
@@ -203,6 +208,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Nullriver;
 				TargetAttributes = {
+					662CA3A418AD89AC00FC558A = {
+						DevelopmentTeam = S9LXU4668P;
+					};
 					662CA3C818AD89AD00FC558A = {
 						TestTargetID = 662CA3A418AD89AC00FC558A;
 					};
@@ -254,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66FEFB0C18AEA75B0044853D /* BATableViewController.m in Sources */,
 				662CA3C218AD89AD00FC558A /* BAViewController.m in Sources */,
 				662CA3B518AD89AD00FC558A /* main.m in Sources */,
 				662CA3B918AD89AD00FC558A /* BAAppDelegate.m in Sources */,
@@ -393,10 +402,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BTC Average/BTC Average-Prefix.pch";
 				INFOPLIST_FILE = "BTC Average/BTC Average-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -406,10 +418,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BTC Average/BTC Average-Prefix.pch";
 				INFOPLIST_FILE = "BTC Average/BTC Average-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -475,6 +490,7 @@
 				662CA3DC18AD89AD00FC558A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		662CA3DD18AD89AD00FC558A /* Build configuration list for PBXNativeTarget "BTC AverageTests" */ = {
 			isa = XCConfigurationList;
@@ -483,6 +499,7 @@
 				662CA3DF18AD89AD00FC558A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

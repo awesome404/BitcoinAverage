@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface BAViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    NSString *selection;
     NSArray *theKeys;
     NSMutableDictionary *theData;
+    __weak IBOutlet UITableView *theTable;
+    __weak IBOutlet UILabel *theLabel;
+    UIRefreshControl *refreshControl;
 }
 
 - (void)refreshData;
