@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Nullriver. All rights reserved.
 //
 
-// 1sBXjFVV163oF5ndf2Tjv3JFHpnfzK1vu
 
 #import "BATableViewController.h"
+#import "BACurrency.h"
 
 @interface BATableViewController ()
 
@@ -16,183 +16,159 @@
 
 @implementation BATableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+/*- (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if(self) {
         // Custom initialization
     }
     return self;
-}
+}*/
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
+    // Account for the table going under the status bar - still busted
+    self.navigationController.navigationBar.translucent = NO;
+    self.tableView.contentInset = UIEdgeInsetsMake(20.0, 0.0, 0.0, 0.0);
+    
+    // Set the section background colour
+    UIColor *bg = [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:224.0/255.0 alpha:1.0];
+    self.primarylabel.backgroundColor = bg;
+    self.secondaryLabel.backgroundColor = bg;
+    self.otherLabel.backgroundColor = bg;
+
+    // Preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
+
+    // Set the selector when you pull down to refresh
     [self.refreshControl addTarget:self action:@selector(refreshData) forControlEvents:UIControlEventValueChanged];
-    
-    [self refreshData];
 }
 
-- (void)refreshData
-{
-    NSString *stringURL = @"https://api.bitcoinaverage.com/ticker/all";
-    NSURL *url = [NSURL URLWithString:stringURL];
-    NSData *urlData = [NSData dataWithContentsOfURL:url];
+- (void)viewWillAppear:(BOOL)animated {
+    // Get teh actual data
+    [self refreshData];
+    
+    // Set the selection
+    //NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:row];
+    //[self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+}
+
+/*- (void) viewDidLayoutSubviews {
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        
+    } else {
+        self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
+        if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+            self.edgesForExtendedLayout = UIRectEdgeNone;   // iOS 7 specific
+        CGRect viewBounds = self.view.bounds;
+        CGFloat topBarOffset = self.topLayoutGuide.length;
+        viewBounds.origin.y = topBarOffset * -1;
+        self.view.bounds = viewBounds;
+        self.navigationController.navigationBar.translucent = NO;
+    }
+}*/
+
+- (void)refreshData {
+    static NSString *stringURL = @"https://api.bitcoinaverage.com/ticker/global/all";
+    NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:stringURL]];
+    
+    theKeys = nil;
+    theData = nil;
     
     if(urlData) {
-        theData = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:NULL];
-        
-        if(theData) {
+        if((theData = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:NULL])!=nil) {
 
-            NSMutableArray *mainKeys = [NSMutableArray arrayWithObjects:@"USD",@"EUR",@"CNY",@"GBP",@"CAD",nil],
-                           *otherKeys = [[theData allKeys] mutableCopy];
+            NSArray *primaryKeys = [NSArray arrayWithObjects:@"USD",@"CAD",@"EUR",@"CNY",@"GBP",nil],
+                    *secondaryKeys = [NSArray arrayWithObjects:@"PLN",@"JPY",@"RUB",@"AUD",@"SEK",@"BRL",@"NZD",
+                                                               @"SGD",@"ZAR",@"NOK",@"ILS",@"CHF",@"TRY",nil];
+            NSMutableArray *otherKeys = [[theData allKeys] mutableCopy];
             
             [otherKeys removeObject:@"timestamp"];
-            
-            NSInteger mi,oi;
-            for(mi=0;mi<[mainKeys count];mi++)
-                if((oi=[otherKeys indexOfObject:mainKeys[mi]])!=NSNotFound)
-                    [otherKeys removeObjectAtIndex:oi];
-                else
-                    [mainKeys removeObjectAtIndex:mi];
 
-            theKeys = [mainKeys arrayByAddingObjectsFromArray:[otherKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
+            for(NSInteger pi=0,oi,pc=[primaryKeys count];pi<pc;pi++)
+                if((oi=[otherKeys indexOfObject:primaryKeys[pi]])!=NSNotFound)
+                    [otherKeys removeObjectAtIndex:oi]; // remove the key from the other ones
+                else NSLog(@"%@ is absent in data.",primaryKeys[pi]);
+            
+            for(NSInteger si=0,oi,sc=[secondaryKeys count];si<sc;si++)
+                if((oi=[otherKeys indexOfObject:secondaryKeys[si]])!=NSNotFound)
+                    [otherKeys removeObjectAtIndex:oi]; // remove the key from the other ones
+                else NSLog(@"%@ is absent in data.",secondaryKeys[si]);
+
+            theKeys = [NSArray arrayWithObjects:primaryKeys,secondaryKeys,[otherKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)],nil];
 
             [self.tableView reloadData];
-            
-            //NSLog(@"%@\n%@",theKeys,theData);
-        } else theKeys = [NSArray init];
-    }
+
+        } else NSLog(@"JSON to NSDictionary failed");
+    } else NSLog(@"No urlData");
+
+    if(theKeys == nil) theKeys = [NSArray arrayWithObjects:[NSArray array],[NSArray array],[NSArray array],nil];
 
     if(self.refreshControl.refreshing) [self.refreshControl endRefreshing];
 }
 
-- (void)didReceiveMemoryWarning
-{
+/*- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
+}*/
 
 #pragma mark - Table view data source
 
-/*- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return [theKeys count];
-}*/
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return [theKeys count]+1;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 24; // Return the space between sections
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = nil;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if(section==0) return self.primarylabel;
+    else if(section==1) return self.secondaryLabel;
+    return self.otherLabel;
+}
 
-    if(indexPath.item==0) {
-        static NSString *CellIdentifier = @"TopCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];// forIndexPath:indexPath];
-        
-        if(cell==nil)
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        
-        cell.textLabel.text = @" ";
-        cell.detailTextLabel.text = @"Select a currency:";
-        return cell;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [theKeys count]; // Return the number of sections.
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [theKeys[section] count]; // Return the number of rows in the section.
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [BACurrency setTo:theKeys[indexPath.section][indexPath.item]];
+    theData = nil;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"JailCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if(cell==nil)
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+
+    if(theData==nil || theKeys==nil) {
+        cell.textLabel.text = @"None";
+        cell.detailTextLabel.text = @"Data is absent...";
+
     } else {
-        static NSString *CellIdentifier = @"Cell";
-        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];// forIndexPath:indexPath];
-        
-        if(cell==nil)
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-
-        if(indexPath.item==0) {
-            cell.textLabel.text = @" ";
-            cell.detailTextLabel.text = @"Something something";
-            return cell;
-        }
-        
         // Configure the cell...
-        NSString *key = [theKeys objectAtIndex:indexPath.item-1];
+        NSString *key = theKeys[indexPath.section][indexPath.item];
         NSDictionary *dict = [theData valueForKey:key];
         
         if(dict) {
-            
-            double bid = [[dict valueForKey:@"bid"] doubleValue];
-            double ask = [[dict valueForKey:@"ask"] doubleValue];
-            double last = [[dict valueForKey:@"last"] doubleValue];
-            double avg = ((bid+ask)/2);// + 0.05f;
-            
-            cell.textLabel.text = [NSString stringWithFormat:@"%@: %0.2f", key, avg];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"  bid: %0.2f • ask: %0.2f • last: %0.2f",bid, ask, last];
+            double bid  = [[dict valueForKey:@"bid"]  doubleValue],
+                   ask  = [[dict valueForKey:@"ask"]  doubleValue],
+                   last = [[dict valueForKey:@"last"] doubleValue];
+
+            cell.textLabel.text = [NSString stringWithFormat:@"%@: %0.2f", key, last];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"  bid: %0.2f • ask: %0.2f",bid, ask];
             
         } else {
             cell.textLabel.text = key;
-            cell.detailTextLabel.text = @"Something is wrong...";
+            cell.detailTextLabel.text = @"Data is absent...";
         }
     }
     
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
- */
 
 @end

@@ -9,11 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface BATableViewController : UITableViewController {
-    NSString *selection;
+    // NSString *selection;
     NSArray *theKeys;
-    NSMutableDictionary *theData;
+    NSDictionary *theData;
 }
 
 - (void)refreshData;
+@property (strong, nonatomic) IBOutlet UILabel *primarylabel;
+@property (strong, nonatomic) IBOutlet UILabel *secondaryLabel;
+@property (strong, nonatomic) IBOutlet UILabel *otherLabel;
 
 @end

@@ -8,15 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BAViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-    NSString *selection;
-    NSArray *theKeys;
-    NSMutableDictionary *theData;
-    __weak IBOutlet UITableView *theTable;
-    __weak IBOutlet UILabel *theLabel;
-    UIRefreshControl *refreshControl;
-}
+@interface BAViewController : UIViewController <UIAlertViewDelegate>
 
 - (void)refreshData;
+
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityControl;
+
+@property (weak, nonatomic) IBOutlet UIButton *currencyButton;
+@property (weak, nonatomic) IBOutlet UIButton *smallCurrencyButton;
+
+@property (weak, nonatomic) IBOutlet UILabel *lastLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bidLabel;
+@property (weak, nonatomic) IBOutlet UILabel *askLabel;
+
+@property (weak, nonatomic) IBOutlet UITextField *currencyEdit;
+@property (weak, nonatomic) IBOutlet UITextField *bitcoinEdit;
+
+- (IBAction)donatePush:(UIButton *)sender;
+- (IBAction)downSwipe:(UISwipeGestureRecognizer *)sender;
 
 @end
