@@ -44,9 +44,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="oEi-H4-11f" appends="YES" id="eld-sA-bYR"/>
-                                </connections>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="bid value" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDQ-Ot-JLe">
                                 <rect key="frame" x="48" y="346" width="184" height="21"/>
@@ -122,9 +119,8 @@
                             <constraint firstItem="qII-mK-M5l" firstAttribute="top" secondItem="0fr-4u-2ko" secondAttribute="bottom" constant="20" id="66M-B9-efM"/>
                         </constraints>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="oEi-H4-11f" appends="YES" id="Y40-YI-z7x"/>
-                            <outletCollection property="gestureRecognizers" destination="oEi-H4-11f" appends="YES" id="06M-3K-bGL"/>
                             <outletCollection property="gestureRecognizers" destination="oEi-H4-11f" appends="YES" id="HJE-pk-C7d"/>
+                            <outletCollection property="gestureRecognizers" destination="li1-sv-HWk" appends="YES" id="c4B-2t-rUs"/>
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -145,6 +141,11 @@
                         <action selector="downSwipe:" destination="Uo5-Ge-Vkh" id="QnV-kY-nRQ"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <tapGestureRecognizer id="li1-sv-HWk">
+                    <connections>
+                        <action selector="tapAction:" destination="Uo5-Ge-Vkh" id="1A5-HW-gbg"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="615" y="-275"/>
         </scene>

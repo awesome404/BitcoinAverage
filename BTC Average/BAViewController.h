@@ -26,5 +26,6 @@
 
 - (IBAction)donatePush:(UIButton *)sender;
 - (IBAction)downSwipe:(UISwipeGestureRecognizer *)sender;
+- (IBAction)tapAction:(UITapGestureRecognizer *)sender;
 
 @end

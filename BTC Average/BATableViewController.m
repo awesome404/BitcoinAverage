@@ -75,11 +75,12 @@
     theKeys = nil;
     theData = nil;
     
+    NSArray *primaryKeys = [NSArray arrayWithObjects:@"USD",@"CAD",@"EUR",@"CNY",@"GBP",nil];
+    
     if(urlData) {
         if((theData = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:NULL])!=nil) {
 
-            NSArray *primaryKeys = [NSArray arrayWithObjects:@"USD",@"CAD",@"EUR",@"CNY",@"GBP",nil],
-                    *secondaryKeys = [NSArray arrayWithObjects:@"PLN",@"JPY",@"RUB",@"AUD",@"SEK",@"BRL",@"NZD",
+            NSArray *secondaryKeys = [NSArray arrayWithObjects:@"PLN",@"JPY",@"RUB",@"AUD",@"SEK",@"BRL",@"NZD",
                                                                @"SGD",@"ZAR",@"NOK",@"ILS",@"CHF",@"TRY",nil];
             NSMutableArray *otherKeys = [[theData allKeys] mutableCopy];
             
@@ -102,7 +103,7 @@
         } else NSLog(@"JSON to NSDictionary failed");
     } else NSLog(@"No urlData");
 
-    if(theKeys == nil) theKeys = [NSArray arrayWithObjects:[NSArray array],[NSArray array],[NSArray array],nil];
+    if(theKeys == nil) theKeys = [NSArray arrayWithObjects:primaryKeys,nil];
 
     if(self.refreshControl.refreshing) [self.refreshControl endRefreshing];
 }
@@ -145,27 +146,21 @@
     if(cell==nil)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 
-    if(theData==nil || theKeys==nil) {
-        cell.textLabel.text = @"None";
+    NSString *key = theKeys[indexPath.section][indexPath.item];
+    NSDictionary *dict;
+
+    if(theData==nil || (dict=[theData valueForKey:key])==nil) {
+        cell.textLabel.text = key;
         cell.detailTextLabel.text = @"Data is absent...";
 
     } else {
         // Configure the cell...
-        NSString *key = theKeys[indexPath.section][indexPath.item];
-        NSDictionary *dict = [theData valueForKey:key];
-        
-        if(dict) {
-            double bid  = [[dict valueForKey:@"bid"]  doubleValue],
-                   ask  = [[dict valueForKey:@"ask"]  doubleValue],
-                   last = [[dict valueForKey:@"last"] doubleValue];
+        double bid  = [[dict valueForKey:@"bid"]  doubleValue],
+               ask  = [[dict valueForKey:@"ask"]  doubleValue],
+               last = [[dict valueForKey:@"last"] doubleValue];
 
-            cell.textLabel.text = [NSString stringWithFormat:@"%@: %0.2f", key, last];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"  bid: %0.2f • ask: %0.2f",bid, ask];
-            
-        } else {
-            cell.textLabel.text = key;
-            cell.detailTextLabel.text = @"Data is absent...";
-        }
+        cell.textLabel.text = [NSString stringWithFormat:@"%@: %0.2f", key, last];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"  bid: %0.2f • ask: %0.2f",bid, ask];
     }
     
     return cell;

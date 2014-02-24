@@ -86,6 +86,10 @@
     [self refreshData];
 }
 
+- (IBAction)tapAction:(UITapGestureRecognizer *)sender {
+    [self.view endEditing:YES];
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(buttonIndex) [[UIPasteboard generalPasteboard] setString:@"1sBXjFVV163oF5ndf2Tjv3JFHpnfzK1vu"];
 }
