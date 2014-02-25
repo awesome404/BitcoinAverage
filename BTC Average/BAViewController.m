@@ -17,30 +17,44 @@
 
 @implementation BAViewController
 
-/*- (void)viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 
-    UIRefreshControl *tempRefreshControl = [[UIRefreshControl alloc] init];
+    /*UIRefreshControl *tempRefreshControl = [[UIRefreshControl alloc] init];
     refreshControl =[[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refreshData) forControlEvents:UIControlEventValueChanged];
-    [theTable addSubview:refreshControl];
+    [theTable addSubview:refreshControl];*/
     //refreshControl = tempRefreshControl;
-}*/
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(becomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [self refreshData];
 }
 
+- (void)becomeActive:(NSNotification *)notification {
+    [self refreshData];
+    // create the timer
+}
+
 - (void)refreshData {
     static NSString *urlFormat = @"https://api.bitcoinaverage.com/ticker/global/%@", *floatFormat = @"%0.2f";
 
+    if([self.lastUpdate compare:[[NSDate date] dateByAddingTimeInterval:-30]]==NSOrderedDescending) {
+        NSLog(@"Skipping update");
+        return;
+    }
+    
     self.activityControl.hidden = NO;
     [self.activityControl startAnimating];
     
     NSString *currency = [BACurrency get], *timeStamp = nil;
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]]];
-    //double bid=0.0, ask=0.0, last=0.0;
 
 /*    NSDate *date;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -76,6 +90,8 @@
             while(iLast>=10000) iLast/=10;
             [UIApplication sharedApplication].applicationIconBadgeNumber = iLast;
             
+            self.lastUpdate = [NSDate date];
+            
         } else NSLog(@"JSON to NSDictionary failed");
     } else NSLog(@"No urlData");
     
@@ -101,14 +117,6 @@
     return NO;
 }*/
 
-- (IBAction)donatePush:(UIButton *)sender {
-    [[[UIAlertView alloc] initWithTitle:@"Donate Bitcoins"
-                                message:@"Please consider donating bitcoins to support this probjcet. Copy bitcoin address to the clipboard?"
-                               delegate:self
-                      cancelButtonTitle:@"No Thanks"
-                      otherButtonTitles:@"Copy",nil] show];
-}
-
 - (IBAction)downSwipe:(UISwipeGestureRecognizer *)sender {
     [self refreshData];
 }
@@ -117,8 +125,30 @@
     [self.view endEditing:YES];
 }
 
+- (IBAction)donatePush:(UIButton *)sender {
+    [[[UIAlertView alloc] initWithTitle:@"Donate Bitcoins"
+                                message:@"Please consider donating bitcoins to support this probjcet. Copy bitcoin address to the clipboard?"
+                               delegate:self
+                      cancelButtonTitle:@"No Thanks"
+                      otherButtonTitles:@"Copy",nil] show];
+}
+
+- (IBAction)infoPush:(UIButton *)sender {
+    [[[UIAlertView alloc] initWithTitle:@"BitcoinAverage.com"
+                                message:@"All data is from BitcoinAverage.com\nOpen in Safari?"
+                               delegate:self
+                      cancelButtonTitle:@"No Thanks"
+                      otherButtonTitles:@"Open",nil] show];
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if(buttonIndex) [[UIPasteboard generalPasteboard] setString:@"1sBXjFVV163oF5ndf2Tjv3JFHpnfzK1vu"];
+    if(buttonIndex) {
+        if([alertView.title isEqualToString:@"BitcoinAverage.com"]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://bitcoinaverage.com/#%@",[BACurrency get]]]];
+        } else {
+            [[UIPasteboard generalPasteboard] setString:@"1sBXjFVV163oF5ndf2Tjv3JFHpnfzK1vu"];
+        }
+    }
 }
 
 @end
