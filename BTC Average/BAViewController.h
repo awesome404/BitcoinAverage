@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lastLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bidLabel;
 @property (weak, nonatomic) IBOutlet UILabel *askLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 @property (weak, nonatomic) IBOutlet UITextField *currencyEdit;
 @property (weak, nonatomic) IBOutlet UITextField *bitcoinEdit;

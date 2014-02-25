@@ -38,41 +38,68 @@
     self.activityControl.hidden = NO;
     [self.activityControl startAnimating];
     
-    NSString *currency = [BACurrency get];
+    NSString *currency = [BACurrency get], *timeStamp = nil;
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]]];
-    double bid=0.0, ask=0.0, last=0.0;
+    //double bid=0.0, ask=0.0, last=0.0;
 
+/*    NSDate *date;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    NSLocale *gbLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_GB"];
+    [dateFormatter setLocale:gbLocale];*/
     
     if(urlData) {
         NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:NULL];
         if(data) {
-            bid  = [[data valueForKey:@"bid"]  doubleValue];
-            ask  = [[data valueForKey:@"ask"]  doubleValue];
-            last = [[data valueForKey:@"last"] doubleValue];
+            double bid  = [[data valueForKey:@"bid"]  doubleValue],
+                   ask  = [[data valueForKey:@"ask"]  doubleValue],
+                   last = [[data valueForKey:@"last"] doubleValue];
+            timeStamp = [data valueForKey:@"timestamp"];
+            //date=[dateFormatter dateFromString:[data valueForKey:@"timestamp"]];
 
+            // Currency Buttons
+            [self.currencyButton setTitle:currency forState:UIControlStateNormal];
+            [self.smallCurrencyButton setTitle:currency forState:UIControlStateNormal];
+            
+            // Change the labels
+            self.lastLabel.text = [NSString stringWithFormat:floatFormat,last];
+            self.bidLabel.text  = [NSString stringWithFormat:floatFormat,bid];
+            self.askLabel.text  = [NSString stringWithFormat:floatFormat,ask];
+            self.dateLabel.text = /*[dateFormatter stringFromDate:date];*/(timeStamp!=nil)?timeStamp:@"";
+            
+            // Change the edit boxes
+            self.bitcoinEdit.placeholder = @"1.00";
+            self.currencyEdit.placeholder = [NSString stringWithFormat:floatFormat,last];
+            
+            // Change the badge icon devided down to under 10000
+            unsigned int iLast = (unsigned int)(last+0.5);
+            while(iLast>=10000) iLast/=10;
+            [UIApplication sharedApplication].applicationIconBadgeNumber = iLast;
+            
         } else NSLog(@"JSON to NSDictionary failed");
     } else NSLog(@"No urlData");
-
-    // Currency Buttons
-    [self.currencyButton setTitle:currency forState:UIControlStateNormal];
-    [self.smallCurrencyButton setTitle:currency forState:UIControlStateNormal];
-
-    // Change the labels
-    self.lastLabel.text = [NSString stringWithFormat:floatFormat,last];
-    self.bidLabel.text  = [NSString stringWithFormat:floatFormat,bid];
-    self.askLabel.text  = [NSString stringWithFormat:floatFormat,ask];
-    
-    // Change the edit boxes
-    self.bitcoinEdit.placeholder = @"1.00";
-    self.currencyEdit.placeholder = [NSString stringWithFormat:floatFormat,last];
-    
-    // Change the badge icon devided down to under 10000
-    unsigned int iLast = (unsigned int)(last+0.5);
-    while(iLast>=10000) iLast/=10;
-    [UIApplication sharedApplication].applicationIconBadgeNumber = iLast;
     
     [self.activityControl stopAnimating];
 }
+
+/*-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    // for backspace
+    if([string length]==0){
+        return YES;
+    }
+    
+    //  limit to only numeric characters
+    
+    NSCharacterSet *myCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    for (int i = 0; i < [string length]; i++) {
+        unichar c = [string characterAtIndex:i];
+        if ([myCharSet characterIsMember:c]) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}*/
 
 - (IBAction)donatePush:(UIButton *)sender {
     [[[UIAlertView alloc] initWithTitle:@"Donate Bitcoins"
