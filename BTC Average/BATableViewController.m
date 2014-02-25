@@ -47,10 +47,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     // Get teh actual data
     [self refreshData];
-    
-    // Set the selection
-    //NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:row];
-    //[self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
 }
 
 /*- (void) viewDidLayoutSubviews {
@@ -82,11 +78,11 @@
 
             NSArray *secondaryKeys = [NSArray arrayWithObjects:@"PLN",@"JPY",@"RUB",@"AUD",@"SEK",@"BRL",@"NZD",
                                                                @"SGD",@"ZAR",@"NOK",@"ILS",@"CHF",@"TRY",nil];
-            NSMutableArray *otherKeys = [[theData allKeys] mutableCopy];
+            NSMutableArray *allKeys = [[theData allKeys] mutableCopy];
             
-            [otherKeys removeObject:@"timestamp"];
+            [allKeys removeObject:@"timestamp"];
 
-            for(NSInteger pi=0,oi,pc=[primaryKeys count];pi<pc;pi++)
+            /*for(NSInteger pi=0,oi,pc=[primaryKeys count];pi<pc;pi++)
                 if((oi=[otherKeys indexOfObject:primaryKeys[pi]])!=NSNotFound)
                     [otherKeys removeObjectAtIndex:oi]; // remove the key from the other ones
                 else NSLog(@"%@ is absent in data.",primaryKeys[pi]);
@@ -94,9 +90,9 @@
             for(NSInteger si=0,oi,sc=[secondaryKeys count];si<sc;si++)
                 if((oi=[otherKeys indexOfObject:secondaryKeys[si]])!=NSNotFound)
                     [otherKeys removeObjectAtIndex:oi]; // remove the key from the other ones
-                else NSLog(@"%@ is absent in data.",secondaryKeys[si]);
+                else NSLog(@"%@ is absent in data.",secondaryKeys[si]);*/
 
-            theKeys = [NSArray arrayWithObjects:primaryKeys,secondaryKeys,[otherKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)],nil];
+            theKeys = [NSArray arrayWithObjects:primaryKeys,secondaryKeys,[allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)],nil];
 
             [self.tableView reloadData];
 
@@ -154,7 +150,6 @@
         cell.detailTextLabel.text = @"Data is absent...";
 
     } else {
-        // Configure the cell...
         double bid  = [[dict valueForKey:@"bid"]  doubleValue],
                ask  = [[dict valueForKey:@"ask"]  doubleValue],
                last = [[dict valueForKey:@"last"] doubleValue];
