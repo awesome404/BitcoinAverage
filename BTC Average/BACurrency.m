@@ -30,7 +30,7 @@
     return [self singleton:nil];
 }
 
-+ setTo:(NSString*)value {
++ (NSString*)setTo:(NSString*)value {
     return [self singleton:value];
 }
 
