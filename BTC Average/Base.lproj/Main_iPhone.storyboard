@@ -109,10 +109,6 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8Dc-mA-OiZ">
-                                <rect key="frame" x="147" y="58" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="~" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEg-UY-fl2">
                                 <rect key="frame" x="16" y="478" width="283" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -138,7 +134,6 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
-                        <outlet property="activityControl" destination="8Dc-mA-OiZ" id="vV5-99-zX5"/>
                         <outlet property="askLabel" destination="OPC-Ex-0UD" id="lgw-5f-qbU"/>
                         <outlet property="bidLabel" destination="eDQ-Ot-JLe" id="lTf-zp-9V4"/>
                         <outlet property="bitcoinEdit" destination="Jze-b3-CJL" id="QzB-X6-1kM"/>

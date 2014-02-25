@@ -50,9 +50,6 @@
         return;
     }
     
-    self.activityControl.hidden = NO;
-    [self.activityControl startAnimating];
-    
     NSString *currency = [BACurrency get], *timeStamp = nil;
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]]];
 
@@ -94,8 +91,6 @@
             
         } else NSLog(@"JSON to NSDictionary failed");
     } else NSLog(@"No urlData");
-    
-    [self.activityControl stopAnimating];
 }
 
 /*-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

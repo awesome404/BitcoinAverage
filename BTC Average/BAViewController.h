@@ -10,11 +10,7 @@
 
 @interface BAViewController : UIViewController <UIAlertViewDelegate>
 
-@property NSDate *lastUpdate;
-
-- (void)refreshData;
-
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityControl;
+@property (weak, nonatomic) NSDate *lastUpdate;
 
 @property (weak, nonatomic) IBOutlet UIButton *currencyButton;
 @property (weak, nonatomic) IBOutlet UIButton *smallCurrencyButton;
@@ -26,6 +22,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *currencyEdit;
 @property (weak, nonatomic) IBOutlet UITextField *bitcoinEdit;
+
+- (void)refreshData;
 
 - (IBAction)donatePush:(UIButton *)sender;
 - (IBAction)infoPush:(UIButton *)sender;
