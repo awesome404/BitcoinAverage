@@ -48,51 +48,45 @@
 - (void)refreshData {
     static NSString *urlFormat = @"https://api.bitcoinaverage.com/ticker/global/%@", *floatFormat = @"%0.2f";
 
-    // skip an update if it's been under ~30 seconds since the last one.
-    if([self.lastUpdate timeIntervalSinceNow] < -29.5) {
+    NSString *currency = [BACurrency get], *timeStamp = nil;
+    NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]]];
 
-        NSString *currency = [BACurrency get], *timeStamp = nil;
-        NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]]];
+/*    NSDate *date;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    NSLocale *gbLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_GB"];
+    [dateFormatter setLocale:gbLocale];*/
+    
+    if(urlData) {
+        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:NULL];
+        if(data) {
+            double bid  = [[data valueForKey:@"bid"]  doubleValue],
+                   ask  = [[data valueForKey:@"ask"]  doubleValue],
+                   last = [[data valueForKey:@"last"] doubleValue];
+            timeStamp = [data valueForKey:@"timestamp"];
+            //date=[dateFormatter dateFromString:[data valueForKey:@"timestamp"]];
 
-    /*    NSDate *date;
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-        NSLocale *gbLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_GB"];
-        [dateFormatter setLocale:gbLocale];*/
-        
-        if(urlData) {
-            NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:NULL];
-            if(data) {
-                double bid  = [[data valueForKey:@"bid"]  doubleValue],
-                       ask  = [[data valueForKey:@"ask"]  doubleValue],
-                       last = [[data valueForKey:@"last"] doubleValue];
-                timeStamp = [data valueForKey:@"timestamp"];
-                //date=[dateFormatter dateFromString:[data valueForKey:@"timestamp"]];
+            // Currency Buttons
+            [self.currencyButton setTitle:currency forState:UIControlStateNormal];
+            [self.smallCurrencyButton setTitle:currency forState:UIControlStateNormal];
+            
+            // Change the labels
+            self.lastLabel.text = [NSString stringWithFormat:floatFormat,last];
+            self.bidLabel.text  = [NSString stringWithFormat:floatFormat,bid];
+            self.askLabel.text  = [NSString stringWithFormat:floatFormat,ask];
+            self.dateLabel.text = /*[dateFormatter stringFromDate:date];*/(timeStamp!=nil)?timeStamp:@"";
+            
+            // Change the edit boxes
+            self.bitcoinEdit.placeholder = @"1.00";
+            self.currencyEdit.placeholder = [NSString stringWithFormat:floatFormat,last];
+            
+            // Change the badge icon devided down to under 10000
+            unsigned int iLast = (unsigned int)(last+0.5);
+            while(iLast>=10000) iLast/=10;
+            [UIApplication sharedApplication].applicationIconBadgeNumber = iLast;
 
-                // Currency Buttons
-                [self.currencyButton setTitle:currency forState:UIControlStateNormal];
-                [self.smallCurrencyButton setTitle:currency forState:UIControlStateNormal];
-                
-                // Change the labels
-                self.lastLabel.text = [NSString stringWithFormat:floatFormat,last];
-                self.bidLabel.text  = [NSString stringWithFormat:floatFormat,bid];
-                self.askLabel.text  = [NSString stringWithFormat:floatFormat,ask];
-                self.dateLabel.text = /*[dateFormatter stringFromDate:date];*/(timeStamp!=nil)?timeStamp:@"";
-                
-                // Change the edit boxes
-                self.bitcoinEdit.placeholder = @"1.00";
-                self.currencyEdit.placeholder = [NSString stringWithFormat:floatFormat,last];
-                
-                // Change the badge icon devided down to under 10000
-                unsigned int iLast = (unsigned int)(last+0.5);
-                while(iLast>=10000) iLast/=10;
-                [UIApplication sharedApplication].applicationIconBadgeNumber = iLast;
-                
-                self.lastUpdate = [NSDate date];
-                
-            } else NSLog(@"JSON to NSDictionary failed");
-        } else NSLog(@"No urlData");
-    }
+        } else NSLog(@"JSON to NSDictionary failed");
+    } else NSLog(@"No urlData");
 }
 
 /*-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -115,7 +109,11 @@
 }*/
 
 - (IBAction)downSwipe:(UISwipeGestureRecognizer *)sender {
-    [self refreshData];
+    // skip an update if it's been under ~30 seconds since the last one.
+    if([self.lastUpdate timeIntervalSinceNow] < -29.5) {
+        [self refreshData];
+        self.lastUpdate = [NSDate date];
+    }
 }
 
 - (IBAction)tapAction:(UITapGestureRecognizer *)sender {
