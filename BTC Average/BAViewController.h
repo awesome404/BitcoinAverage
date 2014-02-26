@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface BAViewController : UIViewController <UIAlertViewDelegate,UITextFieldDelegate> {
+    NSTimer *refreshTimer;
     double last;
 }
 
@@ -26,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *bitcoinEdit;
 
 - (void)refreshData;
+- (void)startRefreshTimer;
+- (void)stopRefreshTimer;
 
 - (IBAction)donatePush:(UIButton *)sender;
 - (IBAction)infoPush:(UIButton *)sender;

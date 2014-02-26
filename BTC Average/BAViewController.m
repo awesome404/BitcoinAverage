@@ -25,6 +25,23 @@
     self.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self refreshData];
+}
+
+- (void)startRefreshTimer {
+    refreshTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(timerFireRefresh:) userInfo:nil repeats:YES];
+}
+
+- (void)stopRefreshTimer {
+    [refreshTimer invalidate];
+    refreshTimer=nil;
+}
+
+- (void)timerFireRefresh:(NSTimer *)timer {
+    [self refreshData];
+}
+
 - (void)refreshData {
     static NSString *urlFormat = @"https://api.bitcoinaverage.com/ticker/global/%@", *floatFormat = @"%0.2f";
 
@@ -68,7 +85,7 @@
         } else NSLog(@"JSON to NSDictionary failed");
     } else NSLog(@"No urlData");
 #ifndef NDEBUG
-    NSLog(@"refreshData");
+    NSLog(@"refreshData %.2f",last);
 #endif
 }
 
