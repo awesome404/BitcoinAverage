@@ -10,7 +10,7 @@
 
 @interface BAViewController : UIViewController <UIAlertViewDelegate>
 
-@property (weak, nonatomic) NSDate *lastUpdate;
+@property NSDate *lastUpdate;
 
 @property (weak, nonatomic) IBOutlet UIButton *currencyButton;
 @property (weak, nonatomic) IBOutlet UIButton *smallCurrencyButton;

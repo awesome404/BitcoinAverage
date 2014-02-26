@@ -26,6 +26,9 @@
     [refreshControl addTarget:self action:@selector(refreshData) forControlEvents:UIControlEventValueChanged];
     [theTable addSubview:refreshControl];*/
     //refreshControl = tempRefreshControl;
+
+    // trivial value to start with
+    self.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-30.0];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(becomeActive:)
@@ -45,10 +48,8 @@
 - (void)refreshData {
     static NSString *urlFormat = @"https://api.bitcoinaverage.com/ticker/global/%@", *floatFormat = @"%0.2f";
 
-    if([self.lastUpdate compare:[[NSDate date] dateByAddingTimeInterval:-30]]==NSOrderedDescending) {
-        NSLog(@"Skipping update");
-        return;
-    }
+    // skip an update if it's been under ~30 seconds since the last one.
+    if([self.lastUpdate timeIntervalSinceNow] > -29.5) return;
     
     NSString *currency = [BACurrency get], *timeStamp = nil;
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]]];
