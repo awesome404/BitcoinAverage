@@ -24,11 +24,12 @@
     if([controller isKindOfClass:[BAViewController class]]) {
         [(BAViewController*)controller stopRefreshTimer];
     }
+    [application setMinimumBackgroundFetchInterval:60.0];
 }
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
 
     static NSDate *lastUpdate=nil;
-    if(lastUpdate==nil) lastUpdate = [NSDate date];
+    if(lastUpdate==nil) lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
 
 #ifndef NDEBUG
     NSLog(@"got a time slice!");
@@ -48,9 +49,9 @@
                 while(iLast>=10000) iLast/=10;
                 application.applicationIconBadgeNumber = iLast;
                 lastUpdate = [NSDate date];
-    #ifndef NDEBUG
+#ifndef NDEBUG
                 NSLog(@"background update: %d",iLast);
-    #endif
+#endif
                 result = UIBackgroundFetchResultNewData;
 
             } else result = UIBackgroundFetchResultFailed;
@@ -79,6 +80,7 @@
     if([controller isKindOfClass:[BAViewController class]]) {
         [(BAViewController*)controller startRefreshTimer];
     }
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
