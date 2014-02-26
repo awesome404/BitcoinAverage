@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Nullriver. All rights reserved.
 //
 
-// 1sBXjFVV163oF5ndf2Tjv3JFHpnfzK1vu
-
 #import "BAViewController.h"
 #import "BACurrency.h"
 
@@ -183,7 +181,7 @@
         if([alertView.title isEqualToString:@"BitcoinAverage.com"]) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://bitcoinaverage.com/#%@-nomillibit",[BACurrency get]]]];
         } else {
-            [[UIPasteboard generalPasteboard] setString:@"1sBXjFVV163oF5ndf2Tjv3JFHpnfzK1vu"];
+            [[UIPasteboard generalPasteboard] setString:@"1CUCHYnoxacZVxuTLR3nV8z9MKPrbhhqYN"];
         }
     }
 }
