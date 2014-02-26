@@ -13,7 +13,6 @@
 		662CA3B318AD89AD00FC558A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 662CA3B118AD89AD00FC558A /* InfoPlist.strings */; };
 		662CA3B518AD89AD00FC558A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CA3B418AD89AD00FC558A /* main.m */; };
 		662CA3BC18AD89AD00FC558A /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 662CA3BA18AD89AD00FC558A /* Main_iPhone.storyboard */; };
-		662CA3BF18AD89AD00FC558A /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 662CA3BD18AD89AD00FC558A /* Main_iPad.storyboard */; };
 		662CA3C218AD89AD00FC558A /* BAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CA3C118AD89AD00FC558A /* BAViewController.m */; };
 		662CA3C418AD89AD00FC558A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 662CA3C318AD89AD00FC558A /* Images.xcassets */; };
 		662CA3CB18AD89AD00FC558A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662CA3CA18AD89AD00FC558A /* XCTest.framework */; };
@@ -249,7 +248,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				662CA3BF18AD89AD00FC558A /* Main_iPad.storyboard in Resources */,
 				662CA3C418AD89AD00FC558A /* Images.xcassets in Resources */,
 				662CA3BC18AD89AD00FC558A /* Main_iPhone.storyboard in Resources */,
 				662CA3B318AD89AD00FC558A /* InfoPlist.strings in Resources */,
