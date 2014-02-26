@@ -21,12 +21,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 
-    /*UIRefreshControl *tempRefreshControl = [[UIRefreshControl alloc] init];
-    refreshControl =[[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(refreshData) forControlEvents:UIControlEventValueChanged];
-    [theTable addSubview:refreshControl];*/
-    //refreshControl = tempRefreshControl;
-
     // trivial value to start with
     self.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
     
@@ -61,8 +55,9 @@
         NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:NULL];
         if(data) {
             double bid  = [[data valueForKey:@"bid"]  doubleValue],
-                   ask  = [[data valueForKey:@"ask"]  doubleValue],
-                   last = [[data valueForKey:@"last"] doubleValue];
+                   ask  = [[data valueForKey:@"ask"]  doubleValue];
+
+            last = [[data valueForKey:@"last"] doubleValue];
             timeStamp = [data valueForKey:@"timestamp"];
             //date=[dateFormatter dateFromString:[data valueForKey:@"timestamp"]];
 
@@ -77,7 +72,6 @@
             self.dateLabel.text = /*[dateFormatter stringFromDate:date];*/(timeStamp!=nil)?timeStamp:@"";
             
             // Change the edit boxes
-            self.bitcoinEdit.placeholder = @"1.00";
             self.currencyEdit.placeholder = [NSString stringWithFormat:floatFormat,last];
             
             // Change the badge icon devided down to under 10000
@@ -89,24 +83,60 @@
     } else NSLog(@"No urlData");
 }
 
-/*-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    // for backspace
-    if([string length]==0){
-        return YES;
-    }
+#pragma mark Text Boxes
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    if(textField == self.currencyEdit) self.bitcoinEdit.text = nil;
+    else if(textField == self.bitcoinEdit) self.currencyEdit.text = nil;
+    return YES;
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
-    //  limit to only numeric characters
-    
-    NSCharacterSet *myCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
-    for (int i = 0; i < [string length]; i++) {
-        unichar c = [string characterAtIndex:i];
-        if ([myCharSet characterIsMember:c]) {
-            return YES;
+    BOOL rVal = YES;
+
+    if([string length]) {
+        int x=0;
+        char c,cReplace[[string length]+1];
+        cReplace[0]=0;
+
+        //  limit to only numeric characters
+        NSCharacterSet *myCharSet = [NSCharacterSet characterSetWithCharactersInString:@".0123456789"];
+        for (int i = 0; i < [string length]; i++) {
+            c=[string characterAtIndex:i];
+            if ([myCharSet characterIsMember:c]) {
+                cReplace[x++]=c;
+                cReplace[x]=0;
+            }
         }
+        if([string length]!=x) {
+            string = [NSString stringWithCString:cReplace encoding:NSUTF8StringEncoding];
+            rVal = NO;
+        }
+    } // else it's removal
+
+    NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
+
+    if([newText length]) {
+        if(textField == self.currencyEdit) {
+            self.bitcoinEdit.text = [NSString stringWithFormat:@"%.8f",([newText doubleValue]/last)];
+        } else if(textField == self.bitcoinEdit) {
+            self.currencyEdit.text = [NSString stringWithFormat:@"%.2f",([newText doubleValue]*last)];
+        }
+        if(!rVal) textField.text = newText; // AND move the cursor
+    } else {
+        if(textField == self.currencyEdit) self.bitcoinEdit.text = nil;
+        else if(textField == self.bitcoinEdit) self.currencyEdit.text = nil;
     }
     
-    return NO;
-}*/
+    return rVal;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    // sanitize the bitch
+}
+
+#pragma Touches
 
 - (IBAction)downSwipe:(UISwipeGestureRecognizer *)sender {
     // skip an update if it's been under ~30 seconds since the last one.
@@ -119,6 +149,8 @@
 - (IBAction)tapAction:(UITapGestureRecognizer *)sender {
     [self.view endEditing:YES];
 }
+
+#pragma mark Buttons with Alerts
 
 - (IBAction)donatePush:(UIButton *)sender {
     [[[UIAlertView alloc] initWithTitle:@"Donate Bitcoins"
@@ -139,7 +171,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(buttonIndex) {
         if([alertView.title isEqualToString:@"BitcoinAverage.com"]) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://bitcoinaverage.com/#%@",[BACurrency get]]]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://bitcoinaverage.com/#%@-nomillibit",[BACurrency get]]]];
         } else {
             [[UIPasteboard generalPasteboard] setString:@"1sBXjFVV163oF5ndf2Tjv3JFHpnfzK1vu"];
         }

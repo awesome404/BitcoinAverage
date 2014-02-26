@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BAViewController : UIViewController <UIAlertViewDelegate>
+@interface BAViewController : UIViewController <UIAlertViewDelegate,UITextFieldDelegate> {
+    double last;
+}
 
 @property NSDate *lastUpdate;
 
