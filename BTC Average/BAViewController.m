@@ -98,16 +98,20 @@
     if([string length]) {
         int x=0;
         char c,cReplace[[string length]+1];
-        cReplace[0]=0;
 
-        //  limit to only numeric characters
-        NSCharacterSet *myCharSet = [NSCharacterSet characterSetWithCharactersInString:@".0123456789"];
-        for (int i = 0; i < [string length]; i++) {
+        BOOL found = ([textField.text rangeOfString:@"."].location!=NSNotFound);
+            
+        NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+        for(int i=0; i<[string length]; i++) {
             c=[string characterAtIndex:i];
-            if ([myCharSet characterIsMember:c]) {
+            if([charSet characterIsMember:c]) {
                 cReplace[x++]=c;
-                cReplace[x]=0;
+
+            } else if(c=='.'&&!found) {
+                cReplace[x++]=c;
+                found=TRUE;
             }
+            cReplace[x]=0;
         }
         if([string length]!=x) {
             string = [NSString stringWithCString:cReplace encoding:NSUTF8StringEncoding];
