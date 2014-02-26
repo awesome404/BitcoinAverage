@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Nullriver. All rights reserved.
 //
 
+#import "BACurrency.h"
 #import "BAAppDelegate.h"
 #import "BAViewController.h"
 
@@ -26,6 +27,44 @@
         [(BAViewController*)controller stopRefreshTimer];
     }
 }
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+
+    static NSDate *lastUpdate=nil;
+    if(lastUpdate==nil) lastUpdate = [NSDate date];
+
+#ifndef NDEBUG
+    NSLog(@"got a time slice!");
+#endif
+    
+    UIBackgroundFetchResult result = UIBackgroundFetchResultFailed;
+
+    if([lastUpdate timeIntervalSinceNow] < -60.0) {
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.bitcoinaverage.com/ticker/global/%@",[BACurrency get]]];
+        NSData *urlData;
+
+        if((urlData = [NSData dataWithContentsOfURL:url])!=nil) {
+            NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:NULL];
+            if(data) {
+                // Change the badge icon devided down to under 10000
+                unsigned int iLast = (unsigned int)([[data valueForKey:@"last"] doubleValue]+0.5);
+                while(iLast>=10000) iLast/=10;
+                application.applicationIconBadgeNumber = iLast;
+                lastUpdate = [NSDate date];
+    #ifndef NDEBUG
+                NSLog(@"background update: %d",iLast);
+    #endif
+                result = UIBackgroundFetchResultNewData;
+
+            } else result = UIBackgroundFetchResultFailed;
+        } else result = UIBackgroundFetchResultFailed;
+    } else { result = UIBackgroundFetchResultNoData; // refuse the update
+#ifndef NDEBUG
+        NSLog(@"background update: refused");
+#endif
+    }
+    completionHandler(result);
+}
+
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
