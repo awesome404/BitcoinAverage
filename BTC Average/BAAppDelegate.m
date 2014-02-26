@@ -7,6 +7,7 @@
 //
 
 #import "BAAppDelegate.h"
+#import "BAViewController.h"
 
 @implementation BAAppDelegate
 
@@ -36,6 +37,10 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    UIViewController *controller = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if([controller isKindOfClass:[BAViewController class]]) {
+        [(BAViewController*)controller refreshData];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

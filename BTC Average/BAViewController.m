@@ -23,20 +23,6 @@
 
     // trivial value to start with
     self.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(becomeActive:)
-                                                 name:UIApplicationDidBecomeActiveNotification
-                                               object:nil];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [self refreshData];
-}
-
-- (void)becomeActive:(NSNotification *)notification {
-    [self refreshData];
-    // create the timer
 }
 
 - (void)refreshData {
@@ -81,6 +67,9 @@
 
         } else NSLog(@"JSON to NSDictionary failed");
     } else NSLog(@"No urlData");
+#ifndef NDEBUG
+    NSLog(@"refreshData");
+#endif
 }
 
 #pragma mark Text Boxes
