@@ -28,7 +28,7 @@
     //refreshControl = tempRefreshControl;
 
     // trivial value to start with
-    self.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-30.0];
+    self.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(becomeActive:)
