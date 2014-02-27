@@ -20,6 +20,7 @@
 		662CA3CD18AD89AD00FC558A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662CA3AC18AD89AC00FC558A /* UIKit.framework */; };
 		662CA3D518AD89AD00FC558A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 662CA3D318AD89AD00FC558A /* InfoPlist.strings */; };
 		662CA3D718AD89AD00FC558A /* BTC_AverageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CA3D618AD89AD00FC558A /* BTC_AverageTests.m */; };
+		663FB2C718BFF10100135527 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 662CA3BD18AD89AD00FC558A /* Main_iPad.storyboard */; };
 		6648645418BAC53500A0CEAB /* BAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6648645318BAC53500A0CEAB /* BAAppDelegate.m */; };
 		6648645718BAC55200A0CEAB /* BACurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 6648645618BAC55200A0CEAB /* BACurrency.m */; };
 		66FEFB0C18AEA75B0044853D /* BATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FEFB0B18AEA75B0044853D /* BATableViewController.m */; };
@@ -254,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				662CA3C418AD89AD00FC558A /* Images.xcassets in Resources */,
+				663FB2C718BFF10100135527 /* Main_iPad.storyboard in Resources */,
 				662CA3BC18AD89AD00FC558A /* Main_iPhone.storyboard in Resources */,
 				662CA3B318AD89AD00FC558A /* InfoPlist.strings in Resources */,
 			);
