@@ -28,6 +28,7 @@
 }
 
 - (void)startRefreshTimer {
+    [self refreshData];
     refreshTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(timerFireRefresh:) userInfo:nil repeats:YES];
 }
 
