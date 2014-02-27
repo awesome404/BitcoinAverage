@@ -120,8 +120,8 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="timestamp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEg-UY-fl2">
-                                <rect key="frame" x="20" y="478" width="280" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="timestamp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEg-UY-fl2">
+                                <rect key="frame" x="14" y="37" width="256" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
@@ -149,7 +149,6 @@
                             <constraint firstItem="hBU-an-mU8" firstAttribute="top" secondItem="OPC-Ex-0UD" secondAttribute="top" id="5cM-1B-chf"/>
                             <constraint firstItem="eDQ-Ot-JLe" firstAttribute="top" secondItem="9ho-2k-4Mu" secondAttribute="bottom" constant="2" id="Bgf-50-Tsb"/>
                             <constraint firstItem="eDQ-Ot-JLe" firstAttribute="top" secondItem="9ho-2k-4Mu" secondAttribute="bottom" constant="2" id="Heh-od-53e"/>
-                            <constraint firstAttribute="centerX" secondItem="ZEg-UY-fl2" secondAttribute="centerX" id="Ibz-zi-ICD"/>
                             <constraint firstAttribute="centerY" secondItem="E7Q-SZ-w6J" secondAttribute="centerY" id="MWa-uV-8IY"/>
                             <constraint firstAttribute="centerY" secondItem="9ho-2k-4Mu" secondAttribute="centerY" id="Phs-JU-3fW"/>
                             <constraint firstAttribute="centerY" secondItem="p71-fd-1eC" secondAttribute="centerY" id="QgY-BO-8Zn"/>
@@ -160,7 +159,6 @@
                             <constraint firstAttribute="trailing" secondItem="eDQ-Ot-JLe" secondAttribute="trailing" constant="87" id="clq-As-w91"/>
                             <constraint firstAttribute="trailing" secondItem="OPC-Ex-0UD" secondAttribute="trailing" constant="87" id="g4z-nK-RMD"/>
                             <constraint firstAttribute="trailing" secondItem="9ho-2k-4Mu" secondAttribute="trailing" constant="88" id="uo5-aP-TAa"/>
-                            <constraint firstItem="qII-mK-M5l" firstAttribute="top" secondItem="ZEg-UY-fl2" secondAttribute="bottom" constant="69" id="vo4-Mf-1K3"/>
                             <constraint firstItem="OPC-Ex-0UD" firstAttribute="top" secondItem="9ho-2k-4Mu" secondAttribute="bottom" constant="26" id="w0h-ba-xMi"/>
                             <constraint firstItem="qII-mK-M5l" firstAttribute="top" secondItem="0fr-4u-2ko" secondAttribute="bottom" id="w8M-Lj-Mdt"/>
                             <constraint firstItem="OPC-Ex-0UD" firstAttribute="top" secondItem="eDQ-Ot-JLe" secondAttribute="bottom" constant="3" id="xjw-jG-taw"/>
