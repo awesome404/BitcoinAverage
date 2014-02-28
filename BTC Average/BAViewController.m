@@ -163,7 +163,7 @@
 
 - (IBAction)donatePush:(UIButton *)sender {
     [[[UIAlertView alloc] initWithTitle:@"Donate Bitcoins"
-                                message:@"Please consider donating bitcoins to support this probjcet. Copy bitcoin address to the clipboard?"
+                                message:@"Please consider donating bitcoins to support this project. Copy bitcoin address to the clipboard?"
                                delegate:self
                       cancelButtonTitle:@"No Thanks"
                       otherButtonTitles:@"Copy",nil] show];
