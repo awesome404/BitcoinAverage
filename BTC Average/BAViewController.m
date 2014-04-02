@@ -166,7 +166,7 @@
                                 message:@"Please consider donating bitcoins to support this project. Copy bitcoin address to the clipboard?"
                                delegate:self
                       cancelButtonTitle:@"No Thanks"
-                      otherButtonTitles:@"Copy",nil] show];
+                      otherButtonTitles:@"Copy",/*@"QR",*/nil] show];
 }
 
 - (IBAction)infoPush:(UIButton *)sender {
