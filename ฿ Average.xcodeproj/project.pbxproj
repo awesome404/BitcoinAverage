@@ -22,6 +22,7 @@
 		662CA3D718AD89AD00FC558A /* BTC_AverageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CA3D618AD89AD00FC558A /* BTC_AverageTests.m */; };
 		6648645418BAC53500A0CEAB /* BAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6648645318BAC53500A0CEAB /* BAAppDelegate.m */; };
 		6648645718BAC55200A0CEAB /* BACurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 6648645618BAC55200A0CEAB /* BACurrency.m */; };
+		66D34F2C18EC1BFA00257C69 /* changelog in Resources */ = {isa = PBXBuildFile; fileRef = 66D34F2B18EC1BFA00257C69 /* changelog */; };
 		66FEFB0C18AEA75B0044853D /* BATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FEFB0B18AEA75B0044853D /* BATableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		6648645518BAC55200A0CEAB /* BACurrency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BACurrency.h; sourceTree = "<group>"; };
 		6648645618BAC55200A0CEAB /* BACurrency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BACurrency.m; sourceTree = "<group>"; };
 		6648645818BD8FF600A0CEAB /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
+		66D34F2B18EC1BFA00257C69 /* changelog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changelog; sourceTree = SOURCE_ROOT; };
 		66FEFB0A18AEA75B0044853D /* BATableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BATableViewController.h; sourceTree = "<group>"; };
 		66FEFB0B18AEA75B0044853D /* BATableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BATableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +122,7 @@
 		662CA3AE18AD89AD00FC558A /* ฿ Average */ = {
 			isa = PBXGroup;
 			children = (
+				66D34F2B18EC1BFA00257C69 /* changelog */,
 				6648645818BD8FF600A0CEAB /* TODO */,
 				662CA3B718AD89AD00FC558A /* BAAppDelegate.h */,
 				6648645318BAC53500A0CEAB /* BAAppDelegate.m */,
@@ -254,6 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				662CA3C418AD89AD00FC558A /* Images.xcassets in Resources */,
+				66D34F2C18EC1BFA00257C69 /* changelog in Resources */,
 				662CA3BC18AD89AD00FC558A /* Main_iPhone.storyboard in Resources */,
 				662CA3B318AD89AD00FC558A /* InfoPlist.strings in Resources */,
 			);
