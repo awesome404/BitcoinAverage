@@ -170,7 +170,7 @@
 }
 
 - (IBAction)infoPush:(UIButton *)sender {
-    [[[UIAlertView alloc] initWithTitle:@"BitcoinAverage.com"
+    [[[UIAlertView alloc] initWithTitle:@"BitcoinAverage Price Index"
                                 message:@"All data is from BitcoinAverage.com\nOpen in Safari?"
                                delegate:self
                       cancelButtonTitle:@"No Thanks"
