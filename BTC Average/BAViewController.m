@@ -168,10 +168,9 @@
 
 - (IBAction)donatePush:(UIButton *)sender {
     [[[UIAlertView alloc] initWithTitle:@"Donate Bitcoins"
-                                message:@"Please consider donating bitcoins to support this project. Copy bitcoin address to the clipboard?"
-                               delegate:self
+                                message:@"Please consider donating bitcoins to support this project."                               delegate:self
                       cancelButtonTitle:@"No Thanks"
-                      otherButtonTitles:@"Copy",/*@"QR",*/nil] show];
+                      otherButtonTitles:@"Copy Bitcoin Address",@"View QR Code",nil] show];
 }
 
 - (IBAction)infoPush:(UIButton *)sender {
@@ -183,12 +182,14 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if(buttonIndex) {
-        if([alertView.title isEqualToString:@"BitcoinAverage.com"]) {
+    if(buttonIndex==1) {
+        if([alertView.title isEqualToString:@"BitcoinAverage Price Index"]) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://bitcoinaverage.com/#%@-nomillibit",[BACurrency get]]]];
         } else {
             [[UIPasteboard generalPasteboard] setString:@"1CUCHYnoxacZVxuTLR3nV8z9MKPrbhhqYN"];
         }
+    } else if(buttonIndex==2) {
+        
     }
 }
 
