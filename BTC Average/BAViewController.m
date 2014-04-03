@@ -189,7 +189,7 @@
             [[UIPasteboard generalPasteboard] setString:@"1CUCHYnoxacZVxuTLR3nV8z9MKPrbhhqYN"];
         }
     } else if(buttonIndex==2) {
-        
+        [self performSegueWithIdentifier:@"QRCode" sender:nil];
     }
 }
 

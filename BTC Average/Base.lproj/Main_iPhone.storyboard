@@ -178,6 +178,7 @@
                         <outlet property="dateLabel" destination="ZEg-UY-fl2" id="h87-EW-e19"/>
                         <outlet property="lastLabel" destination="9ho-2k-4Mu" id="rjq-Im-foG"/>
                         <outlet property="smallCurrencyButton" destination="g4B-r3-BKY" id="46S-6Z-Ttj"/>
+                        <segue destination="jdx-u0-GmC" kind="modal" identifier="QRCode" id="4sS-gn-cw2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q39-RO-6Ns" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -243,10 +244,10 @@
             </objects>
             <point key="canvasLocation" x="1029" y="-275"/>
         </scene>
-        <!--View Controller - QR Code-->
+        <!--Code View Controller - QR Code-->
         <scene sceneID="pv4-6W-SWt">
             <objects>
-                <viewController title="QR Code" id="jdx-u0-GmC" sceneMemberID="viewController">
+                <viewController title="QR Code" id="jdx-u0-GmC" customClass="BAQRCodeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2Ar-Yc-XwX"/>
                         <viewControllerLayoutGuide type="bottom" id="kxj-0O-Y9X"/>
@@ -260,11 +261,14 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hL0-aN-Cz9">
-                                <rect key="frame" x="137" y="518" width="46" height="30"/>
+                                <rect key="frame" x="120" y="499" width="81" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="doneButtonPressed:" destination="jdx-u0-GmC" eventType="touchUpInside" id="fA9-X6-dsN"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
