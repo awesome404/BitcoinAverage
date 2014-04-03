@@ -24,6 +24,11 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    
+    // clear the editboxes because they will be wrong when currency is changed
+    if(self.currencyEdit.text) self.currencyEdit.text = nil;
+    if(self.bitcoinEdit.text)  self.bitcoinEdit.text = nil;
+    
     [self refreshData];
 }
 
