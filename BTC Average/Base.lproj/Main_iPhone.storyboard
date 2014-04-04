@@ -264,8 +264,8 @@
                                     <constraint firstAttribute="width" constant="276" id="eP9-G5-81E"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hL0-aN-Cz9">
-                                <rect key="frame" x="120" y="499" width="81" height="49"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hL0-aN-Cz9">
+                                <rect key="frame" x="142" y="518" width="37" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -279,6 +279,7 @@
                         <constraints>
                             <constraint firstItem="kxj-0O-Y9X" firstAttribute="top" secondItem="hL0-aN-Cz9" secondAttribute="bottom" constant="20" id="IJT-hN-g2s"/>
                             <constraint firstAttribute="centerY" secondItem="zhh-ZR-biE" secondAttribute="centerY" id="UG8-9x-5k4"/>
+                            <constraint firstAttribute="centerX" secondItem="hL0-aN-Cz9" secondAttribute="centerX" id="WW4-at-PFJ"/>
                             <constraint firstAttribute="centerX" secondItem="zhh-ZR-biE" secondAttribute="centerX" id="np3-lx-TWM"/>
                         </constraints>
                     </view>
