@@ -1,10 +1,9 @@
 -- High
 
-Fix QR screen for 3.5 inch
-
 
 -- Low
 
+Test QR screen on 3.5 inch device
 Format the data timestamp
 Currency table still goes under the status bar - I blame Apple
 Make swipe down refresh noticable
