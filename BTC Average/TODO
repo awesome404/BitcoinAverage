@@ -6,8 +6,6 @@
 Test QR screen on 3.5 inch device
 Format the data timestamp
 Currency table still goes under the status bar - I blame Apple
-Make swipe down refresh noticable
-fix condtraints
 make coming back from the QR code NOT wipe the calculator - so do the wipe when the currency changes properly
 make coming back from the QR code not trigger a refresh
 stop refreshing data twice on startup
@@ -22,5 +20,6 @@ turn sideways for a graph
 -- Maybe
 
 maybe change the i icon to a banner that says "BitconAverage Price Index"?
-
+redo condtraints on the Splash
+Make swipe down refresh noticable
 
