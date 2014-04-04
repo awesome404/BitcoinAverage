@@ -148,6 +148,8 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     // sanitize the bitch
+    self.bitcoinEdit.text = [NSString stringWithFormat:@"%.8f",[self.bitcoinEdit.text doubleValue]];
+    self.currencyEdit.text = [NSString stringWithFormat:@"%.2f",[self.currencyEdit.text doubleValue]];
 }
 
 #pragma Touches
