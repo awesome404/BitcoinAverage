@@ -10,6 +10,7 @@ Make swipe down refresh noticable
 fix condtraints
 make coming back from the QR code NOT wipe the calculator - so do the wipe when the currency changes properly
 make coming back from the QR code not trigger a refresh
+stop refreshing data twice on startup
 
 
 -- Future Version
