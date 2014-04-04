@@ -1,9 +1,26 @@
+-- High
+
+Fix QR screen for 3.5 inch
+
+
+-- Low
+
 Format the data timestamp
-iPad interface
 Currency table still goes under the status bar - I blame Apple
 Make swipe down refresh noticable
 fix condtraints
-maybe change the i icon to a banner that says "BitconAverage Price Index"?
-turn sideways for a graph
 make coming back from the QR code NOT wipe the calculator - so do the wipe when the currency changes properly
 make coming back from the QR code not trigger a refresh
+
+
+-- Future Version
+
+iPad interface
+turn sideways for a graph
+
+
+-- Maybe
+
+maybe change the i icon to a banner that says "BitconAverage Price Index"?
+
+
