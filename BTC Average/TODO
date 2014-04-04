@@ -6,7 +6,6 @@
 Test QR screen on 3.5 inch device
 Format the data timestamp
 Currency table still goes under the status bar - I blame Apple
-make coming back from the QR code NOT wipe the calculator - so do the wipe when the currency changes properly
 make coming back from the QR code not trigger a refresh
 stop refreshing data twice on startup
 

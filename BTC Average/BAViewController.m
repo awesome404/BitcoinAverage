@@ -24,11 +24,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    
-    // clear the editboxes because they will be wrong when currency is changed
-    if(self.currencyEdit.text) self.currencyEdit.text = nil;
-    if(self.bitcoinEdit.text)  self.bitcoinEdit.text = nil;
-    
     [self refreshData];
 }
 
@@ -80,6 +75,11 @@
             
             // Change the edit boxes
             self.currencyEdit.placeholder = [NSString stringWithFormat:floatFormat,last];
+
+            if([self.bitcoinEdit.text length]) {
+                double newval = [self.bitcoinEdit.text doubleValue]*last;
+                self.currencyEdit.text = [NSString stringWithFormat:floatFormat,newval];
+            }
             
             // Change the badge icon devided down to under 10000
             unsigned int iLast = (unsigned int)(last+0.5);
