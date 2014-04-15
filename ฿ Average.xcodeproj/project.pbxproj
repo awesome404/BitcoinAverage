@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6620853518FDC15000C32460 /* InAppProductsIDs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6620853418FDC15000C32460 /* InAppProductsIDs.plist */; };
 		662CA3A918AD89AC00FC558A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662CA3A818AD89AC00FC558A /* Foundation.framework */; };
 		662CA3AB18AD89AC00FC558A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662CA3AA18AD89AC00FC558A /* CoreGraphics.framework */; };
 		662CA3AD18AD89AC00FC558A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662CA3AC18AD89AC00FC558A /* UIKit.framework */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6620853418FDC15000C32460 /* InAppProductsIDs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InAppProductsIDs.plist; sourceTree = "<group>"; };
 		662CA3A518AD89AC00FC558A /* ฿ Average.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "฿ Average.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		662CA3A818AD89AC00FC558A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		662CA3AA18AD89AC00FC558A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -153,6 +155,7 @@
 				662CA3B118AD89AD00FC558A /* InfoPlist.strings */,
 				662CA3B418AD89AD00FC558A /* main.m */,
 				662CA3B618AD89AD00FC558A /* ฿ Average-Prefix.pch */,
+				6620853418FDC15000C32460 /* InAppProductsIDs.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				662CA3C418AD89AD00FC558A /* Images.xcassets in Resources */,
 				66D34F2C18EC1BFA00257C69 /* changelog in Resources */,
 				662CA3BC18AD89AD00FC558A /* Main_iPhone.storyboard in Resources */,
+				6620853518FDC15000C32460 /* InAppProductsIDs.plist in Resources */,
 				662CA3B318AD89AD00FC558A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
