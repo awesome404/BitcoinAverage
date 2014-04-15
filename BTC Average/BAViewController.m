@@ -112,7 +112,7 @@
         BOOL found = ([textField.text rangeOfString:@"."].location!=NSNotFound);
             
         NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
-        for(int i=0; i<[string length]; i++) {
+        for(int i=0,l=(int)[string length]; i<l; i++) {
             c=[string characterAtIndex:i];
             if([charSet characterIsMember:c]) {
                 cReplace[x++]=c;
