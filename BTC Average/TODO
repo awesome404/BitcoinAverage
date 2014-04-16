@@ -3,7 +3,6 @@
 
 -- Low
 
-Format the data timestamp
 Currency table still goes under the status bar - I blame Apple
 stop refreshing data twice on startup
 

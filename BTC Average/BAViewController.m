@@ -11,6 +11,8 @@
 
 @interface BAViewController ()
 
+- (NSString*)reformatTimestamp:(NSString*)stamp;
+
 @end
 
 @implementation BAViewController
@@ -46,12 +48,6 @@
 
     NSString *currency = [BACurrency get], *timeStamp = nil;
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]]];
-
-/*    NSDate *date;
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    NSLocale *gbLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_GB"];
-    [dateFormatter setLocale:gbLocale];*/
     
     if(urlData) {
         NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:NULL];
@@ -60,8 +56,8 @@
                    ask  = [[data valueForKey:@"ask"]  doubleValue];
 
             last = [[data valueForKey:@"last"] doubleValue];
-            timeStamp = [data valueForKey:@"timestamp"];
-            //date=[dateFormatter dateFromString:[data valueForKey:@"timestamp"]];
+            // timeStamp = [data valueForKey:@"timestamp"];
+            timeStamp = [self reformatTimestamp:[data valueForKey:@"timestamp"]];
 
             // Currency Buttons
             [self.currencyButton setTitle:currency forState:UIControlStateNormal];
@@ -91,6 +87,14 @@
 #ifndef NDEBUG
     NSLog(@"refreshData %.2f",last);
 #endif
+}
+
+- (NSString*)reformatTimestamp:(NSString*)stamp {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEE, dd LLL yyyy HH:mm:ss ZZZ"];
+    NSDate *theDate = [dateFormatter dateFromString:stamp];
+    [dateFormatter setDateFormat:@"EEE, dd LLL hh:mm:ss a zzz"]; // create a new format
+    return [dateFormatter stringFromDate:theDate];
 }
 
 #pragma mark Text Boxes
