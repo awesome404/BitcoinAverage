@@ -1,6 +1,6 @@
 -- High
 
-In app purchases for donations (leaving the QR button with no mention of bitcoin)
+In app purchases for donations (leaving the QR button with no mention of bitcoin) & move timestamp back to the top
 
 
 -- Low
@@ -17,6 +17,6 @@ turn sideways for a graph
 
 -- Maybe
 
-maybe change the i icon to a banner that says "BitconAverage Price Index"?
+maybe change the (i) icon to a banner that says "BitconAverage Price Index"?
 Make swipe down refresh noticable
 make coming back from the QR code not trigger a refresh
