@@ -1,5 +1,10 @@
+new
+
+Upadte the time stamp to be in the local time zone
+
 1.0
 
 Updated the wording of the BitcoinAverage dialog box as per their Terms of Use.
 Clear the calculator edit boxes when the currency is changed
 Added a QR code for donations
+
