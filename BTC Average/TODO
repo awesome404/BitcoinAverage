@@ -1,5 +1,7 @@
 -- High
 
+In app purchases for donations (leaving the QR button with no mention of bitcoin)
+
 
 -- Low
 
@@ -16,6 +18,5 @@ turn sideways for a graph
 -- Maybe
 
 maybe change the i icon to a banner that says "BitconAverage Price Index"?
-redo condtraints on the Splash
 Make swipe down refresh noticable
 make coming back from the QR code not trigger a refresh
