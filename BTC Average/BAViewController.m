@@ -90,10 +90,15 @@
 }
 
 - (NSString*)reformatTimestamp:(NSString*)stamp {
+
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEE, dd LLL yyyy HH:mm:ss ZZZ"];
     NSDate *theDate = [dateFormatter dateFromString:stamp];
-    [dateFormatter setDateFormat:@"EEE, dd LLL hh:mm:ss a zzz"]; // create a new format
+
+    [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setLocale:[NSLocale currentLocale]];
+
     return [dateFormatter stringFromDate:theDate];
 }
 
