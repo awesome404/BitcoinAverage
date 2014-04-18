@@ -23,6 +23,7 @@
 		662CA3D718AD89AD00FC558A /* BTC_AverageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CA3D618AD89AD00FC558A /* BTC_AverageTests.m */; };
 		6648645418BAC53500A0CEAB /* BAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6648645318BAC53500A0CEAB /* BAAppDelegate.m */; };
 		6648645718BAC55200A0CEAB /* BACurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 6648645618BAC55200A0CEAB /* BACurrency.m */; };
+		668EEDB4190096B20099E252 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 668EEDB3190096B20099E252 /* StoreKit.framework */; };
 		66BD636118EDFC2A00C4E618 /* BAQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BD636018EDFC2A00C4E618 /* BAQRCodeViewController.m */; };
 		66D34F2C18EC1BFA00257C69 /* changelog in Resources */ = {isa = PBXBuildFile; fileRef = 66D34F2B18EC1BFA00257C69 /* changelog */; };
 		66FEFB0C18AEA75B0044853D /* BATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FEFB0B18AEA75B0044853D /* BATableViewController.m */; };
@@ -63,6 +64,7 @@
 		6648645518BAC55200A0CEAB /* BACurrency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BACurrency.h; sourceTree = "<group>"; };
 		6648645618BAC55200A0CEAB /* BACurrency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BACurrency.m; sourceTree = "<group>"; };
 		6648645818BD8FF600A0CEAB /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
+		668EEDB3190096B20099E252 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		66BD635F18EDFC2A00C4E618 /* BAQRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAQRCodeViewController.h; sourceTree = "<group>"; };
 		66BD636018EDFC2A00C4E618 /* BAQRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAQRCodeViewController.m; sourceTree = "<group>"; };
 		66D34F2B18EC1BFA00257C69 /* changelog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changelog; sourceTree = SOURCE_ROOT; };
@@ -75,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				668EEDB4190096B20099E252 /* StoreKit.framework in Frameworks */,
 				662CA3AB18AD89AC00FC558A /* CoreGraphics.framework in Frameworks */,
 				662CA3AD18AD89AC00FC558A /* UIKit.framework in Frameworks */,
 				662CA3A918AD89AC00FC558A /* Foundation.framework in Frameworks */,
@@ -116,6 +119,7 @@
 		662CA3A718AD89AC00FC558A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				668EEDB3190096B20099E252 /* StoreKit.framework */,
 				662CA3A818AD89AC00FC558A /* Foundation.framework */,
 				662CA3AA18AD89AC00FC558A /* CoreGraphics.framework */,
 				662CA3AC18AD89AC00FC558A /* UIKit.framework */,
