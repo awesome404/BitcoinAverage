@@ -2,9 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <array>
-	<string>com.nullriver.BtcAvgTier1</string>
-	<string>com.nullriver.BtcAvgTier5</string>
-	<string>com.nullriver.BtcAvgTier10</string>
-	<string>com.nullriver.BtcAvgTier72</string>
+	<string>com.nullriver.BitcoinAverage.Tier01</string>
+	<string>com.nullriver.BitcoinAverage.Tier05</string>
+	<string>com.nullriver.BitcoinAverage.Tier10</string>
+	<string>com.nullriver.BitcoinAverage.Tier72</string>
 </array>
 </plist>
