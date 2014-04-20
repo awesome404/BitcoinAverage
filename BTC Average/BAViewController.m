@@ -245,6 +245,13 @@
             if([title compare:product.localizedTitle options:NSLiteralSearch range:range] == NSOrderedSame) {
                 // go to store
                 NSLog(@"%@",product.localizedTitle);
+                
+                //SKProduct *product = <# Product returned by a products request #>;
+                SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
+                payment.quantity = 1;
+                
+                [[SKPaymentQueue defaultQueue] addPayment:payment];
+                
                 return; // out of for loop
             }
         }
