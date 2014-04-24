@@ -9,6 +9,7 @@
 #import "BACurrency.h"
 #import "BAAppDelegate.h"
 #import "BAViewController.h"
+#import "BAPaymentTransactionObserver.h"
 
 @implementation BAAppDelegate
 

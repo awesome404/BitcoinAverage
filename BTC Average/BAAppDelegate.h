@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BAPaymentTransactionObserver.h"
 
 @interface BAAppDelegate : UIResponder <UIApplicationDelegate>
 
