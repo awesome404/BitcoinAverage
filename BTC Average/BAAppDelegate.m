@@ -27,6 +27,7 @@
         [(BAViewController*)controller stopRefreshTimer];
     }
     [application setMinimumBackgroundFetchInterval:60.0];
+    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
@@ -83,6 +84,7 @@
         [(BAViewController*)controller startRefreshTimer];
     }
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalNever];
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

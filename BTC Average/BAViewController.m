@@ -12,10 +12,12 @@
 @interface BAViewController () {
     NSTimer *refreshTimer;
     double last;
+    BOOL isShowingLandscapeView;
     //NSArray *storeProducts;
 }
 
 - (NSString*)reformatTimestamp:(NSString*)stamp;
+- (void)orientationChanged:(NSNotification *)notification;
 
 @end
 
@@ -25,6 +27,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 
+    isShowingLandscapeView = NO;
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+    
     // trivial value to start with
     self.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
 }
@@ -43,6 +52,22 @@
     
     
     [self refreshData];
+}
+
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
+- (void)orientationChanged:(NSNotification *)notification {
+    
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (!isShowingLandscapeView && UIDeviceOrientationIsLandscape(deviceOrientation) && self.presentedViewController==nil) {
+        [self performSegueWithIdentifier:@"Graph" sender:self];
+        isShowingLandscapeView = YES;
+    } else if(isShowingLandscapeView && UIDeviceOrientationIsPortrait(deviceOrientation)) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        isShowingLandscapeView = NO;
+    }
 }
 
 - (void)startRefreshTimer {
@@ -190,6 +215,17 @@
 - (IBAction)tapAction:(UITapGestureRecognizer *)sender {
     [self.view endEditing:YES];
 }
+
+
+
+/*- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+
+    if(toInterfaceOrientation!= UIDeviceOrientationPortrait)
+        [self performSegueWithIdentifier:@"Graph" sender:nil];
+}*/
+
+
 
 /*- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
     storeProducts = response.products;
