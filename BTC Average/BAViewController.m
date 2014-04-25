@@ -70,6 +70,8 @@
     }
 }
 
+#pragma mark Timer
+
 - (void)startRefreshTimer {
     [self refreshData];
     refreshTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(timerFireRefresh:) userInfo:nil repeats:YES];
@@ -83,6 +85,8 @@
 - (void)timerFireRefresh:(NSTimer *)timer {
     [self refreshData];
 }
+
+#pragma mark Data Management
 
 - (void)refreshData {
     static NSString *urlFormat = @"https://api.bitcoinaverage.com/ticker/global/%@", *floatFormat = @"%0.2f";
@@ -216,17 +220,6 @@
     [self.view endEditing:YES];
 }
 
-
-
-/*- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-
-    if(toInterfaceOrientation!= UIDeviceOrientationPortrait)
-        [self performSegueWithIdentifier:@"Graph" sender:nil];
-}*/
-
-
-
 /*- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
     storeProducts = response.products;
 }
@@ -274,9 +267,9 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(buttonIndex==[alertView cancelButtonIndex]) return;
     
-    if([alertView.title isEqualToString:@"BitcoinAverage Price Index"]) {
+    //if([alertView.title isEqualToString:@"BitcoinAverage Price Index"]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://bitcoinaverage.com/#%@-nomillibit",[BACurrency get]]]];
-    } else {
+    //} else {
         /*NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
         NSRange range = {0,0};
         for(SKProduct *product in storeProducts) {
@@ -295,7 +288,7 @@
             }
         }
         [self performSegueWithIdentifier:@"QRCode" sender:nil];*/
-    }
+    //}
 }
 
 @end
