@@ -30,7 +30,7 @@
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-    NSLogDebug(@"got a time slice!");
+    NSLogDebug(@"got a time slice!",nil);
 
     static NSDate *lastUpdate=nil;
     if(lastUpdate==nil) lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
@@ -49,14 +49,19 @@
                 while(iLast>=10000) iLast/=10;
                 application.applicationIconBadgeNumber = iLast;
                 lastUpdate = [NSDate date];
-                NSLogDebug(@"background update: %d",iLast);
                 result = UIBackgroundFetchResultNewData;
-
-            } else result = UIBackgroundFetchResultFailed;
-        } else result = UIBackgroundFetchResultFailed;
+                NSLogDebug(@"background update: %d",iLast);
+            } else {
+                result = UIBackgroundFetchResultFailed;
+                NSLogDebug(@"background update: failed to convert to JSON",nil);
+            }
+        } else {
+            result = UIBackgroundFetchResultFailed;
+            NSLogDebug(@"background update: failed to fetch data",nil);
+        }
     } else {
         result = UIBackgroundFetchResultNoData; // refuse the update
-        NSLogDebug(@"background update: refused");
+        NSLogDebug(@"background update: refused",nil);
     }
     completionHandler(result);
 }

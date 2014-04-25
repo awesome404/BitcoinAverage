@@ -98,11 +98,10 @@
             while(iLast>=10000) iLast/=10;
             [UIApplication sharedApplication].applicationIconBadgeNumber = iLast;
 
-        } else NSLog(@"JSON to NSDictionary failed");
-    } else NSLog(@"No urlData");
-#ifndef NDEBUG
-    NSLog(@"refreshData %.2f",last);
-#endif
+        } else NSLogDebug(@"JSON to NSDictionary failed",nil);
+    } else NSLogDebug(@"No urlData",nil);
+
+    NSLogDebug(@"refreshData %.2f",last);
 }
 
 - (NSString*)reformatTimestamp:(NSString*)stamp {
@@ -248,7 +247,7 @@
             range.length = [product.localizedTitle length];
             if([title compare:product.localizedTitle options:NSLiteralSearch range:range] == NSOrderedSame) {
                 // go to store
-                NSLog(@"%@",product.localizedTitle);
+                NSLogDebug(@"%@",product.localizedTitle);
                 
                 //SKProduct *product = <# Product returned by a products request #>;
                 SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];

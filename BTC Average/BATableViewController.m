@@ -98,8 +98,8 @@
 
             [self.tableView reloadData];
 
-        } else NSLog(@"JSON to NSDictionary failed");
-    } else NSLog(@"No urlData");
+        } else NSLogDebug(@"JSON to NSDictionary failed");
+    } else NSLogDebug(@"No urlData");
 
     if(theKeys == nil) theKeys = [NSArray arrayWithObjects:primaryKeys,nil];
 
