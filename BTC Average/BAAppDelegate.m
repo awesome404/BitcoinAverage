@@ -28,14 +28,12 @@
     }
     [application setMinimumBackgroundFetchInterval:60.0];
 }
+
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+    NSLogDebug(@"got a time slice!");
 
     static NSDate *lastUpdate=nil;
     if(lastUpdate==nil) lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
-
-#ifndef NDEBUG
-    NSLog(@"got a time slice!");
-#endif
     
     UIBackgroundFetchResult result = UIBackgroundFetchResultFailed;
 
@@ -51,17 +49,14 @@
                 while(iLast>=10000) iLast/=10;
                 application.applicationIconBadgeNumber = iLast;
                 lastUpdate = [NSDate date];
-#ifndef NDEBUG
-                NSLog(@"background update: %d",iLast);
-#endif
+                NSLogDebug(@"background update: %d",iLast);
                 result = UIBackgroundFetchResultNewData;
 
             } else result = UIBackgroundFetchResultFailed;
         } else result = UIBackgroundFetchResultFailed;
-    } else { result = UIBackgroundFetchResultNoData; // refuse the update
-#ifndef NDEBUG
-        NSLog(@"background update: refused");
-#endif
+    } else {
+        result = UIBackgroundFetchResultNoData; // refuse the update
+        NSLogDebug(@"background update: refused");
     }
     completionHandler(result);
 }
