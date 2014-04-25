@@ -16,8 +16,25 @@
     //NSArray *storeProducts;
 }
 
+- (void)refreshData;
 - (NSString*)reformatTimestamp:(NSString*)stamp;
 - (void)orientationChanged:(NSNotification *)notification;
+
+@property (weak, nonatomic) IBOutlet UIButton *currencyButton;
+@property (weak, nonatomic) IBOutlet UIButton *smallCurrencyButton;
+
+@property (weak, nonatomic) IBOutlet UILabel *lastLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bidLabel;
+@property (weak, nonatomic) IBOutlet UILabel *askLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+
+@property (weak, nonatomic) IBOutlet UITextField *currencyEdit;
+@property (weak, nonatomic) IBOutlet UITextField *bitcoinEdit;
+
+//- (IBAction)donatePush:(UIButton *)sender;
+- (IBAction)infoPush:(UIButton *)sender;
+- (IBAction)downSwipe:(UISwipeGestureRecognizer *)sender;
+- (IBAction)tapAction:(UITapGestureRecognizer *)sender;
 
 @end
 
@@ -53,6 +70,8 @@
     
     [self refreshData];
 }
+
+#pragma mark Rotation
 
 - (BOOL)shouldAutorotate {
     return NO;
@@ -159,13 +178,13 @@
     BOOL rVal = YES;
 
     if([string length]) {
-        int x=0;
+        unsigned int x=0;
         char c,cReplace[[string length]+1];
 
         BOOL found = ([textField.text rangeOfString:@"."].location!=NSNotFound);
             
         NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
-        for(int i=0,l=(int)[string length]; i<l; i++) {
+        for(unsigned int i=0,l=(unsigned int)[string length]; i<l; i++) {
             c=[string characterAtIndex:i];
             if([charSet characterIsMember:c]) {
                 cReplace[x++]=c;

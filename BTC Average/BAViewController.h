@@ -13,24 +13,7 @@
 
 @property NSDate *lastUpdate;
 
-@property (weak, nonatomic) IBOutlet UIButton *currencyButton;
-@property (weak, nonatomic) IBOutlet UIButton *smallCurrencyButton;
-
-@property (weak, nonatomic) IBOutlet UILabel *lastLabel;
-@property (weak, nonatomic) IBOutlet UILabel *bidLabel;
-@property (weak, nonatomic) IBOutlet UILabel *askLabel;
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-
-@property (weak, nonatomic) IBOutlet UITextField *currencyEdit;
-@property (weak, nonatomic) IBOutlet UITextField *bitcoinEdit;
-
-- (void)refreshData;
 - (void)startRefreshTimer;
 - (void)stopRefreshTimer;
-
-//- (IBAction)donatePush:(UIButton *)sender;
-- (IBAction)infoPush:(UIButton *)sender;
-- (IBAction)downSwipe:(UISwipeGestureRecognizer *)sender;
-- (IBAction)tapAction:(UITapGestureRecognizer *)sender;
 
 @end

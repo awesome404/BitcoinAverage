@@ -10,6 +10,4 @@
 
 @interface BAQRCodeViewController : UIViewController
 
-- (IBAction)doneButtonPressed:(id)sender;
-
 @end

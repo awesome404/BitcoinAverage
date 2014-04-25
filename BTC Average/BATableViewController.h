@@ -8,14 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BATableViewController : UITableViewController {
-
-
-}
-
-- (void)refreshData;
-@property (strong, nonatomic) IBOutlet UILabel *primarylabel;
-@property (strong, nonatomic) IBOutlet UILabel *secondaryLabel;
-@property (strong, nonatomic) IBOutlet UILabel *otherLabel;
+@interface BATableViewController : UITableViewController
 
 @end

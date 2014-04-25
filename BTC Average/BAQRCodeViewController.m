@@ -8,6 +8,12 @@
 
 #import "BAQRCodeViewController.h"
 
+@interface BAQRCodeViewController ()
+
+- (IBAction)doneButtonPressed:(id)sender;
+
+@end
+
 @implementation BAQRCodeViewController
 
 - (IBAction)doneButtonPressed:(id)sender {

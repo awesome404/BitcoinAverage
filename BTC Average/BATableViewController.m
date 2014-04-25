@@ -14,6 +14,13 @@
     NSArray *theKeys;
     NSDictionary *theData;
 }
+
+- (void)refreshData;
+
+@property (strong, nonatomic) IBOutlet UILabel *primarylabel;
+@property (strong, nonatomic) IBOutlet UILabel *secondaryLabel;
+@property (strong, nonatomic) IBOutlet UILabel *otherLabel;
+
 @end
 
 @implementation BATableViewController
