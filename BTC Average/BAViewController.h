@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <StoreKit/StoreKit.h>
+//#import <StoreKit/StoreKit.h>
 
-@interface BAViewController : UIViewController <UIAlertViewDelegate,UITextFieldDelegate,SKProductsRequestDelegate> {
+@interface BAViewController : UIViewController <UIAlertViewDelegate,UITextFieldDelegate /*,SKProductsRequestDelegate*/> {
     NSTimer *refreshTimer;
     double last;
-    NSArray *storeProducts;
+    //NSArray *storeProducts;
 }
 
 @property NSDate *lastUpdate;
@@ -32,7 +32,7 @@
 - (void)startRefreshTimer;
 - (void)stopRefreshTimer;
 
-- (IBAction)donatePush:(UIButton *)sender;
+//- (IBAction)donatePush:(UIButton *)sender;
 - (IBAction)infoPush:(UIButton *)sender;
 - (IBAction)downSwipe:(UISwipeGestureRecognizer *)sender;
 - (IBAction)tapAction:(UITapGestureRecognizer *)sender;

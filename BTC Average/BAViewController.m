@@ -27,7 +27,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 
-    storeProducts = nil;
+    /*storeProducts = nil;
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"InAppProductIDs" withExtension:@"plist"];
     NSArray *productIdentifiers = [NSArray arrayWithContentsOfURL:url];
     
@@ -35,7 +35,7 @@
     
     SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productSet];
     productsRequest.delegate = self;
-    [productsRequest start];
+    [productsRequest start];*/
     
     
     [self refreshData];
@@ -188,17 +188,17 @@
     [self.view endEditing:YES];
 }
 
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
+/*- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
     storeProducts = response.products;
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
     NSLog(@"SKProductsRequest Failed !!\n%@\n%@",request,error);
-}
+}*/
 
 #pragma mark Buttons with Alerts
 
-- (IBAction)donatePush:(UIButton *)sender {
+/*- (IBAction)donatePush:(UIButton *)sender {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Support ฿ Average"
                                                     message:@"Please consider making a donatoin to support this project."
                                                    delegate:self
@@ -222,7 +222,7 @@
     }
     
     [alert show];
-}
+}*/
 
 - (IBAction)infoPush:(UIButton *)sender {
     [[[UIAlertView alloc] initWithTitle:@"BitcoinAverage Price Index"
@@ -238,7 +238,7 @@
     if([alertView.title isEqualToString:@"BitcoinAverage Price Index"]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://bitcoinaverage.com/#%@-nomillibit",[BACurrency get]]]];
     } else {
-        NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+        /*NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
         NSRange range = {0,0};
         for(SKProduct *product in storeProducts) {
             range.length = [product.localizedTitle length];
@@ -255,7 +255,7 @@
                 return; // out of for loop
             }
         }
-        [self performSegueWithIdentifier:@"QRCode" sender:nil];
+        [self performSegueWithIdentifier:@"QRCode" sender:nil];*/
     }
 }
 

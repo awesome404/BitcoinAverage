@@ -24,7 +24,6 @@
 		6648645418BAC53500A0CEAB /* BAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6648645318BAC53500A0CEAB /* BAAppDelegate.m */; };
 		6648645718BAC55200A0CEAB /* BACurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 6648645618BAC55200A0CEAB /* BACurrency.m */; };
 		668EEDB4190096B20099E252 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 668EEDB3190096B20099E252 /* StoreKit.framework */; };
-		66B8DB5A190441CD001B0890 /* BAPaymentTransactionObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B8DB59190441CD001B0890 /* BAPaymentTransactionObserver.m */; };
 		66BD636118EDFC2A00C4E618 /* BAQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BD636018EDFC2A00C4E618 /* BAQRCodeViewController.m */; };
 		66D34F2C18EC1BFA00257C69 /* changelog in Resources */ = {isa = PBXBuildFile; fileRef = 66D34F2B18EC1BFA00257C69 /* changelog */; };
 		66FEFB0C18AEA75B0044853D /* BATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FEFB0B18AEA75B0044853D /* BATableViewController.m */; };
@@ -300,7 +299,6 @@
 				66BD636118EDFC2A00C4E618 /* BAQRCodeViewController.m in Sources */,
 				6648645718BAC55200A0CEAB /* BACurrency.m in Sources */,
 				6648645418BAC53500A0CEAB /* BAAppDelegate.m in Sources */,
-				66B8DB5A190441CD001B0890 /* BAPaymentTransactionObserver.m in Sources */,
 				662CA3C218AD89AD00FC558A /* BAViewController.m in Sources */,
 				662CA3B518AD89AD00FC558A /* main.m in Sources */,
 			);
