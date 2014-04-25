@@ -9,11 +9,7 @@
 #import <UIKit/UIKit.h>
 //#import <StoreKit/StoreKit.h>
 
-@interface BAViewController : UIViewController <UIAlertViewDelegate,UITextFieldDelegate /*,SKProductsRequestDelegate*/> {
-    NSTimer *refreshTimer;
-    double last;
-    //NSArray *storeProducts;
-}
+@interface BAViewController : UIViewController <UIAlertViewDelegate,UITextFieldDelegate /*,SKProductsRequestDelegate*/>
 
 @property NSDate *lastUpdate;
 

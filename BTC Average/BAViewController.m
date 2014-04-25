@@ -9,7 +9,11 @@
 #import "BAViewController.h"
 #import "BACurrency.h"
 
-@interface BAViewController ()
+@interface BAViewController () {
+    NSTimer *refreshTimer;
+    double last;
+    //NSArray *storeProducts;
+}
 
 - (NSString*)reformatTimestamp:(NSString*)stamp;
 

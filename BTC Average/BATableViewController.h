@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface BATableViewController : UITableViewController {
-    // NSString *selection;
-    NSArray *theKeys;
-    NSDictionary *theData;
+
+
 }
 
 - (void)refreshData;

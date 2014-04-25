@@ -10,8 +10,10 @@
 #import "BATableViewController.h"
 #import "BACurrency.h"
 
-@interface BATableViewController ()
-
+@interface BATableViewController () {
+    NSArray *theKeys;
+    NSDictionary *theData;
+}
 @end
 
 @implementation BATableViewController
