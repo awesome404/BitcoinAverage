@@ -140,8 +140,8 @@
                                 <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4yE-tA-AHq">
-                                <rect key="frame" x="278" y="37" width="22" height="22"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4yE-tA-AHq">
+                                <rect key="frame" x="278" y="30" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <connections>
@@ -176,8 +176,10 @@
                             <constraint firstAttribute="trailing" secondItem="OPC-Ex-0UD" secondAttribute="trailing" constant="87" id="g4z-nK-RMD"/>
                             <constraint firstItem="7I2-DE-G1j" firstAttribute="leading" secondItem="eDQ-Ot-JLe" secondAttribute="trailing" constant="8" id="iwN-ls-BCb"/>
                             <constraint firstAttribute="centerX" secondItem="ZEg-UY-fl2" secondAttribute="centerX" id="l72-qP-l2l"/>
+                            <constraint firstItem="4yE-tA-AHq" firstAttribute="top" secondItem="dNZ-8X-DAQ" secondAttribute="bottom" constant="10" id="m2T-Bn-yob"/>
                             <constraint firstAttribute="trailing" secondItem="9ho-2k-4Mu" secondAttribute="trailing" constant="88" id="uo5-aP-TAa"/>
                             <constraint firstItem="OPC-Ex-0UD" firstAttribute="top" secondItem="9ho-2k-4Mu" secondAttribute="bottom" constant="26" id="w0h-ba-xMi"/>
+                            <constraint firstAttribute="trailing" secondItem="4yE-tA-AHq" secondAttribute="trailing" constant="20" id="wxT-nA-1bw"/>
                             <constraint firstItem="OPC-Ex-0UD" firstAttribute="top" secondItem="eDQ-Ot-JLe" secondAttribute="bottom" constant="3" id="xjw-jG-taw"/>
                         </constraints>
                         <connections>
