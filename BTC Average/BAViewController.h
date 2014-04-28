@@ -11,8 +11,6 @@
 
 @interface BAViewController : UIViewController <UIAlertViewDelegate,UITextFieldDelegate /*,SKProductsRequestDelegate*/>
 
-@property NSDate *lastUpdate;
-
 - (void)startRefreshTimer;
 - (void)stopRefreshTimer;
 

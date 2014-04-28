@@ -20,6 +20,8 @@
 - (NSString*)reformatTimestamp:(NSString*)stamp;
 - (void)orientationChanged:(NSNotification *)notification;
 
+@property NSDate *lastUpdate;
+
 @property (weak, nonatomic) IBOutlet UIButton *currencyButton;
 @property (weak, nonatomic) IBOutlet UIButton *smallCurrencyButton;
 
@@ -110,7 +112,7 @@
 - (void)refreshData {
     static NSString *urlFormat = @"https://api.bitcoinaverage.com/ticker/global/%@", *floatFormat = @"%0.2f";
 
-    NSString *currency = [BACurrency get], *timeStamp = nil;
+    NSString *currency = [BACurrency get];//, *timeStamp = nil;
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]]];
     
     if(urlData) {
@@ -121,7 +123,7 @@
 
             last = [[data valueForKey:@"last"] doubleValue];
             // timeStamp = [data valueForKey:@"timestamp"];
-            timeStamp = [self reformatTimestamp:[data valueForKey:@"timestamp"]];
+            NSString *timeStamp = [self reformatTimestamp:[data valueForKey:@"timestamp"]];
 
             // Currency Buttons
             [self.currencyButton setTitle:currency forState:UIControlStateNormal];
