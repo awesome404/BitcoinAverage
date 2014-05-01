@@ -9,11 +9,32 @@
 #import "BAGraphViewController.h"
 #import "BACurrency.h"
 
+@interface BAGraphPoint : NSObject
+
+@property double average;
+@property unsigned long time;
+
++(BAGraphPoint*)initWithAverage:(double)average time:(unsigned long)time;
+
+@end
+
+@implementation BAGraphPoint
+
++(BAGraphPoint*)initWithAverage:(double)average time:(unsigned long)time {
+    BAGraphPoint *newObject = [BAGraphPoint alloc];
+    newObject.average = average;
+    newObject.time = time;
+    return newObject;
+}
+
+@end
+
+
 @interface BAGraphViewController () {
-    NSNumber *highPrice,
-             *lowPrice,
-             *startTime,
-             *endTime;
+    unsigned long   highPrice,
+                    lowPrice,
+                    startTime,
+                    endTime;
     NSArray *theData;
 }
 
@@ -54,68 +75,74 @@
     NSStringEncoding *encoding=nil;
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:urlFormat,self.currency]];
     NSString *urlData = [NSString stringWithContentsOfURL:url usedEncoding:encoding error:nil];
-    
-    NSMutableArray *mutableData = [NSMutableArray array];
 
     if(urlData) {
         NSArray *lines = [urlData componentsSeparatedByString:@"\n"];
         urlData = nil;
 
-        BOOL firstLine = YES;
-        NSRange range;
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
         [dateFormatter setDateFormat:@"y-M-d HH:mm:ss"];
-        NSNumber *average = nil;
         
-        highPrice = nil;
-        lowPrice = nil;
+        struct {unsigned long timeStamp,count; double average;} tempData[[lines count]+1];
+        
+        tempData[0].timeStamp = 0;
+        tempData[0].average = 0;
+        tempData[0].count = 0;
 
-        for(NSString *line in lines) {
-            if(firstLine) firstLine = NO;
-            else if([line length]>0) {
-                
-                range = [line rangeOfString:@","];
-                average = [NSNumber numberWithDouble:[[line substringFromIndex:(range.location+range.length)] doubleValue]];
-                
-                if(highPrice == nil || average>highPrice) highPrice = average;
-                if(lowPrice == nil || average<lowPrice) lowPrice = average;
+        BOOL firstLine = YES;
+        NSRange range;
+        unsigned long index, timeStamp, baseTime;
+        double average;
 
-                [mutableData addObject:
-                    [NSArray arrayWithObjects:
-                        [NSNumber numberWithDouble:[[dateFormatter dateFromString:[line substringToIndex:range.location]] timeIntervalSince1970]],
-                        average, //[NSNumber numberWithDouble:[[line substringFromIndex:(range.location+range.length)] doubleValue]],
-                        nil
-                     ]
-                ];
+        for(unsigned long i=1,c=[lines count];i<c;i++) {
+            if([lines[i] length]>0) {
 
+                // split the line up
+                range = [lines[i] rangeOfString:@","];
+                timeStamp = [[dateFormatter dateFromString:[lines[i] substringToIndex:range.location]] timeIntervalSince1970]/600;
+                average = [[lines[i] substringFromIndex:(range.location+range.length)] doubleValue];
+
+                // if it's the first line, then we get the time to subtract from the other ones to get the index
+                if(firstLine) {
+                    startTime = timeStamp*600;
+                    baseTime = timeStamp;
+                    firstLine = NO;
+                    index = 0;
+                } else {
+                    index = timeStamp - baseTime; // get the index
+                }
+
+                // set the data
+                if(tempData[index].timeStamp==0) {
+                    tempData[index].timeStamp = endTime = timeStamp*600;
+                    tempData[index+1].timeStamp = 0;
+                    tempData[index+1].average = 0;
+                    tempData[index+1].count = 0;
+                }
+                tempData[index].average += average;
+                tempData[index].count++;
             }
         }
+        tempData[index].average /= tempData[index].count; // last one has to be done manually
+
+        NSMutableArray *mutableData = [NSMutableArray array];
+
+        highPrice = 0;
+        lowPrice = 100000000;
         
+        for(unsigned long i=0;i<=index;i++) {
+            if(tempData[i].average > highPrice) highPrice = tempData[i].average;
+            if(tempData[i].average < lowPrice)  lowPrice  = tempData[i].average;
+            [mutableData addObject:[BAGraphPoint initWithAverage:(tempData[i].average/tempData[i].count) time:tempData[i].timeStamp]];
+        }
+
         theData = [NSArray arrayWithArray:mutableData];
-        
-        startTime = theData[0][0];
-        endTime = theData[[theData count]-1][0];
+        NSLog(@"%@\n%lu",theData,endTime);
 
     } else NSLogDebug(@"No urlData",nil);
 }
 
-/*
- 
- - (NSString*)reformatTimestamp:(NSString*)stamp {
- 
- NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
- [dateFormatter setDateFormat:@"EEE, dd LLL yyyy HH:mm:ss ZZZ"];
- NSDate *theDate = [dateFormatter dateFromString:stamp];
- 
- [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
- [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
- [dateFormatter setLocale:[NSLocale currentLocale]];
- 
- return [dateFormatter stringFromDate:theDate];
- }
- 
-*/
 
 /*
 #pragma mark - Navigation
