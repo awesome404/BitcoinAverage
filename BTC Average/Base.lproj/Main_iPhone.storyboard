@@ -4,31 +4,18 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Graph View Controller - Graph-->
+        <!--View Controller - Graph-->
         <scene sceneID="M5S-oV-ZUS">
             <objects>
-                <viewController title="Graph" id="woO-Vj-h2Z" customClass="BAGraphViewController" sceneMemberID="viewController">
+                <viewController title="Graph" id="woO-Vj-h2Z" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wlN-7m-VuT"/>
                         <viewControllerLayoutGuide type="bottom" id="WiI-3w-Ffi"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="M8X-sG-rxn">
+                    <view key="view" contentMode="scaleToFill" id="M8X-sG-rxn" customClass="BAGraphView">
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Landscape!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJe-uA-GEx">
-                                <rect key="frame" x="239" y="150" width="90" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="sJe-uA-GEx" secondAttribute="centerX" id="Wc2-yk-NRQ"/>
-                            <constraint firstAttribute="centerY" secondItem="sJe-uA-GEx" secondAttribute="centerY" id="lv2-15-rSk"/>
-                        </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>

@@ -30,7 +30,7 @@
 @end
 
 
-@interface BAGraphViewController () {
+@interface BAGraphViewController () /*{
     unsigned long   highPrice,
                     lowPrice,
                     startTime,
@@ -40,7 +40,7 @@
 
 @property NSString *currency;
 
-- (void)refreshData;
+- (void)refreshData;*/
 
 @end
 
@@ -66,6 +66,45 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+/*- (void)drawRect:(CGRect)rect {
+    
+    //UIColor* currentColor = [UIColor redColor];
+    CGContextRef    context = UIGraphicsGetCurrentContext();
+    
+    //Set the width of the "pen" that will be used for drawing
+    CGContextSetLineWidth(context,2);
+    //Set the color of the pen to be used
+    CGContextSetRGBStrokeColor(context, 0.2, 0.2, 0.6, 1.0);
+    //CGContextSetStrokeColorWithColor(context, currentColor.CGColor);
+    
+    CGFloat x = 0.0,y = 0.0;
+    BOOL first = YES;
+    for(NSArray *item in theData) {
+        
+        x++;y++;
+        
+        if(first) {
+            CGContextMoveToPoint(context,x,y);
+            first = NO;
+        } else {
+            CGContextAddLineToPoint(context,x,y);
+        }
+    }
+    
+    //Move the pen
+    /*if(aSwipe.alive) {
+        CGContextMoveToPoint(context, aSwipe.pointOne.x , aSwipe.pointOne.y);
+        CGContextAddLineToPoint(context, aSwipe.pointTwo.x , aSwipe.pointTwo.y);
+    }
+    //Apply our stroke settings to the line.
+    CGContextStrokePath(context);
+    
+    CGContextSetRGBStrokeColor(context, 0.2, 0.2, 0.2, 1.0);
+    CGContextFillEllipseInRect(context,CGRectMake(5,5,20,20));
 }
 
 - (void)refreshData {
@@ -141,7 +180,7 @@
         NSLog(@"%@\n%lu",theData,endTime);
 
     } else NSLogDebug(@"No urlData",nil);
-}
+}*/
 
 
 /*

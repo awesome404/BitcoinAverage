@@ -24,8 +24,8 @@
 		6648645418BAC53500A0CEAB /* BAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6648645318BAC53500A0CEAB /* BAAppDelegate.m */; };
 		6648645718BAC55200A0CEAB /* BACurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 6648645618BAC55200A0CEAB /* BACurrency.m */; };
 		668EEDB4190096B20099E252 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 668EEDB3190096B20099E252 /* StoreKit.framework */; };
+		66A4D71E19145EED0073FCE3 /* BAGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A4D71D19145EED0073FCE3 /* BAGraphView.m */; };
 		66BD636118EDFC2A00C4E618 /* BAQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BD636018EDFC2A00C4E618 /* BAQRCodeViewController.m */; };
-		66C1D994190AF81000D38ACE /* BAGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C1D993190AF81000D38ACE /* BAGraphViewController.m */; };
 		66D34F2C18EC1BFA00257C69 /* changelog in Resources */ = {isa = PBXBuildFile; fileRef = 66D34F2B18EC1BFA00257C69 /* changelog */; };
 		66FEFB0C18AEA75B0044853D /* BATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FEFB0B18AEA75B0044853D /* BATableViewController.m */; };
 /* End PBXBuildFile section */
@@ -66,6 +66,8 @@
 		6648645618BAC55200A0CEAB /* BACurrency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BACurrency.m; sourceTree = "<group>"; };
 		6648645818BD8FF600A0CEAB /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		668EEDB3190096B20099E252 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		66A4D71C19145EED0073FCE3 /* BAGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAGraphView.h; sourceTree = "<group>"; };
+		66A4D71D19145EED0073FCE3 /* BAGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAGraphView.m; sourceTree = "<group>"; };
 		66B8DB58190441CD001B0890 /* BAPaymentTransactionObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAPaymentTransactionObserver.h; sourceTree = "<group>"; };
 		66B8DB59190441CD001B0890 /* BAPaymentTransactionObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAPaymentTransactionObserver.m; sourceTree = "<group>"; };
 		66BD635F18EDFC2A00C4E618 /* BAQRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAQRCodeViewController.h; sourceTree = "<group>"; };
@@ -136,6 +138,8 @@
 		662CA3AE18AD89AD00FC558A /* ฿ Average */ = {
 			isa = PBXGroup;
 			children = (
+				66A4D72019145F0B0073FCE3 /* QRCode */,
+				66A4D71F19145EF90073FCE3 /* Graph */,
 				66D34F2B18EC1BFA00257C69 /* changelog */,
 				6648645818BD8FF600A0CEAB /* TODO */,
 				662CA3B718AD89AD00FC558A /* BAAppDelegate.h */,
@@ -146,10 +150,6 @@
 				662CA3C118AD89AD00FC558A /* BAViewController.m */,
 				66FEFB0A18AEA75B0044853D /* BATableViewController.h */,
 				66FEFB0B18AEA75B0044853D /* BATableViewController.m */,
-				66BD635F18EDFC2A00C4E618 /* BAQRCodeViewController.h */,
-				66BD636018EDFC2A00C4E618 /* BAQRCodeViewController.m */,
-				66C1D992190AF81000D38ACE /* BAGraphViewController.h */,
-				66C1D993190AF81000D38ACE /* BAGraphViewController.m */,
 				66B8DB58190441CD001B0890 /* BAPaymentTransactionObserver.h */,
 				66B8DB59190441CD001B0890 /* BAPaymentTransactionObserver.m */,
 				662CA3BA18AD89AD00FC558A /* Main_iPhone.storyboard */,
@@ -190,6 +190,26 @@
 				662CA3D318AD89AD00FC558A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		66A4D71F19145EF90073FCE3 /* Graph */ = {
+			isa = PBXGroup;
+			children = (
+				66C1D992190AF81000D38ACE /* BAGraphViewController.h */,
+				66C1D993190AF81000D38ACE /* BAGraphViewController.m */,
+				66A4D71C19145EED0073FCE3 /* BAGraphView.h */,
+				66A4D71D19145EED0073FCE3 /* BAGraphView.m */,
+			);
+			name = Graph;
+			sourceTree = "<group>";
+		};
+		66A4D72019145F0B0073FCE3 /* QRCode */ = {
+			isa = PBXGroup;
+			children = (
+				66BD635F18EDFC2A00C4E618 /* BAQRCodeViewController.h */,
+				66BD636018EDFC2A00C4E618 /* BAQRCodeViewController.m */,
+			);
+			name = QRCode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,10 +320,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66A4D71E19145EED0073FCE3 /* BAGraphView.m in Sources */,
 				66FEFB0C18AEA75B0044853D /* BATableViewController.m in Sources */,
 				66BD636118EDFC2A00C4E618 /* BAQRCodeViewController.m in Sources */,
 				6648645718BAC55200A0CEAB /* BACurrency.m in Sources */,
-				66C1D994190AF81000D38ACE /* BAGraphViewController.m in Sources */,
 				6648645418BAC53500A0CEAB /* BAAppDelegate.m in Sources */,
 				662CA3C218AD89AD00FC558A /* BAViewController.m in Sources */,
 				662CA3B518AD89AD00FC558A /* main.m in Sources */,
