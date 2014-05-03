@@ -10,14 +10,13 @@
 #import "BACurrency.h"
 
 @interface BAGraphView () {
-    double highPrice, lowPrice;
-    //unsigned long startTime,endTime;
-    NSArray *theData;
+    double dailyAverage, highPrice, lowPrice;
+    //NSArray *theData;
 }
 
 @property NSString *currency;
 
-- (void)refreshData;
+- (NSArray*)refreshData;
 - (NSArray*)getDataLines;
 
 @end
@@ -25,59 +24,69 @@
 
 @implementation BAGraphView
 
-/*- (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}*/
-
-
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    [self refreshData];
-
-    CGContextRef    context = UIGraphicsGetCurrentContext();
+    NSArray *theData = [self refreshData];
     
-    double eighth = rect.size.height/8;
+    if(theData==nil) return;
 
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    double width = rect.size.width, eighth = rect.size.height/8;
+
+    // strong grey lines
     CGContextSetRGBStrokeColor(context, 0.9, 0.9, 0.9, 1.0);
 
-    CGContextMoveToPoint(context,0,eighth*2);
-    CGContextAddLineToPoint(context,rect.size.width,eighth*2);
+    CGContextMoveToPoint(context, 0, eighth*2);
+    CGContextAddLineToPoint(context, width, eighth*2);
 
-    CGContextMoveToPoint(context,0,eighth*4);
-    CGContextAddLineToPoint(context,rect.size.width,eighth*4);
+    CGContextMoveToPoint(context, 0, eighth*4);
+    CGContextAddLineToPoint(context, width, eighth*4);
 
-    CGContextMoveToPoint(context,0,eighth*6);
-    CGContextAddLineToPoint(context,rect.size.width,eighth*6);
+    CGContextMoveToPoint(context, 0, eighth*6);
+    CGContextAddLineToPoint(context, width, eighth*6);
     
     CGContextStrokePath(context);
-    
+
+    // weak grey lines
     CGContextSetRGBStrokeColor(context, 0.97, 0.97, 0.97, 1.0);
     
-    CGContextMoveToPoint(context,0,eighth*3);
-    CGContextAddLineToPoint(context,rect.size.width,eighth*3);
+    CGContextMoveToPoint(context, 0, eighth*3);
+    CGContextAddLineToPoint(context, width, eighth*3);
     
-    CGContextMoveToPoint(context,0,eighth*5);
-    CGContextAddLineToPoint(context,rect.size.width,eighth*5);
+    CGContextMoveToPoint(context, 0, eighth*5);
+    CGContextAddLineToPoint(context, width, eighth*5);
     
     CGContextStrokePath(context);
     
-    CGContextSetRGBStrokeColor(context, 0.2, 0.2, 0.7, 1.0);
+    // graph data
+    CGContextSetRGBStrokeColor(context, 0.2, 0.2, 0.8, 1.0);
     
     double x,y;
-    for(unsigned long i=0, c=[theData count];i<c;i++) {
-        x = ((double)i/(double)(c-1))*rect.size.width;
+    for(unsigned long i=0, c=[theData count]-1;i<=c;i++) {
+        x = ((double)i/(double)c) * width;
         y = ([theData[i] doubleValue] * (rect.size.height/2))+(rect.size.height/4);
         if(!i) CGContextMoveToPoint(context,x,y);
         else CGContextAddLineToPoint(context,x,y);
     }
 
     CGContextStrokePath(context);
+
+    // red daily average line
+    CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 0.1);
+    
+    CGContextMoveToPoint(context, 0, (dailyAverage * (rect.size.height/2))+(rect.size.height/4));
+    CGContextAddLineToPoint(context, width, (dailyAverage * (rect.size.height/2))+(rect.size.height/4));
+    
+    CGContextStrokePath(context);
+    
+    CGContextSetTextPosition(context, 20, eighth*2);
+    NSString *test = @"test";
+    
+    [test drawAtPoint:CGMakePoint() withAttributes:<#(NSDictionary *)#>]
+    
 }
 
 - (NSArray*)getDataLines {
@@ -86,18 +95,20 @@
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:urlFormat,[BACurrency get]]];
     NSString *urlData = [NSString stringWithContentsOfURL:url usedEncoding:encoding error:nil];
     
-    NSMutableArray *arrayData = [NSMutableArray arrayWithArray:[urlData componentsSeparatedByString:@"\n"]];
-    [arrayData removeObjectAtIndex:0];
-    
-    for(NSString *str in arrayData) if([str length]==0) {
-        [arrayData removeObject:str];
-        NSLog(@"dropped one");
-    }
+    if(urlData) {
+        NSMutableArray *arrayData = [NSMutableArray arrayWithArray:[urlData componentsSeparatedByString:@"\n"]];
+        [arrayData removeObjectAtIndex:0];
+        
+        for(NSString *str in arrayData) if([str length]==0) {
+            [arrayData removeObject:str];
+        }
 
-    return arrayData;
+        return arrayData;
+    }
+    return nil;
 }
 
-- (void)refreshData {
+- (NSArray*)refreshData {
 
     NSArray *lines = [self getDataLines];
     if(lines) {
@@ -112,11 +123,12 @@
         NSRange range;
         //double average;
         
+        dailyAverage = 0.0;
         highPrice = 0.0;
         lowPrice = 100000000.0;
 
-        unsigned long ii=0,base=5;
-        for(unsigned long i=(base-1),c=[lines count];i<c;i+=base) {
+        unsigned long i=0,ii=0,c,base=5;
+        for(i=(base-1),c=[lines count];i<c;i+=base) {
             if([lines[i] length]>0) {
                 // split the line up
 
@@ -127,6 +139,7 @@
                     range = [lines[i-x] rangeOfString:@","];
                     percent[ii] += [[lines[i-x] substringFromIndex:(range.location+range.length)] doubleValue];
                 }
+                dailyAverage += percent[ii];
                 percent[ii] /= base;
                 
                 if(percent[ii] > highPrice) highPrice = percent[ii];
@@ -134,16 +147,21 @@
                 ii++;
             }
         }
+        
+        dailyAverage /= (ii*base);
+        NSLogDebug(@"dailyAverage: %f",dailyAverage);
+        dailyAverage = 1.0-(dailyAverage-lowPrice)/(highPrice-lowPrice);
 
         NSMutableArray *mutableData = [NSMutableArray arrayWithCapacity:ii];
-        for(unsigned int i=0;i<ii;i++) {
+        for(i=0;i<ii;i++) {
             mutableData[i] = [NSNumber numberWithDouble:(1.0-(percent[i]-lowPrice)/(highPrice-lowPrice))];
         }
         
-        theData = [NSArray arrayWithArray:mutableData];
+        return mutableData;
 
         
     } else NSLogDebug(@"No urlData",nil);
+    return nil;
 }
 
 @end

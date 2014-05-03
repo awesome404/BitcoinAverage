@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--View Controller - Graph-->
+        <!--Graph View Controller - Graph-->
         <scene sceneID="M5S-oV-ZUS">
             <objects>
-                <viewController title="Graph" id="woO-Vj-h2Z" sceneMemberID="viewController">
+                <viewController title="Graph" id="woO-Vj-h2Z" customClass="BAGraphViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wlN-7m-VuT"/>
                         <viewControllerLayoutGuide type="bottom" id="WiI-3w-Ffi"/>
@@ -15,10 +15,26 @@
                     <view key="view" contentMode="scaleToFill" id="M8X-sG-rxn" customClass="BAGraphView">
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="24hr price USD movement" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W52-Ve-6bb">
+                                <rect key="frame" x="178" y="279" width="212" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WiI-3w-Ffi" firstAttribute="top" secondItem="W52-Ve-6bb" secondAttribute="bottom" constant="20" id="Fa6-LZ-ncn"/>
+                            <constraint firstAttribute="centerX" secondItem="W52-Ve-6bb" secondAttribute="centerX" id="I9M-UK-fVS"/>
+                        </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="titleLabel" destination="W52-Ve-6bb" id="MZh-p3-mox"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BW0-wW-0q9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
