@@ -10,7 +10,7 @@
 #import "BACurrency.h"
 
 @interface BAGraphView () {
-    double dailyAverage, highPrice, lowPrice;
+    double averagePosition, highPrice, lowPrice, averagePrice;
     //NSArray *theData;
 }
 
@@ -34,6 +34,7 @@
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     
+    double x,y; // reusable coords
     double width = rect.size.width, eighth = rect.size.height/8;
 
     // strong grey lines
@@ -64,28 +65,54 @@
     // graph data
     CGContextSetRGBStrokeColor(context, 0.2, 0.2, 0.8, 1.0);
     
-    double x,y;
     for(unsigned long i=0, c=[theData count]-1;i<=c;i++) {
         x = ((double)i/(double)c) * width;
-        y = ([theData[i] doubleValue] * (rect.size.height/2))+(rect.size.height/4);
+        y = ([theData[i] doubleValue] * (eighth*4))+(eighth*2);
         if(!i) CGContextMoveToPoint(context,x,y);
         else CGContextAddLineToPoint(context,x,y);
     }
-
     CGContextStrokePath(context);
 
     // red daily average line
-    CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 0.1);
+    CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 0.15);
     
-    CGContextMoveToPoint(context, 0, (dailyAverage * (rect.size.height/2))+(rect.size.height/4));
-    CGContextAddLineToPoint(context, width, (dailyAverage * (rect.size.height/2))+(rect.size.height/4));
+    y = (averagePosition * (eighth*4))+(eighth*2);
+    CGContextMoveToPoint(context, 0, y);
+    CGContextAddLineToPoint(context, width, y);
     
     CGContextStrokePath(context);
+
+    NSString *strOut = nil;
+    CGSize cgSize;
     
-    CGContextSetTextPosition(context, 20, eighth*2);
-    NSString *test = @"test";
+    //CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.6);
+    //[[UIColor redColor] set];
     
-    [test drawAtPoint:CGMakePoint() withAttributes:<#(NSDictionary *)#>]
+    
+    strOut = [NSString stringWithFormat:@"high: %.2f",highPrice];
+    cgSize = [strOut sizeWithAttributes:nil];
+    [strOut drawAtPoint:CGPointMake(10,eighth*2-cgSize.height) withAttributes:nil];
+    
+    strOut = [NSString stringWithFormat:@"low: %.2f",lowPrice];
+    [strOut drawAtPoint:CGPointMake(10,eighth*6) withAttributes:nil];
+
+    double mid = (highPrice+lowPrice)/2;
+    
+    if(averagePrice > mid) { // mid below, average on top
+        strOut = [NSString stringWithFormat:@"mid: %.2f",mid];
+        [strOut drawAtPoint:CGPointMake(10,eighth*4) withAttributes:nil];
+
+        strOut = [NSString stringWithFormat:@"avg: %.2f",averagePrice];
+        cgSize = [strOut sizeWithAttributes:nil];
+        [strOut drawAtPoint:CGPointMake(10,(averagePosition * (eighth*4))+(eighth*2)-cgSize.height) withAttributes:nil];
+    } else { // mid on top, average below
+        strOut = [NSString stringWithFormat:@"mid: %.2f",mid];
+        cgSize = [strOut sizeWithAttributes:nil];
+        [strOut drawAtPoint:CGPointMake(10,eighth*4-cgSize.height) withAttributes:nil];
+        
+        strOut = [NSString stringWithFormat:@"avg: %.2f",averagePrice];
+        [strOut drawAtPoint:CGPointMake(10,(averagePosition * (eighth*4))+(eighth*2)) withAttributes:nil];
+    }
     
 }
 
@@ -123,7 +150,7 @@
         NSRange range;
         //double average;
         
-        dailyAverage = 0.0;
+        averagePrice = 0.0;
         highPrice = 0.0;
         lowPrice = 100000000.0;
 
@@ -139,7 +166,7 @@
                     range = [lines[i-x] rangeOfString:@","];
                     percent[ii] += [[lines[i-x] substringFromIndex:(range.location+range.length)] doubleValue];
                 }
-                dailyAverage += percent[ii];
+                averagePrice += percent[ii];
                 percent[ii] /= base;
                 
                 if(percent[ii] > highPrice) highPrice = percent[ii];
@@ -148,9 +175,9 @@
             }
         }
         
-        dailyAverage /= (ii*base);
-        NSLogDebug(@"dailyAverage: %f",dailyAverage);
-        dailyAverage = 1.0-(dailyAverage-lowPrice)/(highPrice-lowPrice);
+        averagePrice /= (ii*base);
+        NSLogDebug(@"dailyAverage: %f",averagePrice);
+        averagePosition = 1.0-(averagePrice-lowPrice)/(highPrice-lowPrice);
 
         NSMutableArray *mutableData = [NSMutableArray arrayWithCapacity:ii];
         for(i=0;i<ii;i++) {
