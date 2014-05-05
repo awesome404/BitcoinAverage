@@ -10,6 +10,7 @@
 #import "BACurrency.h"
 
 @interface BAGraphView () {
+    NSDate *startTime, *endTime;
     double averagePosition, highPrice, lowPrice, averagePrice;
     //NSArray *theData;
 }
@@ -30,42 +31,52 @@
 {
     NSArray *theData = [self refreshData];
     
-    if(theData==nil) return;
-
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    double x,y; // reusable coords
+
+    unsigned long i,c; // reusable counters
+    double x, y; // reusable coords
     double width = rect.size.width, eighth = rect.size.height/8;
 
     // strong grey lines
-    CGContextSetRGBStrokeColor(context, 0.9, 0.9, 0.9, 1.0);
+    CGContextSetRGBStrokeColor(context, 0.9, 0.9, 0.9, 1);
 
-    CGContextMoveToPoint(context, 0, eighth*2);
-    CGContextAddLineToPoint(context, width, eighth*2);
+    for(i=2;i<=6;i+=2) {
+        CGContextMoveToPoint(context, 0, eighth*i);
+        CGContextAddLineToPoint(context, width, eighth*i);
+    }
 
-    CGContextMoveToPoint(context, 0, eighth*4);
-    CGContextAddLineToPoint(context, width, eighth*4);
-
-    CGContextMoveToPoint(context, 0, eighth*6);
-    CGContextAddLineToPoint(context, width, eighth*6);
-    
     CGContextStrokePath(context);
 
     // weak grey lines
-    CGContextSetRGBStrokeColor(context, 0.97, 0.97, 0.97, 1.0);
+    CGContextSetRGBStrokeColor(context, 0.95, 0.95, 0.95, 1);
+
+    for(i=3;i<=5;i+=2) {
+        CGContextMoveToPoint(context, 0, eighth*i);
+        CGContextAddLineToPoint(context, width, eighth*i);
+    }
     
-    CGContextMoveToPoint(context, 0, eighth*3);
-    CGContextAddLineToPoint(context, width, eighth*3);
+    CGContextStrokePath(context);
+
+    if(theData==nil) {
+        NSString *error = @"Error: Could not fetch graph data.";
+        CGSize cgSize = [error sizeWithAttributes:nil];
+        [error drawAtPoint:CGPointMake((rect.size.width-cgSize.width)/2,(rect.size.height/2)-cgSize.height) withAttributes:nil];
+        return;
+    }
     
-    CGContextMoveToPoint(context, 0, eighth*5);
-    CGContextAddLineToPoint(context, width, eighth*5);
+    // red daily average line
+    CGContextSetRGBStrokeColor(context, 1, 0.8, 0.8, 1);
+    
+    y = (averagePosition * (eighth*4))+(eighth*2);
+    CGContextMoveToPoint(context, 0, y);
+    CGContextAddLineToPoint(context, width, y);
     
     CGContextStrokePath(context);
     
     // graph data
-    CGContextSetRGBStrokeColor(context, 0.2, 0.2, 0.8, 1.0);
-    
-    for(unsigned long i=0, c=[theData count]-1;i<=c;i++) {
+    CGContextSetRGBStrokeColor(context, 0.2, 0.2, 0.8, 0.8);
+        
+    for(i=0, c=[theData count]-1; i<=c; i++) {
         x = ((double)i/(double)c) * width;
         y = ([theData[i] doubleValue] * (eighth*4))+(eighth*2);
         if(!i) CGContextMoveToPoint(context,x,y);
@@ -73,45 +84,35 @@
     }
     CGContextStrokePath(context);
 
-    // red daily average line
-    CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 0.15);
-    
-    y = (averagePosition * (eighth*4))+(eighth*2);
-    CGContextMoveToPoint(context, 0, y);
-    CGContextAddLineToPoint(context, width, y);
-    
-    CGContextStrokePath(context);
-
     NSString *strOut = nil;
     CGSize cgSize;
-    
-    //CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.6);
-    //[[UIColor redColor] set];
-    
-    
+
+    NSDictionary *red = @{NSForegroundColorAttributeName:[UIColor colorWithRed:1 green:0.8 blue:0.8 alpha:1]};
+    NSDictionary *grey = @{NSForegroundColorAttributeName:[UIColor lightGrayColor]};
+
     strOut = [NSString stringWithFormat:@"high: %.2f",highPrice];
     cgSize = [strOut sizeWithAttributes:nil];
-    [strOut drawAtPoint:CGPointMake(10,eighth*2-cgSize.height) withAttributes:nil];
+    [strOut drawAtPoint:CGPointMake(10,eighth*2-cgSize.height) withAttributes:grey];
     
     strOut = [NSString stringWithFormat:@"low: %.2f",lowPrice];
-    [strOut drawAtPoint:CGPointMake(10,eighth*6) withAttributes:nil];
+    [strOut drawAtPoint:CGPointMake(10,eighth*6) withAttributes:grey];
 
     double mid = (highPrice+lowPrice)/2;
     
     if(averagePrice > mid) { // mid below, average on top
         strOut = [NSString stringWithFormat:@"mid: %.2f",mid];
-        [strOut drawAtPoint:CGPointMake(10,eighth*4) withAttributes:nil];
+        [strOut drawAtPoint:CGPointMake(10,eighth*4) withAttributes:grey];
 
         strOut = [NSString stringWithFormat:@"avg: %.2f",averagePrice];
         cgSize = [strOut sizeWithAttributes:nil];
-        [strOut drawAtPoint:CGPointMake(10,(averagePosition * (eighth*4))+(eighth*2)-cgSize.height) withAttributes:nil];
+        [strOut drawAtPoint:CGPointMake(10,(averagePosition * (eighth*4))+(eighth*2)-cgSize.height) withAttributes:red];
     } else { // mid on top, average below
         strOut = [NSString stringWithFormat:@"mid: %.2f",mid];
         cgSize = [strOut sizeWithAttributes:nil];
-        [strOut drawAtPoint:CGPointMake(10,eighth*4-cgSize.height) withAttributes:nil];
+        [strOut drawAtPoint:CGPointMake(10,eighth*4-cgSize.height) withAttributes:grey];
         
         strOut = [NSString stringWithFormat:@"avg: %.2f",averagePrice];
-        [strOut drawAtPoint:CGPointMake(10,(averagePosition * (eighth*4))+(eighth*2)) withAttributes:nil];
+        [strOut drawAtPoint:CGPointMake(10,(averagePosition * (eighth*4))+(eighth*2)) withAttributes:red];
     }
     
 }
@@ -126,11 +127,9 @@
         NSMutableArray *arrayData = [NSMutableArray arrayWithArray:[urlData componentsSeparatedByString:@"\n"]];
         [arrayData removeObjectAtIndex:0];
         
-        for(NSString *str in arrayData) if([str length]==0) {
-            [arrayData removeObject:str];
-        }
+        for(NSString *str in arrayData) if([str length]==0) [arrayData removeObject:str];
 
-        return arrayData;
+        return ([arrayData count]>0)?arrayData:nil;
     }
     return nil;
 }
@@ -144,23 +143,21 @@
         [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
         [dateFormatter setDateFormat:@"y-M-d HH:mm:ss"];
         
-        double percent[[lines count]];
-        
-        //BOOL firstLine = YES;
-        NSRange range;
-        //double average;
+        NSRange range = [[lines firstObject] rangeOfString:@","];
+        startTime = [dateFormatter dateFromString:[[lines firstObject] substringToIndex:range.location]];
+
+        range = [[lines lastObject] rangeOfString:@","];
+        endTime = [dateFormatter dateFromString:[[lines lastObject] substringToIndex:range.location]];
         
         averagePrice = 0.0;
         highPrice = 0.0;
         lowPrice = 100000000.0;
 
         unsigned long i=0,ii=0,c,base=5;
+        double percent[([lines count]/base)+base];
+
         for(i=(base-1),c=[lines count];i<c;i+=base) {
             if([lines[i] length]>0) {
-                // split the line up
-
-                //timeStamp = [[dateFormatter dateFromString:[lines[i] substringToIndex:range.location]] timeIntervalSince1970]/300;
-                
                 percent[ii] = 0;
                 for(unsigned long x=0;x<base;x++) {
                     range = [lines[i-x] rangeOfString:@","];
