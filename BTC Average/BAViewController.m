@@ -112,9 +112,10 @@
 - (void)refreshData {
     static NSString *urlFormat = @"https://api.bitcoinaverage.com/ticker/global/%@", *floatFormat = @"%0.2f";
 
+    NSError *error=nil;
     NSString *currency = [BACurrency get];//, *timeStamp = nil;
-    NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]]];
-    
+    NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]] options:NSDataReadingUncached error:&error];
+
     if(urlData) {
         NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:NULL];
         if(data) {
@@ -149,7 +150,7 @@
             [UIApplication sharedApplication].applicationIconBadgeNumber = iLast;
 
         } else NSLogDebug(@"JSON to NSDictionary failed",nil);
-    } else NSLogDebug(@"No urlData",nil);
+    } else NSLogDebug(@"No urlData: %@",error);
 
     NSLogDebug(@"refreshData %.2f",last);
 }

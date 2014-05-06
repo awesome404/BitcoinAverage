@@ -125,10 +125,11 @@
 
 - (NSArray*)getDataLines {
 
+    NSError *error = nil;
     NSString *urlFormat = @"https://api.bitcoinaverage.com/history/%@/per_minute_24h_sliding_window.csv";
     NSStringEncoding *encoding = nil;
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:urlFormat,[BACurrency get]]];
-    NSString *urlData = [NSString stringWithContentsOfURL:url usedEncoding:encoding error:nil];
+    NSString *urlData = [NSString stringWithContentsOfURL:url usedEncoding:encoding error:&error];
     
     if(urlData) {
         NSMutableArray *arrayData = [NSMutableArray arrayWithArray:[urlData componentsSeparatedByString:@"\n"]];
@@ -137,6 +138,8 @@
         for(NSString *str in arrayData) if([str length]==0) [arrayData removeObject:str];
 
         return ([arrayData count]>0)?arrayData:nil;
+    } else {
+        NSLogDebug(@"No urlData: %@",error);
     }
     return nil;
 }

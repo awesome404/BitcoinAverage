@@ -58,25 +58,12 @@
     [self refreshData];
 }
 
-/*- (void) viewDidLayoutSubviews {
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-        
-    } else {
-        self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
-        if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
-            self.edgesForExtendedLayout = UIRectEdgeNone;   // iOS 7 specific
-        CGRect viewBounds = self.view.bounds;
-        CGFloat topBarOffset = self.topLayoutGuide.length;
-        viewBounds.origin.y = topBarOffset * -1;
-        self.view.bounds = viewBounds;
-        self.navigationController.navigationBar.translucent = NO;
-    }
-}*/
-
 - (void)refreshData {
     static NSString *stringURL = @"https://api.bitcoinaverage.com/ticker/global/all";
-    NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:stringURL]];
     
+    NSError *error = nil;
+    NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:stringURL] options:NSDataReadingUncached error:&error];
+
     theKeys = nil;
     theData = nil;
     
@@ -88,25 +75,15 @@
             NSArray *secondaryKeys = [NSArray arrayWithObjects:@"PLN",@"JPY",@"RUB",@"AUD",@"SEK",@"BRL",@"NZD",
                                                                @"SGD",@"ZAR",@"NOK",@"ILS",@"CHF",@"TRY",nil];
             NSMutableArray *allKeys = [[theData allKeys] mutableCopy];
-            
-            [allKeys removeObject:@"timestamp"];
 
-            /*for(NSInteger pi=0,oi,pc=[primaryKeys count];pi<pc;pi++)
-                if((oi=[otherKeys indexOfObject:primaryKeys[pi]])!=NSNotFound)
-                    [otherKeys removeObjectAtIndex:oi]; // remove the key from the other ones
-                else NSLog(@"%@ is absent in data.",primaryKeys[pi]);
-            
-            for(NSInteger si=0,oi,sc=[secondaryKeys count];si<sc;si++)
-                if((oi=[otherKeys indexOfObject:secondaryKeys[si]])!=NSNotFound)
-                    [otherKeys removeObjectAtIndex:oi]; // remove the key from the other ones
-                else NSLog(@"%@ is absent in data.",secondaryKeys[si]);*/
+            [allKeys removeObject:@"timestamp"];
 
             theKeys = [NSArray arrayWithObjects:primaryKeys,secondaryKeys,[allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)],nil];
 
             [self.tableView reloadData];
 
-        } else NSLogDebug(@"JSON to NSDictionary failed");
-    } else NSLogDebug(@"No urlData");
+        } else NSLogDebug(@"JSON to NSDictionary failed",nil);
+    } else NSLogDebug(@"No urlData: %@",error);
 
     if(theKeys == nil) theKeys = [NSArray arrayWithObjects:primaryKeys,nil];
 
