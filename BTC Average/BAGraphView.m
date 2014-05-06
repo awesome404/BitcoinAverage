@@ -12,7 +12,6 @@
 @interface BAGraphView () {
     NSDate *startTime, *endTime;
     double averagePosition, highPrice, lowPrice, averagePrice;
-    //NSArray *theData;
 }
 
 @property NSString *currency;
@@ -117,8 +116,7 @@
     
     // output the date
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];;
-    [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setDateFormat:@"MMM d, h:mm a"];
     [dateFormatter setLocale:[NSLocale currentLocale]];
     strOut = [dateFormatter stringFromDate:endTime];
     cgSize = [strOut sizeWithAttributes:grey];
