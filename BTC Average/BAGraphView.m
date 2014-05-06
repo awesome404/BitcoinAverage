@@ -91,7 +91,7 @@
     NSDictionary *grey = @{NSForegroundColorAttributeName:[UIColor lightGrayColor]};
 
     strOut = [NSString stringWithFormat:@"high: %.2f",highPrice];
-    cgSize = [strOut sizeWithAttributes:nil];
+    cgSize = [strOut sizeWithAttributes:grey];
     [strOut drawAtPoint:CGPointMake(10,eighth*2-cgSize.height) withAttributes:grey];
     
     strOut = [NSString stringWithFormat:@"low: %.2f",lowPrice];
@@ -104,20 +104,29 @@
         [strOut drawAtPoint:CGPointMake(10,eighth*4) withAttributes:grey];
 
         strOut = [NSString stringWithFormat:@"avg: %.2f",averagePrice];
-        cgSize = [strOut sizeWithAttributes:nil];
+        cgSize = [strOut sizeWithAttributes:red];
         [strOut drawAtPoint:CGPointMake(10,(averagePosition * (eighth*4))+(eighth*2)-cgSize.height) withAttributes:red];
     } else { // mid on top, average below
         strOut = [NSString stringWithFormat:@"mid: %.2f",mid];
-        cgSize = [strOut sizeWithAttributes:nil];
+        cgSize = [strOut sizeWithAttributes:grey];
         [strOut drawAtPoint:CGPointMake(10,eighth*4-cgSize.height) withAttributes:grey];
         
         strOut = [NSString stringWithFormat:@"avg: %.2f",averagePrice];
         [strOut drawAtPoint:CGPointMake(10,(averagePosition * (eighth*4))+(eighth*2)) withAttributes:red];
     }
     
+    // output the date
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];;
+    [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setLocale:[NSLocale currentLocale]];
+    strOut = [dateFormatter stringFromDate:endTime];
+    cgSize = [strOut sizeWithAttributes:grey];
+    [strOut drawAtPoint:CGPointMake(width-8-cgSize.width,eighth*6) withAttributes:grey];
 }
 
 - (NSArray*)getDataLines {
+
     NSString *urlFormat = @"https://api.bitcoinaverage.com/history/%@/per_minute_24h_sliding_window.csv";
     NSStringEncoding *encoding = nil;
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:urlFormat,[BACurrency get]]];
@@ -154,36 +163,34 @@
         lowPrice = 100000000.0;
 
         unsigned long i=0,ii=0,c,base=5;
-        double percent[([lines count]/base)+base];
+        double prices[([lines count]/base)+base];
 
         for(i=(base-1),c=[lines count];i<c;i+=base) {
             if([lines[i] length]>0) {
-                percent[ii] = 0;
+                prices[ii] = 0;
                 for(unsigned long x=0;x<base;x++) {
                     range = [lines[i-x] rangeOfString:@","];
-                    percent[ii] += [[lines[i-x] substringFromIndex:(range.location+range.length)] doubleValue];
+                    prices[ii] += [[lines[i-x] substringFromIndex:(range.location+range.length)] doubleValue];
                 }
-                averagePrice += percent[ii];
-                percent[ii] /= base;
+                averagePrice += prices[ii];
+                prices[ii] /= base;
                 
-                if(percent[ii] > highPrice) highPrice = percent[ii];
-                if(percent[ii] < lowPrice)  lowPrice  = percent[ii];
+                if(prices[ii] > highPrice) highPrice = prices[ii];
+                if(prices[ii] < lowPrice)  lowPrice  = prices[ii];
                 ii++;
             }
         }
         
         averagePrice /= (ii*base);
-        NSLogDebug(@"dailyAverage: %f",averagePrice);
         averagePosition = 1.0-(averagePrice-lowPrice)/(highPrice-lowPrice);
 
         NSMutableArray *mutableData = [NSMutableArray arrayWithCapacity:ii];
         for(i=0;i<ii;i++) {
-            mutableData[i] = [NSNumber numberWithDouble:(1.0-(percent[i]-lowPrice)/(highPrice-lowPrice))];
+            mutableData[i] = [NSNumber numberWithDouble:(1.0-(prices[i]-lowPrice)/(highPrice-lowPrice))];
         }
         
         return mutableData;
 
-        
     } else NSLogDebug(@"No urlData",nil);
     return nil;
 }
