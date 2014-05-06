@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Nullriver. All rights reserved.
 //
 
-#import "BACurrency.h"
+#import "BASettings.h"
 #import "BAAppDelegate.h"
 #import "BAViewController.h"
 #import "BAPaymentTransactionObserver.h"
@@ -39,7 +39,7 @@
     UIBackgroundFetchResult result = UIBackgroundFetchResultFailed;
 
     if([lastUpdate timeIntervalSinceNow] < -60.0) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.bitcoinaverage.com/ticker/global/%@",[BACurrency get]]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.bitcoinaverage.com/ticker/global/%@",[BASettings getCurrency]]];
         NSData *urlData;
 
         if((urlData = [NSData dataWithContentsOfURL:url])!=nil) {

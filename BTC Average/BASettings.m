@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Nullriver. All rights reserved.
 //
 
-#import "BACurrency.h"
+#import "BASettings.h"
 
-@implementation BACurrency
+@implementation BASettings
 
 // this is hidden from the interface
-+ (NSString*)singleton:(NSString*)value {
++ (NSString*)internalCurrency:(NSString*)value {
     static NSString *currency = nil;
     static NSString *key = @"BTCAverageCurrency";
 
@@ -26,12 +26,12 @@
     return currency;
 }
 
-+ (NSString*)get {
-    return [self singleton:nil];
++ (NSString*)getCurrency {
+    return [self internalCurrency:nil];
 }
 
-+ (NSString*)setTo:(NSString*)value {
-    return [self singleton:value];
++ (NSString*)setCurrency:(NSString*)value {
+    return [self internalCurrency:value];
 }
 
 @end

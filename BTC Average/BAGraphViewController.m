@@ -7,7 +7,7 @@
 //
 
 #import "BAGraphViewController.h"
-#import "BACurrency.h"
+#import "BASettings.h"
 
 
 @interface BAGraphViewController ()
@@ -21,7 +21,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     static NSString *format = @"24hr %@ price movement";
-    self.titleLabel.text = [NSString stringWithFormat:format,[BACurrency get]];
+    self.titleLabel.text = [NSString stringWithFormat:format,[BASettings getCurrency]];
 }
 
 @end

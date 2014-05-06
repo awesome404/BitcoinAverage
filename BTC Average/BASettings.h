@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BACurrency : NSObject
+@interface BASettings : NSObject
 
-+ (NSString*) get;
-+ (NSString*) setTo:(NSString*)value;
++ (NSString*) getCurrency;
++ (NSString*) setCurrency:(NSString*)value;
 
 @end

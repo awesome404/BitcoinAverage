@@ -7,7 +7,7 @@
 //
 
 #import "BAViewController.h"
-#import "BACurrency.h"
+#import "BASettings.h"
 
 @interface BAViewController () {
     NSTimer *refreshTimer;
@@ -113,7 +113,7 @@
     static NSString *urlFormat = @"https://api.bitcoinaverage.com/ticker/global/%@", *floatFormat = @"%0.2f";
 
     NSError *error=nil;
-    NSString *currency = [BACurrency get];//, *timeStamp = nil;
+    NSString *currency = [BASettings getCurrency];//, *timeStamp = nil;
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]] options:NSDataReadingUncached error:&error];
 
     if(urlData) {
@@ -290,7 +290,7 @@
     if(buttonIndex==[alertView cancelButtonIndex]) return;
     
     //if([alertView.title isEqualToString:@"BitcoinAverage Price Index"]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://bitcoinaverage.com/#%@-nomillibit",[BACurrency get]]]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://bitcoinaverage.com/#%@-nomillibit",[BASettings getCurrency]]]];
     //} else {
         /*NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
         NSRange range = {0,0};

@@ -8,7 +8,7 @@
 
 
 #import "BATableViewController.h"
-#import "BACurrency.h"
+#import "BASettings.h"
 
 @interface BATableViewController () {
     NSArray *theKeys;
@@ -116,7 +116,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [BACurrency setTo:theKeys[indexPath.section][indexPath.item]];
+    [BASettings setCurrency:theKeys[indexPath.section][indexPath.item]];
     theData = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
