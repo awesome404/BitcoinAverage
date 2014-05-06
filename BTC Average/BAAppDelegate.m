@@ -33,6 +33,7 @@
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
     NSLogDebug(@"got a time slice!",nil);
 
+    NSError *error=nil;
     static NSDate *lastUpdate=nil;
     if(lastUpdate==nil) lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
     
@@ -42,7 +43,7 @@
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.bitcoinaverage.com/ticker/global/%@",[BASettings getCurrency]]];
         NSData *urlData;
 
-        if((urlData = [NSData dataWithContentsOfURL:url])!=nil) {
+        if((urlData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error])!=nil) {
             NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:NULL];
             if(data) {
                 // Change the badge icon devided down to under 10000
@@ -58,7 +59,7 @@
             }
         } else {
             result = UIBackgroundFetchResultFailed;
-            NSLogDebug(@"background update: failed to fetch data",nil);
+            NSLogDebug(@"background update: failed to fetch data: %@",error);
         }
     } else {
         result = UIBackgroundFetchResultNoData; // refuse the update
