@@ -117,7 +117,7 @@
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]] options:NSDataReadingUncached error:&error];
 
     if(urlData) {
-        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:NULL];
+        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&error];
         if(data) {
             double bid  = [[data valueForKey:@"bid"]  doubleValue],
                    ask  = [[data valueForKey:@"ask"]  doubleValue];
@@ -149,7 +149,7 @@
             while(iLast>=10000) iLast/=10;
             [UIApplication sharedApplication].applicationIconBadgeNumber = iLast;
 
-        } else NSLogDebug(@"JSON to NSDictionary failed",nil);
+        } else NSLogDebug(@"JSON to NSDictionary failed: %@",error);
     } else NSLogDebug(@"No urlData: %@",error);
 
     NSLogDebug(@"refreshData %.2f",last);

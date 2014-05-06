@@ -70,7 +70,7 @@
     NSArray *primaryKeys = [NSArray arrayWithObjects:@"USD",@"CAD",@"EUR",@"CNY",@"GBP",nil];
     
     if(urlData) {
-        if((theData = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:NULL])!=nil) {
+        if((theData = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&error])!=nil) {
 
             NSArray *secondaryKeys = [NSArray arrayWithObjects:@"PLN",@"JPY",@"RUB",@"AUD",@"SEK",@"BRL",@"NZD",
                                                                @"SGD",@"ZAR",@"NOK",@"ILS",@"CHF",@"TRY",nil];
@@ -82,7 +82,7 @@
 
             [self.tableView reloadData];
 
-        } else NSLogDebug(@"JSON to NSDictionary failed",nil);
+        } else NSLogDebug(@"JSON to NSDictionary failed: %@",error);
     } else NSLogDebug(@"No urlData: %@",error);
 
     if(theKeys == nil) theKeys = [NSArray arrayWithObjects:primaryKeys,nil];

@@ -44,7 +44,7 @@
         NSData *urlData;
 
         if((urlData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error])!=nil) {
-            NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:NULL];
+            NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&error];
             if(data) {
                 // Change the badge icon devided down to under 10000
                 unsigned int iLast = (unsigned int)([[data valueForKey:@"last"] doubleValue]+0.5);
@@ -55,7 +55,7 @@
                 NSLogDebug(@"background update: %d",iLast);
             } else {
                 result = UIBackgroundFetchResultFailed;
-                NSLogDebug(@"background update: failed to convert to JSON",nil);
+                NSLogDebug(@"background update: failed to convert to JSON: %@",error);
             }
         } else {
             result = UIBackgroundFetchResultFailed;
