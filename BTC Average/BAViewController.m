@@ -22,6 +22,8 @@
 
 @property NSDate *lastUpdate;
 
+//@property ADBannerView *iAdBanner;
+
 @property (weak, nonatomic) IBOutlet UIButton *currencyButton;
 @property (weak, nonatomic) IBOutlet UIButton *smallCurrencyButton;
 
@@ -46,12 +48,19 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 
+    
     isShowingLandscapeView = NO;
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(orientationChanged:)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
+
+    // if they haven't paid
+    ADBannerView *adView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+    adView.delegate = self;
+//    adView.hidden = YES;
+    [self.view addSubview:adView];
     
     // trivial value to start with
     self.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
@@ -68,7 +77,6 @@
     SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productSet];
     productsRequest.delegate = self;
     [productsRequest start];*/
-    
     
     [self refreshData];
 }
@@ -311,6 +319,45 @@
         }
         [self performSegueWithIdentifier:@"QRCode" sender:nil];*/
     //}
+}
+
+#pragma mark iAd - ADBannerViewDelegate
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
+    banner.hidden = NO;
+    
+    CGRect contentFrame = self.view.bounds;
+    contentFrame.size.height -= banner.frame.size.height;
+    self.view.frame = contentFrame;
+    
+    CGRect bannerFrame = banner.frame;
+    bannerFrame.origin.y = contentFrame.size.height;
+    banner.frame = bannerFrame;
+
+    NSLogDebug(@"bannerViewDidLoadAd",nil);
+}
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+    banner.hidden = YES;
+    
+    CGRect contentFrame = self.view.bounds;
+    if(self.view.frame.size.height != contentFrame.size.height)
+        self.view.frame = contentFrame;
+
+    CGRect bannerFrame = banner.frame;
+    bannerFrame.origin.y = contentFrame.size.height;
+    banner.frame = bannerFrame;
+
+    NSLogDebug(@"bannerView:didFailToReceiveAdWithError:%@",[error localizedDescription]);
+}
+
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
+    [self stopRefreshTimer];
+    return YES;
+}
+
+- (void)bannerViewActionDidFinish:(ADBannerView *)banner {
+    [self startRefreshTimer];
 }
 
 @end
