@@ -11,8 +11,8 @@
 #import "BASettings.h"
 
 @interface BATableViewController () {
-    NSArray *theKeys;
-    NSDictionary *theData;
+    NSArray *_theKeys;
+    NSDictionary *_theData;
 }
 
 - (void)refreshData;
@@ -64,28 +64,28 @@
     NSError *error = nil;
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:stringURL] options:NSDataReadingUncached error:&error];
 
-    theKeys = nil;
-    theData = nil;
+    _theKeys = nil;
+    _theData = nil;
     
     NSArray *primaryKeys = [NSArray arrayWithObjects:@"USD",@"CAD",@"EUR",@"CNY",@"GBP",nil];
     
     if(urlData) {
-        if((theData = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&error])!=nil) {
+        if((_theData = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&error])!=nil) {
 
             NSArray *secondaryKeys = [NSArray arrayWithObjects:@"PLN",@"JPY",@"RUB",@"AUD",@"SEK",@"BRL",@"NZD",
                                                                @"SGD",@"ZAR",@"NOK",@"ILS",@"CHF",@"TRY",nil];
-            NSMutableArray *allKeys = [[theData allKeys] mutableCopy];
+            NSMutableArray *allKeys = [[_theData allKeys] mutableCopy];
 
             [allKeys removeObject:@"timestamp"];
 
-            theKeys = [NSArray arrayWithObjects:primaryKeys,secondaryKeys,[allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)],nil];
+            _theKeys = [NSArray arrayWithObjects:primaryKeys,secondaryKeys,[allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)],nil];
 
             [self.tableView reloadData];
 
         } else NSLogDebug(@"JSON to NSDictionary failed: %@",error);
     } else NSLogDebug(@"No urlData: %@",error);
 
-    if(theKeys == nil) theKeys = [NSArray arrayWithObjects:primaryKeys,nil];
+    if(_theKeys == nil) _theKeys = [NSArray arrayWithObjects:primaryKeys,nil];
 
     if(self.refreshControl.refreshing) [self.refreshControl endRefreshing];
 }
@@ -108,16 +108,16 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [theKeys count]; // Return the number of sections.
+    return [_theKeys count]; // Return the number of sections.
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [theKeys[section] count]; // Return the number of rows in the section.
+    return [_theKeys[section] count]; // Return the number of rows in the section.
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [BASettings setCurrency:theKeys[indexPath.section][indexPath.item]];
-    theData = nil;
+    [BASettings setCurrency:_theKeys[indexPath.section][indexPath.item]];
+    _theData = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -128,10 +128,10 @@
     if(cell==nil)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 
-    NSString *key = theKeys[indexPath.section][indexPath.item];
+    NSString *key = _theKeys[indexPath.section][indexPath.item];
     NSDictionary *dict;
 
-    if(theData==nil || (dict=[theData valueForKey:key])==nil) {
+    if(_theData==nil || (dict=[_theData valueForKey:key])==nil) {
         cell.textLabel.text = key;
         cell.detailTextLabel.text = @"Data is absent...";
 

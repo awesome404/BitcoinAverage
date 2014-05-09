@@ -10,9 +10,9 @@
 #import "BASettings.h"
 
 @interface BAViewController () {
-    NSTimer *refreshTimer;
-    double last;
-    BOOL isShowingLandscapeView;
+    NSTimer *_refreshTimer;
+    double _last;
+    BOOL _isShowingLandscapeView;
     //NSArray *storeProducts;
 }
 
@@ -48,7 +48,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 
-    isShowingLandscapeView = NO;
+    _isShowingLandscapeView = NO;
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(orientationChanged:)
@@ -89,12 +89,12 @@
 - (void)orientationChanged:(NSNotification *)notification {
     
     UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
-    if (!isShowingLandscapeView && UIDeviceOrientationIsLandscape(deviceOrientation) && self.presentedViewController==nil) {
+    if (!_isShowingLandscapeView && UIDeviceOrientationIsLandscape(deviceOrientation) && self.presentedViewController==nil) {
         [self performSegueWithIdentifier:@"Graph" sender:self];
-        isShowingLandscapeView = YES;
-    } else if(isShowingLandscapeView && UIDeviceOrientationIsPortrait(deviceOrientation)) {
+        _isShowingLandscapeView = YES;
+    } else if(_isShowingLandscapeView && UIDeviceOrientationIsPortrait(deviceOrientation)) {
         [self dismissViewControllerAnimated:YES completion:nil];
-        isShowingLandscapeView = NO;
+        _isShowingLandscapeView = NO;
     }
 }
 
@@ -103,13 +103,13 @@
 - (void)startRefreshTimer {
     NSLogDebug(@"startRefreshTimer",nil);
     [self refreshData];
-    refreshTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(timerFireRefresh:) userInfo:nil repeats:YES];
+    _refreshTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(timerFireRefresh:) userInfo:nil repeats:YES];
 }
 
 - (void)stopRefreshTimer {
     NSLogDebug(@"stopRefreshTimer",nil);
-    [refreshTimer invalidate];
-    refreshTimer=nil;
+    [_refreshTimer invalidate];
+    _refreshTimer=nil;
 }
 
 - (void)timerFireRefresh:(NSTimer *)timer {
@@ -132,7 +132,7 @@
             double bid  = [[data valueForKey:@"bid"]  doubleValue],
                    ask  = [[data valueForKey:@"ask"]  doubleValue];
 
-            last = [[data valueForKey:@"last"] doubleValue];
+            _last = [[data valueForKey:@"last"] doubleValue];
             // timeStamp = [data valueForKey:@"timestamp"];
             NSString *timeStamp = [self reformatTimestamp:[data valueForKey:@"timestamp"]];
 
@@ -141,28 +141,28 @@
             [self.smallCurrencyButton setTitle:currency forState:UIControlStateNormal];
             
             // Change the labels
-            self.lastLabel.text = [NSString stringWithFormat:floatFormat,last];
+            self.lastLabel.text = [NSString stringWithFormat:floatFormat,_last];
             self.bidLabel.text  = [NSString stringWithFormat:floatFormat,bid];
             self.askLabel.text  = [NSString stringWithFormat:floatFormat,ask];
             self.dateLabel.text = /*[dateFormatter stringFromDate:date];*/(timeStamp!=nil)?timeStamp:@"";
             
             // Change the edit boxes
-            self.currencyEdit.placeholder = [NSString stringWithFormat:floatFormat,last];
+            self.currencyEdit.placeholder = [NSString stringWithFormat:floatFormat,_last];
 
             if([self.bitcoinEdit.text length]) {
-                double newval = [self.bitcoinEdit.text doubleValue]*last;
+                double newval = [self.bitcoinEdit.text doubleValue]*_last;
                 self.currencyEdit.text = [NSString stringWithFormat:floatFormat,newval];
             }
             
             // Change the badge icon devided down to under 10000
-            unsigned int iLast = (unsigned int)(last+0.5);
+            unsigned int iLast = (unsigned int)(_last+0.5);
             while(iLast>=10000) iLast/=10;
             [UIApplication sharedApplication].applicationIconBadgeNumber = iLast;
 
         } else NSLogDebug(@"JSON to NSDictionary failed: %@",error);
     } else NSLogDebug(@"No urlData: %@",error);
 
-    NSLogDebug(@"refreshData %.2f",last);
+    NSLogDebug(@"refreshData %.2f",_last);
 }
 
 - (NSString*)reformatTimestamp:(NSString*)stamp {
@@ -218,9 +218,9 @@
 
     if([newText length]) {
         if(textField == self.currencyEdit) {
-            self.bitcoinEdit.text = [NSString stringWithFormat:@"%.8f",([newText doubleValue]/last)];
+            self.bitcoinEdit.text = [NSString stringWithFormat:@"%.8f",([newText doubleValue]/_last)];
         } else if(textField == self.bitcoinEdit) {
-            self.currencyEdit.text = [NSString stringWithFormat:@"%.2f",([newText doubleValue]*last)];
+            self.currencyEdit.text = [NSString stringWithFormat:@"%.2f",([newText doubleValue]*_last)];
         }
         if(!rVal) textField.text = newText; // AND move the cursor
     } else {

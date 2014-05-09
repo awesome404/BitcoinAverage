@@ -10,8 +10,8 @@
 #import "BASettings.h"
 
 @interface BAGraphView () {
-    NSDate *startTime, *endTime;
-    double averagePosition, highPrice, lowPrice, averagePrice;
+    NSDate *_startTime, *_endTime;
+    double _averagePosition, _highPrice, _lowPrice, _averagePrice;
 }
 
 @property NSString *currency;
@@ -66,7 +66,7 @@
     // red daily average line
     CGContextSetRGBStrokeColor(context, 1, 0.8, 0.8, 1);
     
-    y = (averagePosition * (eighth*4))+(eighth*2);
+    y = (_averagePosition * (eighth*4))+(eighth*2);
     CGContextMoveToPoint(context, 0, y);
     CGContextAddLineToPoint(context, width, y);
     
@@ -89,36 +89,36 @@
     NSDictionary *red = @{NSForegroundColorAttributeName:[UIColor colorWithRed:1 green:0.8 blue:0.8 alpha:1]};
     NSDictionary *grey = @{NSForegroundColorAttributeName:[UIColor lightGrayColor]};
 
-    strOut = [NSString stringWithFormat:@"high: %.2f",highPrice];
+    strOut = [NSString stringWithFormat:@"high: %.2f",_highPrice];
     cgSize = [strOut sizeWithAttributes:grey];
     [strOut drawAtPoint:CGPointMake(10,eighth*2-cgSize.height) withAttributes:grey];
     
-    strOut = [NSString stringWithFormat:@"low: %.2f",lowPrice];
+    strOut = [NSString stringWithFormat:@"low: %.2f",_lowPrice];
     [strOut drawAtPoint:CGPointMake(10,eighth*6) withAttributes:grey];
 
-    double mid = (highPrice+lowPrice)/2;
+    double mid = (_highPrice+_lowPrice)/2;
     
-    if(averagePrice > mid) { // mid below, average on top
+    if(_averagePrice > mid) { // mid below, average on top
         strOut = [NSString stringWithFormat:@"mid: %.2f",mid];
         [strOut drawAtPoint:CGPointMake(10,eighth*4) withAttributes:grey];
 
-        strOut = [NSString stringWithFormat:@"avg: %.2f",averagePrice];
+        strOut = [NSString stringWithFormat:@"avg: %.2f",_averagePrice];
         cgSize = [strOut sizeWithAttributes:red];
-        [strOut drawAtPoint:CGPointMake(10,(averagePosition * (eighth*4))+(eighth*2)-cgSize.height) withAttributes:red];
+        [strOut drawAtPoint:CGPointMake(10,(_averagePosition * (eighth*4))+(eighth*2)-cgSize.height) withAttributes:red];
     } else { // mid on top, average below
         strOut = [NSString stringWithFormat:@"mid: %.2f",mid];
         cgSize = [strOut sizeWithAttributes:grey];
         [strOut drawAtPoint:CGPointMake(10,eighth*4-cgSize.height) withAttributes:grey];
         
-        strOut = [NSString stringWithFormat:@"avg: %.2f",averagePrice];
-        [strOut drawAtPoint:CGPointMake(10,(averagePosition * (eighth*4))+(eighth*2)) withAttributes:red];
+        strOut = [NSString stringWithFormat:@"avg: %.2f",_averagePrice];
+        [strOut drawAtPoint:CGPointMake(10,(_averagePosition * (eighth*4))+(eighth*2)) withAttributes:red];
     }
     
     // output the date
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];;
     [dateFormatter setDateFormat:@"MMM d, h:mm a"];
     [dateFormatter setLocale:[NSLocale currentLocale]];
-    strOut = [dateFormatter stringFromDate:endTime];
+    strOut = [dateFormatter stringFromDate:_endTime];
     cgSize = [strOut sizeWithAttributes:grey];
     [strOut drawAtPoint:CGPointMake(width-8-cgSize.width,eighth*6) withAttributes:grey];
 }
@@ -154,14 +154,14 @@
         [dateFormatter setDateFormat:@"y-M-d HH:mm:ss"];
         
         NSRange range = [[lines firstObject] rangeOfString:@","];
-        startTime = [dateFormatter dateFromString:[[lines firstObject] substringToIndex:range.location]];
+        _startTime = [dateFormatter dateFromString:[[lines firstObject] substringToIndex:range.location]];
 
         range = [[lines lastObject] rangeOfString:@","];
-        endTime = [dateFormatter dateFromString:[[lines lastObject] substringToIndex:range.location]];
+        _endTime = [dateFormatter dateFromString:[[lines lastObject] substringToIndex:range.location]];
         
-        averagePrice = 0.0;
-        highPrice = 0.0;
-        lowPrice = 100000000.0;
+        _averagePrice = 0.0;
+        _highPrice = 0.0;
+        _lowPrice = 100000000.0;
 
         unsigned long i=0,ii=0,c,base=5;
         double prices[([lines count]/base)+base];
@@ -173,21 +173,21 @@
                     range = [lines[i-x] rangeOfString:@","];
                     prices[ii] += [[lines[i-x] substringFromIndex:(range.location+range.length)] doubleValue];
                 }
-                averagePrice += prices[ii];
+                _averagePrice += prices[ii];
                 prices[ii] /= base;
                 
-                if(prices[ii] > highPrice) highPrice = prices[ii];
-                if(prices[ii] < lowPrice)  lowPrice  = prices[ii];
+                if(prices[ii] > _highPrice) _highPrice = prices[ii];
+                if(prices[ii] < _lowPrice)  _lowPrice  = prices[ii];
                 ii++;
             }
         }
-        
-        averagePrice /= (ii*base);
-        averagePosition = 1.0-(averagePrice-lowPrice)/(highPrice-lowPrice);
+
+        _averagePrice /= (ii*base);
+        _averagePosition = 1.0-(_averagePrice-_lowPrice)/(_highPrice-_lowPrice);
 
         NSMutableArray *mutableData = [NSMutableArray arrayWithCapacity:ii];
         for(i=0;i<ii;i++) {
-            mutableData[i] = [NSNumber numberWithDouble:(1.0-(prices[i]-lowPrice)/(highPrice-lowPrice))];
+            mutableData[i] = [NSNumber numberWithDouble:(1.0-(prices[i]-_lowPrice)/(_highPrice-_lowPrice))];
         }
         
         return mutableData;

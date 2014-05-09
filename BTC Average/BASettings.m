@@ -8,6 +8,12 @@
 
 #import "BASettings.h"
 
+@interface BASettings ()
+
++ (NSString*)internalCurrency:(NSString*)value;
+
+@end
+
 @implementation BASettings
 
 // this is hidden from the interface
