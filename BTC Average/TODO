@@ -5,14 +5,13 @@ In app purchases for donations (leaving the QR button with no mention of bitcoin
 
 -- Low
 
-Currency table still goes under the status bar - I blame Apple
+Currency table still goes under the status bar - I blame Apple - they don't seem to care
 stop refreshing data twice on startup
 
 
 -- Future Version
 
 iPad interface
-turn sideways for a graph
 
 
 -- Maybe

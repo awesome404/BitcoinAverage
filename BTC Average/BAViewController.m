@@ -13,6 +13,7 @@
     NSTimer *refreshTimer;
     double last;
     BOOL isShowingLandscapeView;
+    ADBannerView *_bannerView;
     //NSArray *storeProducts;
 }
 
@@ -56,11 +57,21 @@
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
 
+/*    NSLayoutConstraint * proptionConstraint =
+    [NSLayoutConstraint constraintWithItem:_equalLabel
+                                 attribute:NSLayoutAttributeTop
+                                 relatedBy:NSLayoutRelationEqual
+                                    toItem:_theView
+                                 attribute:NSLayoutAttributeHeight
+                                multiplier:(1.0/4.0)
+                                  constant:0];
+[_theView addConstraint:proptionConstraint];*/
+    
     // if they haven't paid
-    ADBannerView *adView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-    adView.delegate = self;
-//    adView.hidden = YES;
-    [self.view addSubview:adView];
+    _bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+    _bannerView.delegate = self;
+    //_bannerView.hidden = YES;
+    [self.view addSubview:_bannerView];
     
     // trivial value to start with
     self.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
@@ -324,7 +335,7 @@
 #pragma mark iAd - ADBannerViewDelegate
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
-    banner.hidden = NO;
+    //banner.hidden = NO;
     
     CGRect contentFrame = self.view.bounds;
     contentFrame.size.height -= banner.frame.size.height;
@@ -338,10 +349,10 @@
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
-    banner.hidden = YES;
-    
+    //banner.hidden = YES;
+
     CGRect contentFrame = self.view.bounds;
-    if(self.view.frame.size.height != contentFrame.size.height)
+    //if(self.view.frame.size.height != contentFrame.size.height)
         self.view.frame = contentFrame;
 
     CGRect bannerFrame = banner.frame;
