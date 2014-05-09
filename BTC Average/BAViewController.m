@@ -9,19 +9,11 @@
 #import "BAViewController.h"
 #import "BASettings.h"
 
-@interface BAViewController () {
-    NSTimer *_refreshTimer;
-    double _last;
-    BOOL _isShowingLandscapeView;
-    //NSArray *storeProducts;
-}
-
-- (void)refreshData;
-- (NSString*)reformatTimestamp:(NSString*)stamp;
-- (void)orientationChanged:(NSNotification *)notification;
+@interface BAViewController ()
 
 @property NSDate *lastUpdate;
 
+@property NSTimer *refreshTimer;
 @property ADBannerView *bannerView;
 
 @property (weak, nonatomic) IBOutlet UIButton *currencyButton;
@@ -34,6 +26,10 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *currencyEdit;
 @property (weak, nonatomic) IBOutlet UITextField *bitcoinEdit;
+
+- (void)refreshData;
+- (NSString*)reformatTimestamp:(NSString*)stamp;
+- (void)orientationChanged:(NSNotification *)notification;
 
 //- (IBAction)donatePush:(UIButton *)sender;
 - (IBAction)infoPush:(UIButton *)sender;
