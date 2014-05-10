@@ -16,6 +16,9 @@
 @property NSTimer *refreshTimer;
 @property ADBannerView *bannerView;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *adGap;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
+
 @property (weak, nonatomic) IBOutlet UIButton *currencyButton;
 @property (weak, nonatomic) IBOutlet UIButton *smallCurrencyButton;
 
@@ -64,11 +67,13 @@
     // if they haven't paid
     _bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
     _bannerView.delegate = self;
-    //_bannerView.hidden = YES;
+    CGRect newBannerFrame = _bannerView.frame;
+    newBannerFrame.origin.y = self.view.frame.size.height;
+    _bannerView.frame = newBannerFrame;
     [self.view addSubview:_bannerView];
-    
+
     // trivial value to start with
-    self.lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
+    _lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -133,21 +138,21 @@
             NSString *timeStamp = [self reformatTimestamp:[data valueForKey:@"timestamp"]];
 
             // Currency Buttons
-            [self.currencyButton setTitle:currency forState:UIControlStateNormal];
-            [self.smallCurrencyButton setTitle:currency forState:UIControlStateNormal];
+            [_currencyButton setTitle:currency forState:UIControlStateNormal];
+            [_smallCurrencyButton setTitle:currency forState:UIControlStateNormal];
             
             // Change the labels
-            self.lastLabel.text = [NSString stringWithFormat:floatFormat,_last];
-            self.bidLabel.text  = [NSString stringWithFormat:floatFormat,bid];
-            self.askLabel.text  = [NSString stringWithFormat:floatFormat,ask];
-            self.dateLabel.text = /*[dateFormatter stringFromDate:date];*/(timeStamp!=nil)?timeStamp:@"";
+            _lastLabel.text = [NSString stringWithFormat:floatFormat,_last];
+            _bidLabel.text  = [NSString stringWithFormat:floatFormat,bid];
+            _askLabel.text  = [NSString stringWithFormat:floatFormat,ask];
+            _dateLabel.text = /*[dateFormatter stringFromDate:date];*/(timeStamp!=nil)?timeStamp:@"";
             
             // Change the edit boxes
-            self.currencyEdit.placeholder = [NSString stringWithFormat:floatFormat,_last];
+            _currencyEdit.placeholder = [NSString stringWithFormat:floatFormat,_last];
 
-            if([self.bitcoinEdit.text length]) {
-                double newval = [self.bitcoinEdit.text doubleValue]*_last;
-                self.currencyEdit.text = [NSString stringWithFormat:floatFormat,newval];
+            if([_bitcoinEdit.text length]) {
+                double newval = [_bitcoinEdit.text doubleValue]*_last;
+                _currencyEdit.text = [NSString stringWithFormat:floatFormat,newval];
             }
             
             // Change the badge icon devided down to under 10000
@@ -177,8 +182,8 @@
 #pragma mark Text Boxes
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
-    if(textField == self.currencyEdit) self.bitcoinEdit.text = nil;
-    else if(textField == self.bitcoinEdit) self.currencyEdit.text = nil;
+    if(textField == _currencyEdit) _bitcoinEdit.text = nil;
+    else if(textField == _bitcoinEdit) _currencyEdit.text = nil;
     return YES;
 }
 
@@ -213,15 +218,15 @@
     NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
 
     if([newText length]) {
-        if(textField == self.currencyEdit) {
-            self.bitcoinEdit.text = [NSString stringWithFormat:@"%.8f",([newText doubleValue]/_last)];
-        } else if(textField == self.bitcoinEdit) {
-            self.currencyEdit.text = [NSString stringWithFormat:@"%.2f",([newText doubleValue]*_last)];
+        if(textField == _currencyEdit) {
+            _bitcoinEdit.text = [NSString stringWithFormat:@"%.8f",([newText doubleValue]/_last)];
+        } else if(textField == _bitcoinEdit) {
+            _currencyEdit.text = [NSString stringWithFormat:@"%.2f",([newText doubleValue]*_last)];
         }
         if(!rVal) textField.text = newText; // AND move the cursor
     } else {
-        if(textField == self.currencyEdit) self.bitcoinEdit.text = nil;
-        else if(textField == self.bitcoinEdit) self.currencyEdit.text = nil;
+        if(textField == _currencyEdit) _bitcoinEdit.text = nil;
+        else if(textField == _bitcoinEdit) _currencyEdit.text = nil;
     }
     
     return rVal;
@@ -229,18 +234,18 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     // sanitize the bitch
-    double btc = [self.bitcoinEdit.text doubleValue], currency = [self.currencyEdit.text doubleValue];
-    self.bitcoinEdit.text = (btc==0.0)?nil:[NSString stringWithFormat:@"%.8f",btc];
-    self.currencyEdit.text = (currency==0.0)?nil:[NSString stringWithFormat:@"%.2f",currency];
+    double btc = [_bitcoinEdit.text doubleValue], currency = [_currencyEdit.text doubleValue];
+    _bitcoinEdit.text = (btc==0.0)?nil:[NSString stringWithFormat:@"%.8f",btc];
+    _currencyEdit.text = (currency==0.0)?nil:[NSString stringWithFormat:@"%.2f",currency];
 }
 
 #pragma Touches
 
 - (IBAction)downSwipe:(UISwipeGestureRecognizer *)sender {
     // skip an update if it's been under ~30 seconds since the last one.
-    if([self.lastUpdate timeIntervalSinceNow] < -29.5) {
+    if([_lastUpdate timeIntervalSinceNow] < -29.5) {
         [self refreshData];
-        self.lastUpdate = [NSDate date];
+        _lastUpdate = [NSDate date];
     }
 }
 
@@ -268,29 +273,33 @@
 #pragma mark iAd - ADBannerViewDelegate
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
-    //banner.hidden = NO;
-    
-    CGRect contentFrame = self.view.bounds;
-    contentFrame.size.height -= banner.frame.size.height;
-    self.view.frame = contentFrame;
-    
-    CGRect bannerFrame = banner.frame;
-    bannerFrame.origin.y = contentFrame.size.height;
-    banner.frame = bannerFrame;
+
+    if(_adGap.constant==0) {
+        CGRect newBannerFrame = banner.frame;
+        newBannerFrame.origin.y = self.view.frame.size.height - newBannerFrame.size.height;
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            _adGap.constant = newBannerFrame.size.height;
+            [self.view layoutIfNeeded];
+            banner.frame = newBannerFrame;
+        } completion:nil];
+    }
 
     NSLogDebug(@"bannerViewDidLoadAd",nil);
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
-    //banner.hidden = YES;
 
-    CGRect contentFrame = self.view.bounds;
-    //if(self.view.frame.size.height != contentFrame.size.height)
-        self.view.frame = contentFrame;
-
-    CGRect bannerFrame = banner.frame;
-    bannerFrame.origin.y = contentFrame.size.height;
-    banner.frame = bannerFrame;
+    if(_adGap.constant>0) {
+        CGRect newBannerFrame = banner.frame;
+        newBannerFrame.origin.y = self.view.frame.size.height;
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            _adGap.constant = 0;
+            [self.view layoutIfNeeded];
+            banner.frame = newBannerFrame;
+        } completion:nil];
+    }
 
     NSLogDebug(@"bannerView:didFailToReceiveAdWithError:%@",[error localizedDescription]);
 }
