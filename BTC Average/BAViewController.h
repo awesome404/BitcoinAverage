@@ -10,7 +10,7 @@
 //#import <StoreKit/StoreKit.h>
 #import <iAd/iAd.h>
 
-@interface BAViewController : UIViewController <UIAlertViewDelegate,UITextFieldDelegate /*,SKProductsRequestDelegate*/ ,ADBannerViewDelegate>
+@interface BAViewController : UIViewController <UIAlertViewDelegate, UITextFieldDelegate, ADBannerViewDelegate>
 
 - (void)startRefreshTimer;
 - (void)stopRefreshTimer;

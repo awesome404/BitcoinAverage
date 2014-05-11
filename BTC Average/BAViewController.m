@@ -53,16 +53,6 @@
                                              selector:@selector(orientationChanged:)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
-
-/*    NSLayoutConstraint * proptionConstraint =
-    [NSLayoutConstraint constraintWithItem:_equalLabel
-                                 attribute:NSLayoutAttributeTop
-                                 relatedBy:NSLayoutRelationEqual
-                                    toItem:_theView
-                                 attribute:NSLayoutAttributeHeight
-                                multiplier:(1.0/4.0)
-                                  constant:0];
-[_theView addConstraint:proptionConstraint];*/
     
     // if they haven't paid
     _bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
@@ -134,7 +124,6 @@
                    ask  = [[data valueForKey:@"ask"]  doubleValue];
 
             _last = [[data valueForKey:@"last"] doubleValue];
-            // timeStamp = [data valueForKey:@"timestamp"];
             NSString *timeStamp = [self reformatTimestamp:[data valueForKey:@"timestamp"]];
 
             // Currency Buttons
@@ -179,7 +168,7 @@
     return [dateFormatter stringFromDate:theDate];
 }
 
-#pragma mark Text Boxes
+#pragma mark Text Boxes - UITextFieldDelegate
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
     if(textField == _currencyEdit) _bitcoinEdit.text = nil;
@@ -253,7 +242,7 @@
     [self.view endEditing:YES];
 }
 
-#pragma mark Buttons with Alerts
+#pragma mark Buttons with Alerts - UIAlertViewDelegate
 
 - (IBAction)infoPush:(UIButton *)sender {
     [[[UIAlertView alloc] initWithTitle:@"BitcoinAverage Price Index"
