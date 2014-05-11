@@ -134,7 +134,7 @@
             _lastLabel.text = [NSString stringWithFormat:floatFormat,_last];
             _bidLabel.text  = [NSString stringWithFormat:floatFormat,bid];
             _askLabel.text  = [NSString stringWithFormat:floatFormat,ask];
-            _dateLabel.text = /*[dateFormatter stringFromDate:date];*/(timeStamp!=nil)?timeStamp:@"";
+            _dateLabel.text = (timeStamp!=nil)?timeStamp:@"";
             
             // Change the edit boxes
             _currencyEdit.placeholder = [NSString stringWithFormat:floatFormat,_last];
@@ -150,7 +150,10 @@
             [UIApplication sharedApplication].applicationIconBadgeNumber = iLast;
 
         } else NSLogDebug(@"JSON to NSDictionary failed: %@",error);
-    } else NSLogDebug(@"No urlData: %@",error);
+    } else {
+        _dateLabel.text = @"Failed to fetch data.";
+        NSLogDebug(@"No urlData: %@",error);
+    }
 
     NSLogDebug(@"refreshData %.2f",_last);
 }
