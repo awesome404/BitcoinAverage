@@ -4,7 +4,6 @@
 -- Low
 
 Currency table still goes under the status bar - I blame Apple - they don't seem to care
-stop refreshing data twice on startup
 
 
 -- Future Version
