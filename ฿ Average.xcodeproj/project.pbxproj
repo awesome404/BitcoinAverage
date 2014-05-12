@@ -62,7 +62,7 @@
 		6648645318BAC53500A0CEAB /* BAAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAppDelegate.m; sourceTree = "<group>"; };
 		6648645518BAC55200A0CEAB /* BASettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASettings.h; sourceTree = "<group>"; };
 		6648645618BAC55200A0CEAB /* BASettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASettings.m; sourceTree = "<group>"; };
-		6648645818BD8FF600A0CEAB /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
+		6648645818BD8FF600A0CEAB /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; name = TODO; path = ../TODO; sourceTree = "<group>"; };
 		668EEDB3190096B20099E252 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		66A4D71C19145EED0073FCE3 /* BAGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAGraphView.h; sourceTree = "<group>"; };
 		66A4D71D19145EED0073FCE3 /* BAGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAGraphView.m; sourceTree = "<group>"; };
