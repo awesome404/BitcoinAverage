@@ -147,8 +147,13 @@
             unsigned int iLast = (unsigned int)(_last+0.5);
             while(iLast>=10000) iLast/=10;
             [UIApplication sharedApplication].applicationIconBadgeNumber = iLast;
+            
+            _lastUpdate = [NSDate date];
 
-        } else NSLogDebug(@"JSON to NSDictionary failed: %@",error);
+        } else {
+            _dateLabel.text = @"Failed to parse data.";
+            NSLogDebug(@"JSON to NSDictionary failed: %@",error);
+        }
     } else {
         _dateLabel.text = @"Failed to fetch data.";
         NSLogDebug(@"No urlData: %@",error);
