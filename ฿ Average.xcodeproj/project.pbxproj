@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6620853518FDC15000C32460 /* InAppProductIDs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6620853418FDC15000C32460 /* InAppProductIDs.plist */; };
 		662CA3A918AD89AC00FC558A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662CA3A818AD89AC00FC558A /* Foundation.framework */; };
 		662CA3AB18AD89AC00FC558A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662CA3AA18AD89AC00FC558A /* CoreGraphics.framework */; };
 		662CA3AD18AD89AC00FC558A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662CA3AC18AD89AC00FC558A /* UIKit.framework */; };
@@ -27,7 +26,6 @@
 		66A4D72119155AD50073FCE3 /* BAGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C1D993190AF81000D38ACE /* BAGraphViewController.m */; };
 		66A4D728191ABEA50073FCE3 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66A4D727191ABEA50073FCE3 /* iAd.framework */; };
 		66BD636118EDFC2A00C4E618 /* BAQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BD636018EDFC2A00C4E618 /* BAQRCodeViewController.m */; };
-		66D34F2C18EC1BFA00257C69 /* changelog in Resources */ = {isa = PBXBuildFile; fileRef = 66D34F2B18EC1BFA00257C69 /* changelog */; };
 		66FEFB0C18AEA75B0044853D /* BATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FEFB0B18AEA75B0044853D /* BATableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -339,9 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				662CA3C418AD89AD00FC558A /* Images.xcassets in Resources */,
-				66D34F2C18EC1BFA00257C69 /* changelog in Resources */,
 				662CA3BC18AD89AD00FC558A /* Main_iPhone.storyboard in Resources */,
-				6620853518FDC15000C32460 /* InAppProductIDs.plist in Resources */,
 				662CA3B318AD89AD00FC558A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,7 +449,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -473,7 +469,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -485,7 +481,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
