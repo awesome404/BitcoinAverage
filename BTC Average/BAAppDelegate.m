@@ -47,12 +47,12 @@
             NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&error];
             if(data) {
                 // Change the badge icon devided down to under 10000
-                unsigned int iLast = (unsigned int)([[data valueForKey:@"last"] doubleValue]+0.5);
-                while(iLast>=10000) iLast/=10;
-                application.applicationIconBadgeNumber = iLast;
+                double last = [[data valueForKey:@"last"] doubleValue];
+                while(last>=10000.0) last/=10.0;
+                application.applicationIconBadgeNumber = (unsigned)(last+0.5);
                 lastUpdate = [NSDate date];
                 result = UIBackgroundFetchResultNewData;
-                NSLogDebug(@"background update: %d",iLast);
+                NSLogDebug(@"background update: %.2f",last);
             } else {
                 result = UIBackgroundFetchResultFailed;
                 NSLogDebug(@"background update: failed to convert to JSON: %@",error);

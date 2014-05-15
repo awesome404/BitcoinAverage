@@ -144,9 +144,9 @@
             }
             
             // Change the badge icon devided down to under 10000
-            unsigned int iLast = (unsigned int)(_last+0.5);
-            while(iLast>=10000) iLast/=10;
-            [UIApplication sharedApplication].applicationIconBadgeNumber = iLast;
+            double last_copy = _last;
+            while(last_copy>=10000.0) last_copy/=10.0;
+            [UIApplication sharedApplication].applicationIconBadgeNumber = (unsigned)(last_copy+0.5);
             
             _lastUpdate = [NSDate date];
 
@@ -188,13 +188,13 @@
     BOOL rVal = YES;
 
     if([string length]) {
-        unsigned int x=0;
+        unsigned x=0;
         char c,cReplace[[string length]+1];
 
         BOOL found = ([textField.text rangeOfString:@"."].location!=NSNotFound);
             
         NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
-        for(unsigned int i=0,l=(unsigned int)[string length]; i<l; i++) {
+        for(unsigned i=0,l=(unsigned)[string length]; i<l; i++) {
             c=[string characterAtIndex:i];
             if([charSet characterIsMember:c]) {
                 cReplace[x++]=c;
