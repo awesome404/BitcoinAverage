@@ -38,7 +38,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BW0-wW-0q9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1039" y="422"/>
+            <point key="canvasLocation" x="1406" y="-151"/>
         </scene>
         <!--View Controller - Splash-->
         <scene sceneID="ICN-lg-MRA">
@@ -240,7 +240,6 @@
                         <outlet property="dateLabel" destination="ZEg-UY-fl2" id="h87-EW-e19"/>
                         <outlet property="lastLabel" destination="9ho-2k-4Mu" id="rjq-Im-foG"/>
                         <outlet property="smallCurrencyButton" destination="g4B-r3-BKY" id="46S-6Z-Ttj"/>
-                        <segue destination="jdx-u0-GmC" kind="modal" identifier="QRCode" id="4sS-gn-cw2"/>
                         <segue destination="woO-Vj-h2Z" kind="modal" identifier="Graph" id="tz9-Fk-dgW"/>
                     </connections>
                 </viewController>
@@ -307,55 +306,7 @@
             </objects>
             <point key="canvasLocation" x="1029" y="-275"/>
         </scene>
-        <!--Code View Controller - QR Code-->
-        <scene sceneID="pv4-6W-SWt">
-            <objects>
-                <viewController title="QR Code" id="jdx-u0-GmC" customClass="BAQRCodeViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="2Ar-Yc-XwX"/>
-                        <viewControllerLayoutGuide type="bottom" id="kxj-0O-Y9X"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8KF-el-jNR">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="QR Code" translatesAutoresizingMaskIntoConstraints="NO" id="zhh-ZR-biE">
-                                <rect key="frame" x="22" y="146" width="276" height="276"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="276" id="3Ex-zh-Uah"/>
-                                    <constraint firstAttribute="width" constant="276" id="eP9-G5-81E"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hL0-aN-Cz9">
-                                <rect key="frame" x="139" y="514" width="43" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="doneButtonPressed:" destination="jdx-u0-GmC" eventType="touchUpInside" id="fA9-X6-dsN"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="kxj-0O-Y9X" firstAttribute="top" secondItem="hL0-aN-Cz9" secondAttribute="bottom" constant="20" id="IJT-hN-g2s"/>
-                            <constraint firstAttribute="centerY" secondItem="zhh-ZR-biE" secondAttribute="centerY" id="UG8-9x-5k4"/>
-                            <constraint firstAttribute="centerX" secondItem="hL0-aN-Cz9" secondAttribute="centerX" id="WW4-at-PFJ"/>
-                            <constraint firstAttribute="centerX" secondItem="zhh-ZR-biE" secondAttribute="centerX" id="np3-lx-TWM"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nhI-2V-3zv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1427" y="-275"/>
-        </scene>
     </scenes>
-    <resources>
-        <image name="QR Code" width="318" height="318"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
