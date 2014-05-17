@@ -36,7 +36,6 @@
 - (NSString*)reformatTimestamp:(NSString*)stamp;
 - (void)orientationChanged:(NSNotification *)notification;
 
-//- (IBAction)donatePush:(UIButton *)sender;
 - (IBAction)infoPush:(UIButton *)sender;
 - (IBAction)downSwipe:(UISwipeGestureRecognizer *)sender;
 - (IBAction)tapAction:(UITapGestureRecognizer *)sender;
@@ -98,6 +97,7 @@
 
 - (void)startRefreshTimer {
     NSLogDebug(@"startRefreshTimer",nil);
+    if([_lastUpdate timeIntervalSinceNow] < -30.0) [self refreshData];
     _refreshTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(timerFireRefresh:) userInfo:nil repeats:YES];
 }
 
@@ -109,7 +109,7 @@
 
 - (void)timerFireRefresh:(NSTimer *)timer {
     NSLogDebug(@"timerFireRefresh",nil);
-    [self refreshData];
+    if([_lastUpdate timeIntervalSinceNow] < -5.0) [self refreshData];
 }
 
 #pragma mark Data Management
@@ -121,7 +121,7 @@
     _activityIndicator.hidden = NO;
 
     NSError *error=nil;
-    NSString *currency = [BASettings getCurrency];//, *timeStamp = nil;
+    NSString *currency = [BASettings getCurrency];
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]] options:NSDataReadingUncached error:&error];
 
     if(urlData) {
@@ -247,11 +247,8 @@
 #pragma Touches
 
 - (IBAction)downSwipe:(UISwipeGestureRecognizer *)sender {
-    // skip an update if it's been under ~30 seconds since the last one.
-    if([_lastUpdate timeIntervalSinceNow] < -29.5) {
-        [self refreshData];
-        _lastUpdate = [NSDate date];
-    }
+    // just don't hammer the server
+    if([_lastUpdate timeIntervalSinceNow] < -1.0) [self refreshData];
 }
 
 - (IBAction)tapAction:(UITapGestureRecognizer *)sender {
