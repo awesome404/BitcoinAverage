@@ -16,6 +16,8 @@
 @property NSTimer *refreshTimer;
 @property ADBannerView *bannerView;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *adGap;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 
@@ -81,9 +83,12 @@
     
     UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
     if (!_isShowingLandscapeView && UIDeviceOrientationIsLandscape(deviceOrientation) && self.presentedViewController==nil) {
+        [_activityIndicator startAnimating];
+        _activityIndicator.hidden = NO;
         [self performSegueWithIdentifier:@"Graph" sender:self];
         _isShowingLandscapeView = YES;
     } else if(_isShowingLandscapeView && UIDeviceOrientationIsPortrait(deviceOrientation)) {
+        [_activityIndicator stopAnimating];
         [self dismissViewControllerAnimated:YES completion:nil];
         _isShowingLandscapeView = NO;
     }
@@ -111,6 +116,9 @@
 
 - (void)refreshData {
     static NSString *urlFormat = @"https://api.bitcoinaverage.com/ticker/global/%@", *floatFormat = @"%0.2f";
+    
+    [_activityIndicator startAnimating];
+    _activityIndicator.hidden = NO;
 
     NSError *error=nil;
     NSString *currency = [BASettings getCurrency];//, *timeStamp = nil;
@@ -159,6 +167,7 @@
         NSLogDebug(@"No urlData: %@",error);
     }
 
+    [_activityIndicator stopAnimating];
     NSLogDebug(@"refreshData %.2f",_last);
 }
 

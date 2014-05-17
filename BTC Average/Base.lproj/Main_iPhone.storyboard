@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Uo5-Ge-Vkh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Uo5-Ge-Vkh">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -180,6 +180,11 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="f5T-Sp-cEl">
+                                        <rect key="frame" x="142" y="266" width="37" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="color" red="0.2" green="0.2" blue="0.8" alpha="1" colorSpace="calibratedRGB"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
@@ -204,11 +209,13 @@
                                     <constraint firstItem="gx0-sB-X2n" firstAttribute="leading" secondItem="Jze-b3-CJL" secondAttribute="trailing" constant="8" id="dkN-im-E4z"/>
                                     <constraint firstItem="gx0-sB-X2n" firstAttribute="centerY" secondItem="Jze-b3-CJL" secondAttribute="centerY" id="dvS-Bd-EJR"/>
                                     <constraint firstItem="7I2-DE-G1j" firstAttribute="leading" secondItem="p71-fd-1eC" secondAttribute="leading" id="eRz-Ct-bP0"/>
+                                    <constraint firstAttribute="centerY" secondItem="f5T-Sp-cEl" secondAttribute="centerY" id="ecl-LD-eFB"/>
                                     <constraint firstItem="g4B-r3-BKY" firstAttribute="top" secondItem="p0b-0Z-b9g" secondAttribute="bottom" constant="4" id="gAd-PT-TWD"/>
                                     <constraint firstAttribute="centerY" secondItem="9ho-2k-4Mu" secondAttribute="centerY" id="iX6-Nj-gc6"/>
                                     <constraint firstItem="C3T-cT-mHK" firstAttribute="centerY" secondItem="g4B-r3-BKY" secondAttribute="centerY" id="me8-6H-l49"/>
                                     <constraint firstItem="eDQ-Ot-JLe" firstAttribute="top" secondItem="9ho-2k-4Mu" secondAttribute="bottom" constant="8" id="nx6-UW-21s"/>
                                     <constraint firstItem="stN-jn-16M" firstAttribute="top" secondItem="JQR-w3-jQg" secondAttribute="top" constant="20" id="sXn-lh-JDu"/>
+                                    <constraint firstAttribute="centerX" secondItem="f5T-Sp-cEl" secondAttribute="centerX" id="spp-bb-tdb"/>
                                     <constraint firstItem="p0b-0Z-b9g" firstAttribute="top" secondItem="gx0-sB-X2n" secondAttribute="bottom" constant="4" id="uAT-Dg-dfv"/>
                                     <constraint firstItem="g4B-r3-BKY" firstAttribute="leading" secondItem="C3T-cT-mHK" secondAttribute="trailing" constant="8" id="yG5-fe-3Sj"/>
                                     <constraint firstItem="hBU-an-mU8" firstAttribute="leading" secondItem="OPC-Ex-0UD" secondAttribute="trailing" constant="8" id="ynr-eu-hUq"/>
@@ -230,6 +237,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="f5T-Sp-cEl" id="Zmw-5O-LI0"/>
                         <outlet property="adGap" destination="irB-qc-2uX" id="tbA-GH-UUy"/>
                         <outlet property="askLabel" destination="OPC-Ex-0UD" id="lgw-5f-qbU"/>
                         <outlet property="bidLabel" destination="eDQ-Ot-JLe" id="lTf-zp-9V4"/>
