@@ -84,12 +84,15 @@
     if (!_isShowingLandscapeView && UIDeviceOrientationIsLandscape(deviceOrientation) && self.presentedViewController==nil) {
         [_activityIndicator startAnimating];
         _activityIndicator.hidden = NO;
-        [self performSegueWithIdentifier:@"Graph" sender:self];
         _isShowingLandscapeView = YES;
+        [self performSegueWithIdentifier:@"Graph" sender:self];
+
     } else if(_isShowingLandscapeView && UIDeviceOrientationIsPortrait(deviceOrientation)) {
-        [_activityIndicator stopAnimating];
-        [self dismissViewControllerAnimated:YES completion:nil];
-        _isShowingLandscapeView = NO;
+        if(![self.presentedViewController isBeingPresented]) { // we can't dismiss it when it's being presented
+            [self dismissViewControllerAnimated:YES completion:nil];
+            _isShowingLandscapeView = NO;
+            [_activityIndicator stopAnimating];
+        } // so we fail altogether
     }
 }
 
