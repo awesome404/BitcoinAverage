@@ -24,4 +24,8 @@
     self.titleLabel.text = [NSString stringWithFormat:format,[BASettings getCurrency]];
 }
 
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskLandscape;
+}
+
 @end
