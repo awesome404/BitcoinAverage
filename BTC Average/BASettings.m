@@ -68,7 +68,7 @@
 }
 
 + (BOOL)shouldShowAds {
-    return [self internalShowAds:NULL];
+    return [self internalShowAds:0];
 }
 
 + (void)hideAds {
@@ -78,7 +78,7 @@
 #ifndef NDEBUG
 + (void)unhideAds {
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:SHOWADS_KEY];
-    [self internalShowAds:NULL]; // force a reload from user defaults
+    [self internalShowAds:0]; // force a reload from user defaults
 }
 #endif
 
