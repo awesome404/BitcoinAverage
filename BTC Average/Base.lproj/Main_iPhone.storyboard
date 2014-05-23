@@ -183,8 +183,19 @@
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="f5T-Sp-cEl">
                                         <rect key="frame" x="142" y="266" width="37" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="color" red="0.2" green="0.2" blue="0.8" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="color" red="0.20000000000000001" green="0.20000000000000001" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                     </activityIndicatorView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOo-Dq-Up8">
+                                        <rect key="frame" x="20" y="33" width="78" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="Remove Ads">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="removeAdsPush:" destination="Uo5-Ge-Vkh" eventType="touchUpInside" id="xAN-QJ-uG6"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
@@ -247,6 +258,7 @@
                         <outlet property="currencyEdit" destination="C3T-cT-mHK" id="0oo-wi-Vlr"/>
                         <outlet property="dateLabel" destination="ZEg-UY-fl2" id="h87-EW-e19"/>
                         <outlet property="lastLabel" destination="9ho-2k-4Mu" id="rjq-Im-foG"/>
+                        <outlet property="removeAdsButton" destination="VOo-Dq-Up8" id="d1j-BT-kkf"/>
                         <outlet property="smallCurrencyButton" destination="g4B-r3-BKY" id="46S-6Z-Ttj"/>
                         <segue destination="woO-Vj-h2Z" kind="modal" identifier="Graph" id="tz9-Fk-dgW"/>
                     </connections>
