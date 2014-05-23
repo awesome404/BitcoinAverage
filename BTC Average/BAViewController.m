@@ -23,6 +23,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *currencyButton;
 @property (weak, nonatomic) IBOutlet UIButton *smallCurrencyButton;
+@property (weak, nonatomic) IBOutlet UIButton *removeAdsButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *lastLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bidLabel;
@@ -37,6 +38,7 @@
 - (void)orientationChanged:(NSNotification *)notification;
 
 - (IBAction)infoPush:(UIButton *)sender;
+- (IBAction)removeAdsPush:(id)sender;
 - (IBAction)downSwipe:(UISwipeGestureRecognizer *)sender;
 - (IBAction)tapAction:(UITapGestureRecognizer *)sender;
 
@@ -55,13 +57,17 @@
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
     
-    // if they haven't paid
-    _bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-    _bannerView.delegate = self;
-    CGRect newBannerFrame = _bannerView.frame;
-    newBannerFrame.origin.y = self.view.frame.size.height;
-    _bannerView.frame = newBannerFrame;
-    [self.view addSubview:_bannerView];
+    if([BASettings shouldShowAds]) { // if they haven't paid
+        _removeAdsButton.hidden = FALSE;
+        _bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+        _bannerView.delegate = self;
+        CGRect newBannerFrame = _bannerView.frame;
+        newBannerFrame.origin.y = self.view.frame.size.height;
+        _bannerView.frame = newBannerFrame;
+        [self.view addSubview:_bannerView];
+    } else {
+        _removeAdsButton.hidden = TRUE;
+    }
 
     // trivial value to start with
     _lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
@@ -69,6 +75,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     NSLogDebug(@"viewWillAppear",nil);
+    if(![BASettings shouldShowAds]) { // make sure the ads are hidden
+        _removeAdsButton.hidden = TRUE;
+        if(_bannerView!=nil) _bannerView = nil;
+    }
     [self refreshData];
 }
 
@@ -266,6 +276,10 @@
                                delegate:self
                       cancelButtonTitle:@"No Thanks"
                       otherButtonTitles:@"Open",nil] show];
+}
+
+- (IBAction)removeAdsPush:(id)sender {
+    [BASettings hideAds];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

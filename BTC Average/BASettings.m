@@ -8,9 +8,13 @@
 
 #import "BASettings.h"
 
+#define CURRENCY_KEY @"BTCAverageCurrency"
+#define SHOWADS_KEY @"BTCAverageShowAds"
+
 @interface BASettings ()
 
 + (NSString*)internalCurrency:(NSString*)value;
++ (BOOL)internalShowAds:(BOOL)hide;
 
 @end
 
@@ -19,15 +23,17 @@
 // this is hidden from the interface
 + (NSString*)internalCurrency:(NSString*)value {
     static NSString *currency = nil;
-    static NSString *key = @"BTCAverageCurrency";
 
     if(value!=nil) {
         currency = value;
-        [[NSUserDefaults standardUserDefaults] setObject:currency forKey:key];
+        [[NSUserDefaults standardUserDefaults] setObject:currency forKey:CURRENCY_KEY];
 
-    } else if(currency==nil)
-        if((currency=[[NSUserDefaults standardUserDefaults] stringForKey:key])==nil)
-            currency = @"USD";
+    } else if(currency==nil) {
+        if((currency = [[NSUserDefaults standardUserDefaults] stringForKey:CURRENCY_KEY]) == nil) {
+            currency = @"USD"; // this should only happen once
+            [[NSUserDefaults standardUserDefaults] setObject:currency forKey:CURRENCY_KEY]; // (once)
+        }
+    }
 
     return currency;
 }
@@ -39,5 +45,41 @@
 + (NSString*)setCurrency:(NSString*)value {
     return [self internalCurrency:value];
 }
+
++ (BOOL)internalShowAds:(BOOL)hide {
+    static NSNumber *showAds = nil;
+    
+    if(hide) {
+        showAds = [NSNumber numberWithBool:NO];
+        [[NSUserDefaults standardUserDefaults] setObject:showAds forKey:SHOWADS_KEY];
+        
+    } else
+#ifdef NDEBUG
+    if(showAds==nil) // in release don't force a reload from user defaults
+#endif
+    {
+        if((showAds = [[NSUserDefaults standardUserDefaults] objectForKey:SHOWADS_KEY]) == nil) {
+            showAds = [NSNumber numberWithBool:YES]; // this should only happen once
+            [[NSUserDefaults standardUserDefaults] setObject:showAds forKey:SHOWADS_KEY]; // (once)
+        }
+    }
+    
+    return [showAds boolValue];
+}
+
++ (BOOL)shouldShowAds {
+    return [self internalShowAds:NULL];
+}
+
++ (void)hideAds {
+    [self internalShowAds:YES];
+}
+
+#ifndef NDEBUG
++ (void)unhideAds {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:SHOWADS_KEY];
+    [self internalShowAds:NULL]; // force a reload from user defaults
+}
+#endif
 
 @end

@@ -12,5 +12,11 @@
 
 + (NSString*) getCurrency;
 + (NSString*) setCurrency:(NSString*)value;
++ (BOOL) shouldShowAds;
++ (void) hideAds;
+
+#ifndef NDEBUG
++ (void) unhideAds;
+#endif
 
 @end
