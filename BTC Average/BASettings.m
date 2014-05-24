@@ -77,7 +77,9 @@
 
 #ifndef NDEBUG
 + (void)unhideAds {
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:SHOWADS_KEY];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSNumber numberWithBool:YES] forKey:SHOWADS_KEY];
+    [defaults synchronize];
     [self internalShowAds:0]; // force a reload from user defaults
 }
 #endif

@@ -196,6 +196,18 @@
                                             <action selector="removeAdsPush:" destination="Uo5-Ge-Vkh" eventType="touchUpInside" id="xAN-QJ-uG6"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tjf-t6-pGc">
+                                        <rect key="frame" x="20" y="57" width="78" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="Show Ads">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="removeAdsPush:" destination="Uo5-Ge-Vkh" eventType="touchUpInside" id="Exv-gm-Dh5"/>
+                                            <action selector="showAdsPush:" destination="Uo5-Ge-Vkh" eventType="touchUpInside" id="FyF-xA-4Yx"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
@@ -259,6 +271,7 @@
                         <outlet property="dateLabel" destination="ZEg-UY-fl2" id="h87-EW-e19"/>
                         <outlet property="lastLabel" destination="9ho-2k-4Mu" id="rjq-Im-foG"/>
                         <outlet property="removeAdsButton" destination="VOo-Dq-Up8" id="d1j-BT-kkf"/>
+                        <outlet property="showAdsButton" destination="Tjf-t6-pGc" id="IeZ-UH-HkL"/>
                         <outlet property="smallCurrencyButton" destination="g4B-r3-BKY" id="46S-6Z-Ttj"/>
                         <segue destination="woO-Vj-h2Z" kind="modal" identifier="Graph" id="tz9-Fk-dgW"/>
                     </connections>

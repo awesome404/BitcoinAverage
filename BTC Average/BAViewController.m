@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *currencyButton;
 @property (weak, nonatomic) IBOutlet UIButton *smallCurrencyButton;
 @property (weak, nonatomic) IBOutlet UIButton *removeAdsButton;
+@property (weak, nonatomic) IBOutlet UIButton *showAdsButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *lastLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bidLabel;
@@ -39,6 +40,7 @@
 
 - (IBAction)infoPush:(UIButton *)sender;
 - (IBAction)removeAdsPush:(id)sender;
+- (IBAction)showAdsPush:(id)sender;
 - (IBAction)downSwipe:(UISwipeGestureRecognizer *)sender;
 - (IBAction)tapAction:(UITapGestureRecognizer *)sender;
 
@@ -68,6 +70,12 @@
     } else {
         _removeAdsButton.hidden = TRUE;
     }
+    
+#ifdef NDEBUG
+    _showAdsButton.hidden = TRUE;
+#else
+    _showAdsButton.hidden = FALSE;
+#endif
 
     // trivial value to start with
     _lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
@@ -280,6 +288,12 @@
 
 - (IBAction)removeAdsPush:(id)sender {
     [BASettings hideAds];
+
+- (IBAction)showAdsPush:(id)sender {
+#ifndef NDEBUG
+    _removeAdsButton.hidden = NO;
+    [BASettings unhideAds];
+#endif
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
