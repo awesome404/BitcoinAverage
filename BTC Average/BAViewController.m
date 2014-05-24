@@ -83,10 +83,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     NSLogDebug(@"viewWillAppear",nil);
-    if(![BASettings shouldShowAds]) { // make sure the ads are hidden
-        _removeAdsButton.hidden = TRUE;
-        if(_bannerView!=nil) _bannerView = nil;
-    }
     [self refreshData];
 }
 
@@ -288,6 +284,25 @@
 
 - (IBAction)removeAdsPush:(id)sender {
     [BASettings hideAds];
+
+    _removeAdsButton.hidden = YES;
+    if(_adGap.constant>0) { // if the ad is visible
+        CGRect newBannerFrame = _bannerView.frame;
+        newBannerFrame.origin.y = self.view.frame.size.height;
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            _adGap.constant = 0;
+            [self.view layoutIfNeeded];
+            _bannerView.frame = newBannerFrame;
+        } completion:^(BOOL finsihed){
+            [_bannerView removeFromSuperview];
+            _bannerView = nil;
+        }];
+    } else {
+        [_bannerView removeFromSuperview];
+        _bannerView = nil;
+    }
+}
 
 - (IBAction)showAdsPush:(id)sender {
 #ifndef NDEBUG
