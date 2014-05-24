@@ -330,7 +330,7 @@
             _adGap.constant = newBannerFrame.size.height;
             [self.view layoutIfNeeded];
             banner.frame = newBannerFrame;
-        } completion:nil];
+        }];
     }
 
     NSLogDebug(@"bannerViewDidLoadAd",nil);
@@ -346,7 +346,7 @@
             _adGap.constant = 0;
             [self.view layoutIfNeeded];
             banner.frame = newBannerFrame;
-        } completion:nil];
+        }];
     }
 
     NSLogDebug(@"bannerView:didFailToReceiveAdWithError:%@",[error localizedDescription]);
