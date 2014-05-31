@@ -56,8 +56,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
-    if(_infoAlertHandler==nil) _infoAlertHandler = [BAInfoAlertHandler alloc];
 
     _isShowingLandscapeView = NO;
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -274,6 +272,7 @@
 #pragma mark Buttons with Alerts - UIAlertViewDelegate
 
 - (IBAction)infoPush:(UIButton *)sender {
+    if(_infoAlertHandler==nil) _infoAlertHandler = [BAInfoAlertHandler alloc];
     [_infoAlertHandler showAlert];
 }
 
