@@ -13,9 +13,9 @@
 @interface BAViewController ()
 
 @property NSDate *lastUpdate;
-
 @property NSTimer *refreshTimer;
 @property ADBannerView *bannerView;
+@property NSArray *storeProducts;
 @property BAInfoAlertHandler *infoAlertHandler;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -38,6 +38,10 @@
 - (void)refreshData;
 - (NSString*)reformatTimestamp:(NSString*)stamp;
 - (void)orientationChanged:(NSNotification *)notification;
+- (void)fetchStoreProducts;
+- (void)initAds;
+- (void)showAds;
+- (void)hideAds;
 
 - (IBAction)infoPush:(UIButton *)sender;
 - (IBAction)removeAdsPush:(id)sender;
@@ -63,20 +67,12 @@
                                                object:nil];
     
     if([BASettings shouldShowAds]) { // if they haven't paid
-        _removeAdsButton.hidden = FALSE;
-        _bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-        _bannerView.delegate = self;
-        CGRect newBannerFrame = _bannerView.frame;
-        newBannerFrame.origin.y = self.view.frame.size.height;
-        _bannerView.frame = newBannerFrame;
-        [self.view addSubview:_bannerView];
-    } else {
-        _removeAdsButton.hidden = TRUE;
+        _removeAdsButton.hidden = NO;
+        [self initAds];
+        [self fetchStoreProducts];
     }
     
-#ifdef NDEBUG
-    _showAdsButton.hidden = TRUE;
-#else
+#ifndef NDEBUG
     _showAdsButton.hidden = FALSE;
 #endif
 
@@ -301,6 +297,32 @@
         [_bannerView removeFromSuperview];
         _bannerView = nil;
     }
+    
+    /* Old Store Kit Code
+     
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Support ฿ Average"
+                                                    message:@"Please consider making a donatoin to support this project."
+                                                   delegate:self
+                                          cancelButtonTitle:@"No Thanks"
+                                          otherButtonTitles:nil];
+    
+    NSNumberFormatter *numberFormatter = nil;
+    
+    if(storeProducts!= nil) {
+        for(SKProduct *product in storeProducts) {
+            if(numberFormatter==nil) {
+                numberFormatter = [[NSNumberFormatter alloc] init];
+                [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+                [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+                [numberFormatter setLocale:product.priceLocale];
+            }
+            [alert addButtonWithTitle:[NSString stringWithFormat:@"%@ ~ %@",product.localizedTitle,[numberFormatter stringFromNumber:product.price]]];
+        }
+    } else {
+        [  alert addButtonWithTitle:@"QR Code"];
+    }
+    
+    [alert show];*/
 }
 
 - (IBAction)showAdsPush:(id)sender {
@@ -310,9 +332,43 @@
 #endif
 }
 
+#pragma mark iAd - ADBannerViewDelegate
+
+- (void)initAds {
+    _removeAdsButton.hidden = FALSE;
+    _bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+    _bannerView.delegate = self;
+    CGRect newBannerFrame = _bannerView.frame;
+    newBannerFrame.origin.y = self.view.frame.size.height;
+    _bannerView.frame = newBannerFrame;
+    [self.view addSubview:_bannerView];
 }
 
-#pragma mark iAd - ADBannerViewDelegate
+- (void)showAds {
+    /*if(_adGap.constant==0) {
+        CGRect newBannerFrame = banner.frame;
+        newBannerFrame.origin.y = self.view.frame.size.height - newBannerFrame.size.height;
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            _adGap.constant = newBannerFrame.size.height;
+            [self.view layoutIfNeeded];
+            banner.frame = newBannerFrame;
+        }];
+    }*/
+}
+
+- (void)hideAds {
+    /*if(_adGap.constant>0) {
+        CGRect newBannerFrame = banner.frame;
+        newBannerFrame.origin.y = self.view.frame.size.height;
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            _adGap.constant = 0;
+            [self.view layoutIfNeeded];
+            banner.frame = newBannerFrame;
+        }];
+    }*/
+}
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
 
@@ -354,5 +410,27 @@
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner {
     [self startRefreshTimer];
 }
+
+#pragma mark StoreKit - SKRequestDelegate & SKProductsRequestDelegates
+
+- (void)fetchStoreProducts {
+    if(_storeProducts==nil) _storeProducts = [NSArray array];
+    NSSet *productSet = [NSSet setWithObject:@"com.nullriver.BitcoinAverage.RemoveAds"];
+    SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productSet];
+    productsRequest.delegate = self;
+    [productsRequest start];
+}
+
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
+    _storeProducts = response.products;
+}
+
+/*- (void)requestDidFinish:(SKRequest *)request {
+    
+}
+
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
+    NSLog(@"SKProductsRequest Failed !!\n%@\n%@",request,error);
+}*/
 
 @end
