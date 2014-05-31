@@ -8,6 +8,7 @@
 
 #import "BAViewController.h"
 #import "BASettings.h"
+#import "BAInfoAlertHandler.h"
 
 @interface BAViewController ()
 
@@ -15,6 +16,7 @@
 
 @property NSTimer *refreshTimer;
 @property ADBannerView *bannerView;
+@property BAInfoAlertHandler *infoAlertHandler;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
@@ -51,6 +53,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    if(_infoAlertHandler==nil) _infoAlertHandler = [BAInfoAlertHandler alloc];
 
     _isShowingLandscapeView = NO;
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -275,11 +279,7 @@
 #pragma mark Buttons with Alerts - UIAlertViewDelegate
 
 - (IBAction)infoPush:(UIButton *)sender {
-    [[[UIAlertView alloc] initWithTitle:@"BitcoinAverage Price Index"
-                                message:@"All data is from BitcoinAverage.com\nOpen in Safari?"
-                               delegate:self
-                      cancelButtonTitle:@"No Thanks"
-                      otherButtonTitles:@"Open",nil] show];
+    [_infoAlertHandler showAlert];
 }
 
 - (IBAction)removeAdsPush:(id)sender {
@@ -311,11 +311,6 @@
 #endif
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if(buttonIndex==[alertView cancelButtonIndex]) return;
-    
-    //if([alertView.title isEqualToString:@"BitcoinAverage Price Index"])
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://bitcoinaverage.com/#%@-nomillibit",[BASettings getCurrency]]]];
 }
 
 #pragma mark iAd - ADBannerViewDelegate
