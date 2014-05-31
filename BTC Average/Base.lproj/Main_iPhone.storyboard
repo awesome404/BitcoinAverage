@@ -269,7 +269,6 @@
                         <outlet property="askLabel" destination="OPC-Ex-0UD" id="lgw-5f-qbU"/>
                         <outlet property="bidLabel" destination="eDQ-Ot-JLe" id="lTf-zp-9V4"/>
                         <outlet property="bitcoinEdit" destination="Jze-b3-CJL" id="QzB-X6-1kM"/>
-                        <outlet property="containerView" destination="JQR-w3-jQg" id="WUE-E4-AsQ"/>
                         <outlet property="currencyButton" destination="p71-fd-1eC" id="CuX-87-9Rl"/>
                         <outlet property="currencyEdit" destination="C3T-cT-mHK" id="0oo-wi-Vlr"/>
                         <outlet property="dateLabel" destination="ZEg-UY-fl2" id="h87-EW-e19"/>
