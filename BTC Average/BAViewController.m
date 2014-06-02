@@ -42,8 +42,6 @@
 - (void)orientationChanged:(NSNotification *)notification;
 - (void)fetchStoreProducts;
 - (void)initAds;
-- (void)showAds;
-- (void)hideAds;
 
 - (IBAction)infoPush:(UIButton *)sender;
 - (IBAction)removeAdsPush:(id)sender;
@@ -343,32 +341,6 @@
     newBannerFrame.origin.y = self.view.frame.size.height;
     _bannerView.frame = newBannerFrame;
     [self.view addSubview:_bannerView];
-}
-
-- (void)showAds {
-    /*if(_adGap.constant==0) {
-        CGRect newBannerFrame = banner.frame;
-        newBannerFrame.origin.y = self.view.frame.size.height - newBannerFrame.size.height;
-        
-        [UIView animateWithDuration:0.5 animations:^{
-            _adGap.constant = newBannerFrame.size.height;
-            [self.view layoutIfNeeded];
-            banner.frame = newBannerFrame;
-        }];
-    }*/
-}
-
-- (void)hideAds {
-    /*if(_adGap.constant>0) {
-        CGRect newBannerFrame = banner.frame;
-        newBannerFrame.origin.y = self.view.frame.size.height;
-        
-        [UIView animateWithDuration:0.5 animations:^{
-            _adGap.constant = 0;
-            [self.view layoutIfNeeded];
-            banner.frame = newBannerFrame;
-        }];
-    }*/
 }
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
