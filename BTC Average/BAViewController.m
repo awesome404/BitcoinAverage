@@ -10,13 +10,15 @@
 #import "BASettings.h"
 #import "BAInfoAlertHandler.h"
 
-@interface BAViewController ()
-
-@property NSDate *lastUpdate;
-@property NSTimer *refreshTimer;
-@property ADBannerView *bannerView;
-@property NSArray *storeProducts;
-@property BAInfoAlertHandler *infoAlertHandler;
+@interface BAViewController () {
+    double _last;
+    NSDate *_lastUpdate;
+    NSTimer *_refreshTimer;
+    ADBannerView *_bannerView;
+    NSArray *_storeProducts;
+    BAInfoAlertHandler *_infoAlertHandler;
+    BOOL _isShowingLandscapeView;
+}
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 

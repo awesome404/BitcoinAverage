@@ -15,7 +15,4 @@
 - (void)startRefreshTimer;
 - (void)stopRefreshTimer;
 
-@property (readonly) double last;
-@property (readonly) BOOL isShowingLandscapeView;
-
 @end
