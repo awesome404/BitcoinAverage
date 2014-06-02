@@ -65,13 +65,12 @@
                                                object:nil];
     
     if([BASettings shouldShowAds]) { // if they haven't paid
-        _removeAdsButton.hidden = NO;
         [self initAds];
         [self fetchStoreProducts];
     }
     
 #ifndef NDEBUG
-    _showAdsButton.hidden = FALSE;
+    _showAdsButton.hidden = NO;
 #endif
 
     // trivial value to start with
@@ -334,7 +333,6 @@
 #pragma mark iAd - ADBannerViewDelegate
 
 - (void)initAds {
-    _removeAdsButton.hidden = FALSE;
     _bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
     _bannerView.delegate = self;
     CGRect newBannerFrame = _bannerView.frame;
@@ -396,6 +394,10 @@
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
     _storeProducts = response.products;
+    if([_storeProducts count]) {
+        _removeAdsButton.hidden = NO;
+    }
+    NSLogDebug(@"%@", response);
 }
 
 /*- (void)requestDidFinish:(SKRequest *)request {
