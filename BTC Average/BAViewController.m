@@ -9,6 +9,7 @@
 #import "BAViewController.h"
 #import "BASettings.h"
 #import "BAInfoAlertHandler.h"
+#import "BARemoveAdsAlertHandler.h"
 
 @interface BAViewController () {
     double _last;
@@ -17,6 +18,7 @@
     ADBannerView *_bannerView;
     NSArray *_storeProducts;
     BAInfoAlertHandler *_infoAlertHandler;
+    BARemoveAdsAlertHandler *_removeAdsHandler;
     BOOL _isShowingLandscapeView;
 }
 
@@ -276,7 +278,7 @@
 }
 
 - (IBAction)removeAdsPush:(id)sender {
-    [BASettings hideAds];
+    /*[BASettings hideAds];
 
     _removeAdsButton.hidden = YES;
     if(_adGap.constant>0) { // if the ad is visible
@@ -294,33 +296,13 @@
     } else {
         [_bannerView removeFromSuperview];
         _bannerView = nil;
-    }
+    }*/
     
-    /* Old Store Kit Code
-     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Support ฿ Average"
-                                                    message:@"Please consider making a donatoin to support this project."
-                                                   delegate:self
-                                          cancelButtonTitle:@"No Thanks"
-                                          otherButtonTitles:nil];
-    
-    NSNumberFormatter *numberFormatter = nil;
-    
-    if(storeProducts!= nil) {
-        for(SKProduct *product in storeProducts) {
-            if(numberFormatter==nil) {
-                numberFormatter = [[NSNumberFormatter alloc] init];
-                [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-                [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-                [numberFormatter setLocale:product.priceLocale];
-            }
-            [alert addButtonWithTitle:[NSString stringWithFormat:@"%@ ~ %@",product.localizedTitle,[numberFormatter stringFromNumber:product.price]]];
-        }
-    } else {
-        [  alert addButtonWithTitle:@"QR Code"];
-    }
-    
-    [alert show];*/
+    // Old Store Kit Code
+    if([_storeProducts count]) {
+        if(_removeAdsHandler==nil) _removeAdsHandler = [BARemoveAdsAlertHandler alloc];
+        [_removeAdsHandler showAlert:_storeProducts[0]];
+    }    
 }
 
 - (IBAction)showAdsPush:(id)sender {
@@ -392,19 +374,19 @@
     [productsRequest start];
 }
 
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response { // SKProductsRequestDelegate
     _storeProducts = response.products;
     if([_storeProducts count]) {
         _removeAdsButton.hidden = NO;
     }
-    NSLogDebug(@"%@", response);
+    NSLogDebug(@"productsRequest. %lu products.", (unsigned long)[_storeProducts count]);
 }
 
-/*- (void)requestDidFinish:(SKRequest *)request {
-    
+/*- (void)requestDidFinish:(SKRequest *)request { // SKRequestDelegate
+    NSLog(@"SKProductsRequest Finished !!\n%@\n%@",request,error);
 }
 
-- (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error { // SKRequestDelegate
     NSLog(@"SKProductsRequest Failed !!\n%@\n%@",request,error);
 }*/
 
