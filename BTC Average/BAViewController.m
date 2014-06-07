@@ -44,6 +44,8 @@
 - (void)orientationChanged:(NSNotification *)notification;
 - (void)fetchStoreProducts;
 - (void)initAds;
+- (void)showBannerView;
+- (void)hideBannerView;
 
 - (IBAction)infoPush:(UIButton *)sender;
 - (IBAction)removeAdsPush:(id)sender;
@@ -278,31 +280,10 @@
 }
 
 - (IBAction)removeAdsPush:(id)sender {
-    /*[BASettings hideAds];
-
-    _removeAdsButton.hidden = YES;
-    if(_adGap.constant>0) { // if the ad is visible
-        CGRect newBannerFrame = _bannerView.frame;
-        newBannerFrame.origin.y = self.view.frame.size.height;
-        
-        [UIView animateWithDuration:0.5 animations:^{
-            _adGap.constant = 0;
-            [self.view layoutIfNeeded];
-            _bannerView.frame = newBannerFrame;
-        } completion:^(BOOL finsihed){
-            [_bannerView removeFromSuperview];
-            _bannerView = nil;
-        }];
-    } else {
-        [_bannerView removeFromSuperview];
-        _bannerView = nil;
-    }*/
-    
-    // Old Store Kit Code
     if([_storeProducts count]) {
         if(_removeAdsHandler==nil) _removeAdsHandler = [BARemoveAdsAlertHandler alloc];
         [_removeAdsHandler showAlert:_storeProducts[0]];
-    }    
+    }
 }
 
 - (IBAction)showAdsPush:(id)sender {
@@ -323,35 +304,50 @@
     [self.view addSubview:_bannerView];
 }
 
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
-
+- (void)showBannerView {
     if(_adGap.constant==0) {
-        CGRect newBannerFrame = banner.frame;
+        CGRect newBannerFrame = _bannerView.frame;
         newBannerFrame.origin.y = self.view.frame.size.height - newBannerFrame.size.height;
         
         [UIView animateWithDuration:0.5 animations:^{
             _adGap.constant = newBannerFrame.size.height;
             [self.view layoutIfNeeded];
-            banner.frame = newBannerFrame;
+            _bannerView.frame = newBannerFrame;
         }];
     }
-
-    NSLogDebug(@"bannerViewDidLoadAd",nil);
 }
 
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
-
+- (void)hideBannerView {
     if(_adGap.constant>0) {
-        CGRect newBannerFrame = banner.frame;
+        CGRect newBannerFrame = _bannerView.frame;
         newBannerFrame.origin.y = self.view.frame.size.height;
         
         [UIView animateWithDuration:0.5 animations:^{
             _adGap.constant = 0;
             [self.view layoutIfNeeded];
-            banner.frame = newBannerFrame;
+            _bannerView.frame = newBannerFrame;
+        } completion:^(BOOL finsihed){
+            if(![BASettings shouldShowAds]) { // disable ads if needed (animated)
+                _removeAdsButton.hidden = YES;
+                [_bannerView removeFromSuperview];
+                _bannerView = nil;
+            }
         }];
+    } else if(![BASettings shouldShowAds]) { // disable ads if needed (no animation)
+        _removeAdsButton.hidden = YES;
+        [_bannerView removeFromSuperview];
+        _bannerView = nil;
     }
+}
 
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
+    if([BASettings shouldShowAds]) [self showBannerView];
+    else [self hideBannerView]; // remove the ads
+    NSLogDebug(@"bannerViewDidLoadAd",nil);
+}
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+    [self hideBannerView];
     NSLogDebug(@"bannerView:didFailToReceiveAdWithError:%@",[error localizedDescription]);
 }
 
