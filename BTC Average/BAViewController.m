@@ -371,9 +371,12 @@
 }
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response { // SKProductsRequestDelegate
-    _storeProducts = response.products;
     if([_storeProducts count]) {
+        _storeProducts = response.products;
         _removeAdsButton.hidden = NO;
+    } else { // just to be sure...
+        _storeProducts = nil;
+        _removeAdsButton.hidden = YES;
     }
     NSLogDebug(@"productsRequest. %lu products.", (unsigned long)[_storeProducts count]);
 }
