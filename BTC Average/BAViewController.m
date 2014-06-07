@@ -329,13 +329,13 @@
         } completion:^(BOOL finsihed){
             if(![BASettings shouldShowAds]) { // disable ads if needed (animated)
                 _removeAdsButton.hidden = YES;
-                [_bannerView removeFromSuperview];
+                if(_bannerView) [_bannerView removeFromSuperview];
                 _bannerView = nil;
             }
         }];
     } else if(![BASettings shouldShowAds]) { // disable ads if needed (no animation)
         _removeAdsButton.hidden = YES;
-        [_bannerView removeFromSuperview];
+        if(_bannerView) [_bannerView removeFromSuperview];
         _bannerView = nil;
     }
 }
