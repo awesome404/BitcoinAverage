@@ -15,7 +15,12 @@
     
     for(SKPaymentTransaction *transaction in transactions) {
         switch(transaction.transactionState) {
-
+#ifdef NDEBUG
+            case SKPaymentTransactionStatePurchased:
+            case SKPaymentTransactionStateRestored:
+                [BASettings hideAds];
+                break;
+#else
             case SKPaymentTransactionStatePurchased:
                 NSLogDebug(@"SKPaymentTransactionStatePurchased",nil);
                 [BASettings hideAds];
@@ -24,6 +29,7 @@
                 NSLogDebug(@"SKPaymentTransactionStateRestored",nil);
                 [BASettings hideAds];
                 break;
+#endif
             case SKPaymentTransactionStatePurchasing:
             case SKPaymentTransactionStateFailed:
             default:
