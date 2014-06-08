@@ -291,8 +291,10 @@
 
 - (IBAction)showAdsPush:(id)sender {
 #ifndef NDEBUG
-    _removeAdsButton.hidden = NO;
+//    _removeAdsButton.hidden = NO;
     [BASettings unhideAds];
+    [self initAds];
+    [self fetchStoreProducts];
 #endif
 }
 
