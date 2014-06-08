@@ -17,7 +17,11 @@
         switch(transaction.transactionState) {
 
             case SKPaymentTransactionStatePurchased:
+                NSLogDebug(@"SKPaymentTransactionStatePurchased",nil);
+                [BASettings hideAds];
+                break;
             case SKPaymentTransactionStateRestored:
+                NSLogDebug(@"SKPaymentTransactionStateRestored",nil);
                 [BASettings hideAds];
                 break;
             case SKPaymentTransactionStatePurchasing:
