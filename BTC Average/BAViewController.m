@@ -10,6 +10,7 @@
 #import "BASettings.h"
 #import "BAInfoAlertHandler.h"
 #import "BARemoveAdsAlertHandler.h"
+#import "BAPaymentTransactionObserver.h"
 
 @interface BAViewController () {
     double _last;
@@ -19,6 +20,7 @@
     NSArray *_storeProducts;
     BAInfoAlertHandler *_infoAlertHandler;
     BARemoveAdsAlertHandler *_removeAdsHandler;
+    BAPaymentTransactionObserver *_transactionObserver;
     BOOL _isShowingLandscapeView;
 }
 
@@ -72,7 +74,7 @@
         [self initAds];
         [self fetchStoreProducts];
     }
-    
+
 #ifndef NDEBUG
     _showAdsButton.hidden = NO;
 #endif
@@ -372,6 +374,10 @@
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response { // SKProductsRequestDelegate
     if([_storeProducts count]) {
+        if(_transactionObserver==nil) {
+            _transactionObserver = [BAPaymentTransactionObserver alloc];
+            [[SKPaymentQueue defaultQueue] addTransactionObserver:_transactionObserver];
+        }
         _storeProducts = response.products;
         _removeAdsButton.hidden = NO;
     } else { // just to be sure...
