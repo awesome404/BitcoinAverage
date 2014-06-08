@@ -69,7 +69,8 @@
                                              selector:@selector(orientationChanged:)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
-    
+
+    _storeProducts = [NSArray array];
     if([BASettings shouldShowAds]) { // if they haven't paid
         [self initAds];
         [self fetchStoreProducts];
@@ -129,7 +130,7 @@
 - (void)timerFireRefresh:(NSTimer *)timer {
     NSLogDebug(@"timerFireRefresh",nil);
     if([_lastUpdate timeIntervalSinceNow] < -5.0) [self refreshData];
-    if([BASettings shouldShowAds]&&(_storeProducts==nil)) [self fetchStoreProducts];
+    if([BASettings shouldShowAds]&&([_storeProducts count]==0)) [self fetchStoreProducts];
 }
 
 #pragma mark Data Management
@@ -384,7 +385,7 @@
         _storeProducts = response.products;
         _removeAdsButton.hidden = NO;
     } else { // just to be sure...
-        _storeProducts = nil;
+        _storeProducts = [NSArray array];
         _removeAdsButton.hidden = YES;
     }
     NSLogDebug(@"productsRequest. %lu products.", (unsigned long)[_storeProducts count]);
