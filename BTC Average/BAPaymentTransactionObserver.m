@@ -7,30 +7,31 @@
 //
 
 #import "BAPaymentTransactionObserver.h"
+#import "BASettings.h"
 
 @implementation BAPaymentTransactionObserver
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
     
     for(SKPaymentTransaction *transaction in transactions) {
-        switch (transaction.transactionState) {
-                // Call the appropriate custom method.
+        switch(transaction.transactionState) {
+
             case SKPaymentTransactionStatePurchased:
-                //[self completeTransaction:transaction];
-                break;
-            case SKPaymentTransactionStateFailed:
-                //[self failedTransaction:transaction];
-                break;
             case SKPaymentTransactionStateRestored:
-                //[self restoreTransaction:transaction];
+                [BASettings hideAds];
+                break;
+            case SKPaymentTransactionStatePurchasing:
+            case SKPaymentTransactionStateFailed:
             default:
                 break;
         }
     }
+    
+    NSLogDebug(@"paymentQueue updatedTransactions",nil);
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedDownloads:(NSArray *)downloads {
-    
+    NSLogDebug(@"paymentQueue updatedDownloads",nil);
 }
 
 @end
