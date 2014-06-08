@@ -374,7 +374,7 @@
 }
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response { // SKProductsRequestDelegate
-    if([_storeProducts count]) {
+    if([response.products count]) {
         if(_transactionObserver==nil) {
             _transactionObserver = [BAPaymentTransactionObserver alloc];
             [[SKPaymentQueue defaultQueue] addTransactionObserver:_transactionObserver];
