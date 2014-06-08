@@ -129,6 +129,7 @@
 - (void)timerFireRefresh:(NSTimer *)timer {
     NSLogDebug(@"timerFireRefresh",nil);
     if([_lastUpdate timeIntervalSinceNow] < -5.0) [self refreshData];
+    if([BASettings shouldShowAds]&&(_storeProducts==nil)) [self fetchStoreProducts];
 }
 
 #pragma mark Data Management
