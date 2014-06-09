@@ -12,35 +12,26 @@
 @implementation BAPaymentTransactionObserver
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
+    NSLogDebug(@"paymentQueue updatedTransactions",nil);
     
     for(SKPaymentTransaction *transaction in transactions) {
-        switch(transaction.transactionState) {
-#ifdef NDEBUG
-            case SKPaymentTransactionStatePurchased:
-            case SKPaymentTransactionStateRestored:
-                [BASettings hideAds];
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-                break;
-#else
-            case SKPaymentTransactionStatePurchased:
-                NSLogDebug(@"SKPaymentTransactionStatePurchased",nil);
-                [BASettings hideAds];
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-                break;
-            case SKPaymentTransactionStateRestored:
-                NSLogDebug(@"SKPaymentTransactionStateRestored",nil);
-                [BASettings hideAds];
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-                break;
-#endif
-            case SKPaymentTransactionStatePurchasing:
-            case SKPaymentTransactionStateFailed:
-            default:
-                break;
+        
+        if((transaction.transactionState == SKPaymentTransactionStatePurchased) ||
+           (transaction.transactionState == SKPaymentTransactionStateRestored)) {
+            [BASettings hideAds];
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
         }
+
+#ifndef NDEBUG
+        switch(transaction.transactionState) {
+            case SKPaymentTransactionStatePurchased:  NSLogDebug(@"SKPaymentTransactionStatePurchased",nil);  break;
+            case SKPaymentTransactionStateRestored:   NSLogDebug(@"SKPaymentTransactionStateRestored",nil);   break;
+            case SKPaymentTransactionStatePurchasing: NSLogDebug(@"SKPaymentTransactionStatePurchasing",nil); break;
+            case SKPaymentTransactionStateFailed:     NSLogDebug(@"SKPaymentTransactionStateFailed",nil);     break;
+        }
+#endif
+
     }
-    
-    NSLogDebug(@"paymentQueue updatedTransactions",nil);
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedDownloads:(NSArray *)downloads {
