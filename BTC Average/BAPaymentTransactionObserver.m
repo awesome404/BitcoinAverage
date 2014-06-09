@@ -19,15 +19,18 @@
             case SKPaymentTransactionStatePurchased:
             case SKPaymentTransactionStateRestored:
                 [BASettings hideAds];
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
 #else
             case SKPaymentTransactionStatePurchased:
                 NSLogDebug(@"SKPaymentTransactionStatePurchased",nil);
                 [BASettings hideAds];
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
             case SKPaymentTransactionStateRestored:
                 NSLogDebug(@"SKPaymentTransactionStateRestored",nil);
                 [BASettings hideAds];
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
 #endif
             case SKPaymentTransactionStatePurchasing:
