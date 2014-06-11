@@ -10,7 +10,6 @@
 #import "BASettings.h"
 #import "BAInfoAlertHandler.h"
 #import "BARemoveAdsAlertHandler.h"
-#import "BAPaymentTransactionObserver.h"
 
 @interface BAViewController () {
     double _last;
@@ -20,7 +19,6 @@
     NSArray *_storeProducts;
     BAInfoAlertHandler *_infoAlertHandler;
     BARemoveAdsAlertHandler *_removeAdsHandler;
-    BAPaymentTransactionObserver *_transactionObserver;
     BOOL _isShowingLandscapeView;
 }
 
@@ -71,6 +69,8 @@
                                                object:nil];
 
     _storeProducts = [NSArray array];
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    
     if([BASettings shouldShowAds]) { // if they haven't paid
         [self initAds];
         [self fetchStoreProducts];
@@ -378,10 +378,6 @@
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response { // SKProductsRequestDelegate
     if([response.products count]) {
-        if(_transactionObserver==nil) {
-            _transactionObserver = [BAPaymentTransactionObserver alloc];
-            [[SKPaymentQueue defaultQueue] addTransactionObserver:_transactionObserver];
-        }
         _storeProducts = response.products;
         _removeAdsButton.hidden = NO;
     } else { // just to be sure...
@@ -389,6 +385,36 @@
         _removeAdsButton.hidden = YES;
     }
     NSLogDebug(@"productsRequest. %lu products.", (unsigned long)[_storeProducts count]);
+}
+
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
+    NSLogDebug(@"paymentQueue updatedTransactions",nil);
+    
+    for(SKPaymentTransaction *transaction in transactions) {
+        switch(transaction.transactionState) {
+            case SKPaymentTransactionStateRestored:
+                NSLogDebug(@"SKPaymentTransactionStateRestored",nil);
+            case SKPaymentTransactionStatePurchased:
+                NSLogDebug(@"SKPaymentTransactionStatePurchased",nil);
+                [BASettings hideAds];
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+                
+            case SKPaymentTransactionStatePurchasing:
+                NSLogDebug(@"SKPaymentTransactionStatePurchasing",nil);
+                _removeAdsButton.hidden = YES;
+                break;
+            case SKPaymentTransactionStateFailed:
+                NSLogDebug(@"SKPaymentTransactionStateFailed",nil);
+                _removeAdsButton.hidden = NO;
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+        }
+    }
+}
+
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedDownloads:(NSArray *)downloads {
+    NSLogDebug(@"paymentQueue updatedDownloads",nil);
 }
 
 /*- (void)requestDidFinish:(SKRequest *)request { // SKRequestDelegate

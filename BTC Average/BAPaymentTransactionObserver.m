@@ -15,21 +15,25 @@
     NSLogDebug(@"paymentQueue updatedTransactions",nil);
     
     for(SKPaymentTransaction *transaction in transactions) {
-        
-        if((transaction.transactionState == SKPaymentTransactionStatePurchased) ||
-           (transaction.transactionState == SKPaymentTransactionStateRestored)) {
-            [BASettings hideAds];
-            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-        }
 
-#ifndef NDEBUG
         switch(transaction.transactionState) {
-            case SKPaymentTransactionStatePurchased:  NSLogDebug(@"SKPaymentTransactionStatePurchased",nil);  break;
-            case SKPaymentTransactionStateRestored:   NSLogDebug(@"SKPaymentTransactionStateRestored",nil);   break;
-            case SKPaymentTransactionStatePurchasing: NSLogDebug(@"SKPaymentTransactionStatePurchasing",nil); break;
-            case SKPaymentTransactionStateFailed:     NSLogDebug(@"SKPaymentTransactionStateFailed",nil);     break;
+            case SKPaymentTransactionStateRestored:
+                NSLogDebug(@"SKPaymentTransactionStateRestored",nil);
+            case SKPaymentTransactionStatePurchased:
+                NSLogDebug(@"SKPaymentTransactionStatePurchased",nil);
+                [BASettings hideAds];
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+
+            case SKPaymentTransactionStatePurchasing:
+                NSLogDebug(@"SKPaymentTransactionStatePurchasing",nil);
+                // hide the button
+                break;
+            case SKPaymentTransactionStateFailed:
+                NSLogDebug(@"SKPaymentTransactionStateFailed",nil);
+                // show the button
+                break;
         }
-#endif
 
     }
 }

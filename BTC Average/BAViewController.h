@@ -10,7 +10,7 @@
 #import <StoreKit/StoreKit.h>
 #import <iAd/iAd.h>
 
-@interface BAViewController : UIViewController <UITextFieldDelegate, ADBannerViewDelegate, /*SKRequestDelegate,*/ SKProductsRequestDelegate>
+@interface BAViewController : UIViewController <UITextFieldDelegate, ADBannerViewDelegate, /*SKRequestDelegate,*/ SKProductsRequestDelegate, SKPaymentTransactionObserver>
 
 - (void)startRefreshTimer;
 - (void)stopRefreshTimer;
