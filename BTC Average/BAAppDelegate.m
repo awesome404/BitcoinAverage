@@ -15,7 +15,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    // [[SKPaymentQueue defaultQueue] addTransactionObserver:observer];
     return YES;
 }
 							
