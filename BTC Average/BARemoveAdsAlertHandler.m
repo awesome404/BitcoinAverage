@@ -29,17 +29,20 @@
                                 message:message
                                delegate:self
                       cancelButtonTitle:@"No"
-                      otherButtonTitles:@"Yes",nil] show];
+                      otherButtonTitles:@"Yes",@"Restore",nil] show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(buttonIndex!=[alertView cancelButtonIndex]) {
-
-        SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:_product];
-        payment.quantity = 1;
-        [[SKPaymentQueue defaultQueue] addPayment:payment];
-
-        NSLogDebug(@"Purchased \"%@\"",_product.localizedTitle);
+        if(buttonIndex == 1) {
+            SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:_product];
+            payment.quantity = 1;
+            [[SKPaymentQueue defaultQueue] addPayment:payment];
+            NSLogDebug(@"Purchased \"%@\"",_product.localizedTitle);
+        } else if(buttonIndex==2) {
+            [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+            NSLogDebug(@"Restore");
+        }
     }
     _product = nil;
 }
