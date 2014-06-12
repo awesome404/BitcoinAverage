@@ -70,7 +70,7 @@
 
     _storeProducts = [NSArray array];
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-    
+
     if([BASettings shouldShowAds]) { // if they haven't paid
         [self initAds];
         [self fetchStoreProducts];
@@ -292,10 +292,7 @@
 
 - (IBAction)showAdsPush:(id)sender {
 #ifndef NDEBUG
-//    _removeAdsButton.hidden = NO;
     [BASettings unhideAds];
-    [self initAds];
-    [self fetchStoreProducts];
 #endif
 }
 
@@ -366,13 +363,13 @@
     [self startRefreshTimer];
 }
 
-#pragma mark StoreKit - SKRequestDelegate & SKProductsRequestDelegates
+#pragma mark StoreKit - SKRequestDelegate & SKProductsRequestDelegate
 
 - (void)fetchStoreProducts {
     if(_storeProducts==nil) _storeProducts = [NSArray array];
     NSSet *productSet = [NSSet setWithObject:@"com.nullriver.BitcoinAverage.RemoveAds"];
     SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productSet];
-    productsRequest.delegate = self;
+    productsRequest.delegate = self; // SKProductsRequestDelegate
     [productsRequest start];
 }
 
@@ -394,18 +391,24 @@
         switch(transaction.transactionState) {
             case SKPaymentTransactionStateRestored:
                 NSLogDebug(@"SKPaymentTransactionStateRestored",nil);
+                [BASettings hideAds];
+                [self hideBannerView];
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                // Your purchase has been restored. The ads will be removed shortly.
+                break;
             case SKPaymentTransactionStatePurchased:
                 NSLogDebug(@"SKPaymentTransactionStatePurchased",nil);
                 [BASettings hideAds];
+                [self hideBannerView];
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                // Your purchase was successful. The ads will be removed shortly.
                 break;
-                
             case SKPaymentTransactionStatePurchasing:
                 NSLogDebug(@"SKPaymentTransactionStatePurchasing",nil);
                 _removeAdsButton.hidden = YES;
                 break;
             case SKPaymentTransactionStateFailed:
-                NSLogDebug(@"SKPaymentTransactionStateFailed",nil);
+                NSLogDebug(@"SKPaymentTransactionStateFailed: %@",[transaction.error localizedDescription]);
                 _removeAdsButton.hidden = NO;
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
