@@ -46,6 +46,7 @@
 - (void)initAds;
 - (void)showBannerView;
 - (void)hideBannerView;
+- (void)simpleMessage:(NSString*)message withTitle:(NSString*)title;
 
 - (IBAction)infoPush:(UIButton *)sender;
 - (IBAction)removeAdsPush:(id)sender;
@@ -87,6 +88,14 @@
 - (void)viewWillAppear:(BOOL)animated {
     NSLogDebug(@"viewWillAppear",nil);
     [self refreshData];
+}
+
+- (void)simpleMessage:(NSString*)message withTitle:(NSString*)title {
+    [[[UIAlertView alloc] initWithTitle:title
+                                message:message
+                               delegate:nil
+                      cancelButtonTitle:@"Ok"
+                      otherButtonTitles:nil] show];
 }
 
 #pragma mark Rotation
