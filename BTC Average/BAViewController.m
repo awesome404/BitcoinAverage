@@ -403,14 +403,14 @@
                 [BASettings hideAds];
                 [self hideBannerView];
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-                // Your purchase has been restored. The ads will be removed shortly.
+                [self simpleMessage:@"Your purchase was successfully restored!" withTitle:@"Thank You"];
                 break;
             case SKPaymentTransactionStatePurchased:
                 NSLogDebug(@"SKPaymentTransactionStatePurchased",nil);
                 [BASettings hideAds];
                 [self hideBannerView];
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-                // Your purchase was successful. The ads will be removed shortly.
+                [self simpleMessage:@"Your purchase was successful!" withTitle:@"Thank You"];
                 break;
             case SKPaymentTransactionStatePurchasing:
                 NSLogDebug(@"SKPaymentTransactionStatePurchasing",nil);
@@ -420,6 +420,7 @@
                 NSLogDebug(@"SKPaymentTransactionStateFailed: %@",[transaction.error localizedDescription]);
                 _removeAdsButton.hidden = NO;
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                [self simpleMessage:@"Purchase failed..." withTitle:@"Ah Crap"];
                 break;
         }
     }
