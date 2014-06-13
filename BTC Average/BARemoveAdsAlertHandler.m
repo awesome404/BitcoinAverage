@@ -28,8 +28,8 @@
     [[[UIAlertView alloc] initWithTitle:_product.localizedTitle
                                 message:message
                                delegate:self
-                      cancelButtonTitle:@"No"
-                      otherButtonTitles:@"Yes",@"Restore",nil] show];
+                      cancelButtonTitle:@"No Thanks"
+                      otherButtonTitles:@"Yes Please",@"Restore Purchase",nil] show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
