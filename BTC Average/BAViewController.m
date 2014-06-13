@@ -285,7 +285,7 @@
     [self.view endEditing:YES];
 }
 
-#pragma mark Buttons with Alerts - UIAlertViewDelegate
+#pragma mark Buttons with Alerts
 
 - (IBAction)infoPush:(UIButton *)sender {
     if(_infoAlertHandler==nil) _infoAlertHandler = [BAInfoAlertHandler alloc];
@@ -429,13 +429,5 @@
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedDownloads:(NSArray *)downloads {
     NSLogDebug(@"paymentQueue updatedDownloads",nil);
 }
-
-/*- (void)requestDidFinish:(SKRequest *)request { // SKRequestDelegate
-    NSLog(@"SKProductsRequest Finished !!\n%@\n%@",request,error);
-}
-
-- (void)request:(SKRequest *)request didFailWithError:(NSError *)error { // SKRequestDelegate
-    NSLog(@"SKProductsRequest Failed !!\n%@\n%@",request,error);
-}*/
 
 @end
