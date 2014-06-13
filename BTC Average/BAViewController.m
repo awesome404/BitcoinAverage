@@ -10,6 +10,7 @@
 #import "BASettings.h"
 #import "BAInfoAlertHandler.h"
 #import "BARemoveAdsAlertHandler.h"
+#import "BARateAppAlertHandler.h"
 
 @interface BAViewController () {
     double _last;
@@ -19,6 +20,7 @@
     NSArray *_storeProducts;
     BAInfoAlertHandler *_infoAlertHandler;
     BARemoveAdsAlertHandler *_removeAdsHandler;
+    BARateAppAlertHandler *_rateMe;
     BOOL _isShowingLandscapeView;
 }
 
@@ -81,6 +83,10 @@
     _showAdsButton.hidden = NO;
 #endif
 
+    _rateMe = [BARateAppAlertHandler alloc];
+    if([_rateMe shouldShow]) [_rateMe showAlert];
+    else _rateMe = nil;
+    
     // trivial value to start with
     _lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
 }
