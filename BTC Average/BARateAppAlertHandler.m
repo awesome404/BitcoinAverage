@@ -11,9 +11,7 @@
 @implementation BARateAppAlertHandler
 
 - (BOOL)shouldShow {
-#ifndef NDEBUG
-    return YES;
-#endif
+
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 
     if([prefs boolForKey:@"neverRate"]) return NO;
