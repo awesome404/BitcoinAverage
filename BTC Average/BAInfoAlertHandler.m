@@ -15,7 +15,7 @@
     [[[UIAlertView alloc] initWithTitle:@"BitcoinAverage Price Index"
                                 message:@"All data is from BitcoinAverage.com\nOpen in Safari?"
                                delegate:self
-                      cancelButtonTitle:@"No Thanks"
+                      cancelButtonTitle:@"No, Thanks"
                       otherButtonTitles:@"Open",nil] show];
 }
 
