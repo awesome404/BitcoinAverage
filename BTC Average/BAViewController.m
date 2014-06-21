@@ -418,6 +418,7 @@
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 [self simpleMessage:@"Your purchase was successful!" withTitle:@"Thank You"];
                 break;
+            //case SKPaymentTransactionStateDeferred:
             case SKPaymentTransactionStatePurchasing:
                 NSLogDebug(@"SKPaymentTransactionStatePurchasing",nil);
                 _removeAdsButton.hidden = YES;
