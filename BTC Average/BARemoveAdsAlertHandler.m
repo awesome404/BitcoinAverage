@@ -41,7 +41,7 @@
             NSLogDebug(@"Purchased \"%@\"",_product.localizedTitle);
         } else if(buttonIndex==2) {
             [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
-            NSLogDebug(@"Restore");
+            NSLogDebug(@"Restore",nil);
         }
     }
     _product = nil;
