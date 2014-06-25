@@ -54,7 +54,9 @@
         [[NSUserDefaults standardUserDefaults] setObject:showAds forKey:SHOWADS_KEY];
         
     } else
-#ifdef NDEBUG
+#ifdef DEBUG
+#warning Debug
+#else
     if(showAds==nil) // in release don't force a reload from user defaults
 #endif
     {

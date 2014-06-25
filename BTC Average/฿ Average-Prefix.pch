@@ -15,7 +15,8 @@
     #import <Foundation/Foundation.h>
 #endif
 
-#ifndef NDEBUG
+#ifdef DEBUG
+#warning Debug
     #define NSLogDebug NSLog
 #else
     #define NSLogDebug(x,y)

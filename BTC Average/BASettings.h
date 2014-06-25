@@ -15,7 +15,8 @@
 + (BOOL) shouldShowAds;
 + (void) hideAds;
 
-#ifndef NDEBUG
+#ifdef DEBUG
+#warning Debug
 + (void) unhideAds;
 #endif
 

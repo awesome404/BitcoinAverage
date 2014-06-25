@@ -78,8 +78,9 @@
         [self initAds];
         [self fetchStoreProducts];
     }
-
-#ifndef NDEBUG
+    
+#ifdef DEBUG
+#warning Debug
     _showAdsButton.hidden = NO;
 #endif
 
@@ -306,7 +307,8 @@
 }
 
 - (IBAction)showAdsPush:(id)sender {
-#ifndef NDEBUG
+#ifdef DEBUG
+#warning Debug
     [BASettings unhideAds];
 #endif
 }
