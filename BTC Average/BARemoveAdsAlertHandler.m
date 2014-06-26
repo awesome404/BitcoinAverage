@@ -23,7 +23,7 @@
     [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [numberFormatter setLocale:_product.priceLocale];
     
-    NSString *message = [NSString stringWithFormat:product.localizedDescription,[numberFormatter stringFromNumber:_product.price]];
+    NSString *message = [NSString stringWithFormat:@"Would you like to remove the ads from ฿ Average for %@?",[numberFormatter stringFromNumber:_product.price]];
     
     [[[UIAlertView alloc] initWithTitle:_product.localizedTitle
                                 message:message
