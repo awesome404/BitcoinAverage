@@ -19,5 +19,5 @@
 #warning Debug
     #define NSLogDebug NSLog
 #else
-    #define NSLogDebug(x,y)
+    #define NSLogDebug(x,y) ((void)0)
 #endif
