@@ -1,16 +1,16 @@
+1.22
+- Nothing, just needed to update the keywords and iTunes icon files
+
 1.21
 - In-app purchase to remove ads
 - Suggest a review
 
 1.11
-
 - Added an activity indicator for network activity
 - Minor layout adjustments
 - Bug fixes
 
-
-1.1 
-
+1.1
 - Added graphing in landscape orientation
 - The time stamp is in the local time zone
 - Added iAds
