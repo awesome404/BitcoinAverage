@@ -19,7 +19,7 @@
 		662CA3CC18AD89AD00FC558A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662CA3A818AD89AC00FC558A /* Foundation.framework */; };
 		662CA3CD18AD89AD00FC558A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662CA3AC18AD89AC00FC558A /* UIKit.framework */; };
 		662CA3D518AD89AD00FC558A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 662CA3D318AD89AD00FC558A /* InfoPlist.strings */; };
-		662CA3D718AD89AD00FC558A /* BTC_AverageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CA3D618AD89AD00FC558A /* BTC_AverageTests.m */; };
+		662CA3D718AD89AD00FC558A /* BitcoinAverageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CA3D618AD89AD00FC558A /* BitcoinAverageTests.m */; };
 		6638D9CA194A9AB700D59B35 /* BARateAppAlertHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6638D9C9194A9AB700D59B35 /* BARateAppAlertHandler.m */; };
 		6648645418BAC53500A0CEAB /* BAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6648645318BAC53500A0CEAB /* BAAppDelegate.m */; };
 		6648645718BAC55200A0CEAB /* BASettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6648645618BAC55200A0CEAB /* BASettings.m */; };
@@ -47,20 +47,20 @@
 		662CA3A818AD89AC00FC558A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		662CA3AA18AD89AC00FC558A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		662CA3AC18AD89AC00FC558A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		662CA3B018AD89AD00FC558A /* ฿ Average-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "฿ Average-Info.plist"; sourceTree = "<group>"; };
+		662CA3B018AD89AD00FC558A /* BitcoinAverage-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BitcoinAverage-Info.plist"; sourceTree = "<group>"; };
 		662CA3B218AD89AD00FC558A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		662CA3B418AD89AD00FC558A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		662CA3B618AD89AD00FC558A /* ฿ Average-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "฿ Average-Prefix.pch"; sourceTree = "<group>"; };
+		662CA3B618AD89AD00FC558A /* BitcoinAverage-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BitcoinAverage-Prefix.pch"; sourceTree = "<group>"; };
 		662CA3B718AD89AD00FC558A /* BAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BAAppDelegate.h; sourceTree = "<group>"; };
 		662CA3BB18AD89AD00FC558A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		662CA3C018AD89AD00FC558A /* BAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BAViewController.h; sourceTree = "<group>"; };
 		662CA3C118AD89AD00FC558A /* BAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BAViewController.m; sourceTree = "<group>"; };
 		662CA3C318AD89AD00FC558A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		662CA3C918AD89AD00FC558A /* ฿ AverageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "฿ AverageTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		662CA3C918AD89AD00FC558A /* BitcoinAverageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BitcoinAverageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		662CA3CA18AD89AD00FC558A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		662CA3D218AD89AD00FC558A /* ฿ AverageTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "฿ AverageTests-Info.plist"; sourceTree = "<group>"; };
+		662CA3D218AD89AD00FC558A /* BitcoinAverageTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BitcoinAverageTests-Info.plist"; sourceTree = "<group>"; };
 		662CA3D418AD89AD00FC558A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		662CA3D618AD89AD00FC558A /* BTC_AverageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTC_AverageTests.m; sourceTree = "<group>"; };
+		662CA3D618AD89AD00FC558A /* BitcoinAverageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitcoinAverageTests.m; sourceTree = "<group>"; };
 		6638D9C8194A9AB700D59B35 /* BARateAppAlertHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARateAppAlertHandler.h; sourceTree = "<group>"; };
 		6638D9C9194A9AB700D59B35 /* BARateAppAlertHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BARateAppAlertHandler.m; sourceTree = "<group>"; };
 		6648645318BAC53500A0CEAB /* BAAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAppDelegate.m; sourceTree = "<group>"; };
@@ -114,8 +114,8 @@
 		662CA39C18AD89AC00FC558A = {
 			isa = PBXGroup;
 			children = (
-				662CA3AE18AD89AD00FC558A /* ฿ Average */,
-				662CA3D018AD89AD00FC558A /* ฿ AverageTests */,
+				662CA3AE18AD89AD00FC558A /* BitcoinAverage */,
+				662CA3D018AD89AD00FC558A /* BitcoinAverageTests */,
 				662CA3A718AD89AC00FC558A /* Frameworks */,
 				662CA3A618AD89AC00FC558A /* Products */,
 			);
@@ -125,7 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				662CA3A518AD89AC00FC558A /* ฿ Average.app */,
-				662CA3C918AD89AD00FC558A /* ฿ AverageTests.xctest */,
+				662CA3C918AD89AD00FC558A /* BitcoinAverageTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,7 +143,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		662CA3AE18AD89AD00FC558A /* ฿ Average */ = {
+		662CA3AE18AD89AD00FC558A /* BitcoinAverage */ = {
 			isa = PBXGroup;
 			children = (
 				66D34F2B18EC1BFA00257C69 /* changelog */,
@@ -159,36 +159,34 @@
 				662CA3C318AD89AD00FC558A /* Images.xcassets */,
 				662CA3AF18AD89AD00FC558A /* Supporting Files */,
 			);
-			name = "฿ Average";
-			path = "BTC Average";
-			sourceTree = "<group>";
+			path = BitcoinAverage;
+			sourceTree = SOURCE_ROOT;
 		};
 		662CA3AF18AD89AD00FC558A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				662CA3B018AD89AD00FC558A /* ฿ Average-Info.plist */,
+				662CA3B018AD89AD00FC558A /* BitcoinAverage-Info.plist */,
 				662CA3B118AD89AD00FC558A /* InfoPlist.strings */,
 				662CA3B418AD89AD00FC558A /* main.m */,
-				662CA3B618AD89AD00FC558A /* ฿ Average-Prefix.pch */,
+				662CA3B618AD89AD00FC558A /* BitcoinAverage-Prefix.pch */,
 				6620853418FDC15000C32460 /* InAppProductIDs.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		662CA3D018AD89AD00FC558A /* ฿ AverageTests */ = {
+		662CA3D018AD89AD00FC558A /* BitcoinAverageTests */ = {
 			isa = PBXGroup;
 			children = (
-				662CA3D618AD89AD00FC558A /* BTC_AverageTests.m */,
+				662CA3D618AD89AD00FC558A /* BitcoinAverageTests.m */,
 				662CA3D118AD89AD00FC558A /* Supporting Files */,
 			);
-			name = "฿ AverageTests";
-			path = "BTC AverageTests";
+			path = BitcoinAverageTests;
 			sourceTree = "<group>";
 		};
 		662CA3D118AD89AD00FC558A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				662CA3D218AD89AD00FC558A /* ฿ AverageTests-Info.plist */,
+				662CA3D218AD89AD00FC558A /* BitcoinAverageTests-Info.plist */,
 				662CA3D318AD89AD00FC558A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -285,9 +283,9 @@
 			productReference = 662CA3A518AD89AC00FC558A /* ฿ Average.app */;
 			productType = "com.apple.product-type.application";
 		};
-		662CA3C818AD89AD00FC558A /* ฿ AverageTests */ = {
+		662CA3C818AD89AD00FC558A /* BitcoinAverageTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 662CA3DD18AD89AD00FC558A /* Build configuration list for PBXNativeTarget "฿ AverageTests" */;
+			buildConfigurationList = 662CA3DD18AD89AD00FC558A /* Build configuration list for PBXNativeTarget "BitcoinAverageTests" */;
 			buildPhases = (
 				662CA3C518AD89AD00FC558A /* Sources */,
 				662CA3C618AD89AD00FC558A /* Frameworks */,
@@ -298,9 +296,9 @@
 			dependencies = (
 				662CA3CF18AD89AD00FC558A /* PBXTargetDependency */,
 			);
-			name = "฿ AverageTests";
+			name = BitcoinAverageTests;
 			productName = "BTC AverageTests";
-			productReference = 662CA3C918AD89AD00FC558A /* ฿ AverageTests.xctest */;
+			productReference = 662CA3C918AD89AD00FC558A /* BitcoinAverageTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -326,7 +324,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 662CA3A018AD89AC00FC558A /* Build configuration list for PBXProject "฿ Average" */;
+			buildConfigurationList = 662CA3A018AD89AC00FC558A /* Build configuration list for PBXProject "BitcoinAverage" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -340,7 +338,7 @@
 			projectRoot = "";
 			targets = (
 				662CA3A418AD89AC00FC558A /* ฿ Average */,
-				662CA3C818AD89AD00FC558A /* ฿ AverageTests */,
+				662CA3C818AD89AD00FC558A /* BitcoinAverageTests */,
 			);
 		};
 /* End PBXProject section */
@@ -388,7 +386,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				662CA3D718AD89AD00FC558A /* BTC_AverageTests.m in Sources */,
+				662CA3D718AD89AD00FC558A /* BitcoinAverageTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,8 +508,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BTC Average/฿ Average-Prefix.pch";
-				INFOPLIST_FILE = "BTC Average/฿ Average-Info.plist";
+				GCC_PREFIX_HEADER = "BitcoinAverage/BitcoinAverage-Prefix.pch";
+				INFOPLIST_FILE = "BitcoinAverage/BitcoinAverage-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "฿ Average";
 				PROVISIONING_PROFILE = "";
@@ -528,8 +526,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BTC Average/฿ Average-Prefix.pch";
-				INFOPLIST_FILE = "BTC Average/฿ Average-Info.plist";
+				GCC_PREFIX_HEADER = "BitcoinAverage/BitcoinAverage-Prefix.pch";
+				INFOPLIST_FILE = "BitcoinAverage/BitcoinAverage-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "฿ Average";
 				PROVISIONING_PROFILE = "A3376044-76E4-4DAE-B157-5E03653F1302";
@@ -554,7 +552,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "BTC AverageTests/฿ AverageTests-Info.plist";
-				PRODUCT_NAME = "฿ AverageTests";
+				PRODUCT_NAME = BitcoinAverageTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -572,7 +570,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BTC Average/BTC Average-Prefix.pch";
 				INFOPLIST_FILE = "BTC AverageTests/฿ AverageTests-Info.plist";
-				PRODUCT_NAME = "฿ AverageTests";
+				PRODUCT_NAME = BitcoinAverageTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -581,7 +579,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		662CA3A018AD89AC00FC558A /* Build configuration list for PBXProject "฿ Average" */ = {
+		662CA3A018AD89AC00FC558A /* Build configuration list for PBXProject "BitcoinAverage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				662CA3D818AD89AD00FC558A /* Debug */,
@@ -599,7 +597,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		662CA3DD18AD89AD00FC558A /* Build configuration list for PBXNativeTarget "฿ AverageTests" */ = {
+		662CA3DD18AD89AD00FC558A /* Build configuration list for PBXNativeTarget "BitcoinAverageTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				662CA3DE18AD89AD00FC558A /* Debug */,

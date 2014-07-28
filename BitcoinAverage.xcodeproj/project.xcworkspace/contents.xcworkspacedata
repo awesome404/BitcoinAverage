@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:&#3647; Average.xcodeproj">
+      location = "self:BitcoinAverage.xcodeproj">
    </FileRef>
 </Workspace>
