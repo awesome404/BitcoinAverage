@@ -1,6 +1,6 @@
 //
 //  BAAppDelegate.m
-//  BTC Average
+//  BitcoinAverage
 //
 //  Created by Adam Dann on 2/13/2014.
 //  Copyright (c) 2014 Nullriver. All rights reserved.

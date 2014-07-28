@@ -1,6 +1,6 @@
 //
 //  BAInfoAlertHandler.m
-//  ฿ Average
+//  BitcoinAverage
 //
 //  Created by Adam Dann on 2014-05-30.
 //  Copyright (c) 2014 Nullriver. All rights reserved.
