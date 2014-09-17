@@ -15,11 +15,6 @@
 		662CA3BC18AD89AD00FC558A /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 662CA3BA18AD89AD00FC558A /* Main_iPhone.storyboard */; };
 		662CA3C218AD89AD00FC558A /* BAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CA3C118AD89AD00FC558A /* BAViewController.m */; };
 		662CA3C418AD89AD00FC558A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 662CA3C318AD89AD00FC558A /* Images.xcassets */; };
-		662CA3CB18AD89AD00FC558A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662CA3CA18AD89AD00FC558A /* XCTest.framework */; };
-		662CA3CC18AD89AD00FC558A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662CA3A818AD89AC00FC558A /* Foundation.framework */; };
-		662CA3CD18AD89AD00FC558A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662CA3AC18AD89AC00FC558A /* UIKit.framework */; };
-		662CA3D518AD89AD00FC558A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 662CA3D318AD89AD00FC558A /* InfoPlist.strings */; };
-		662CA3D718AD89AD00FC558A /* BitcoinAverageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 662CA3D618AD89AD00FC558A /* BitcoinAverageTests.m */; };
 		6638D9CA194A9AB700D59B35 /* BARateAppAlertHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6638D9C9194A9AB700D59B35 /* BARateAppAlertHandler.m */; };
 		6648645418BAC53500A0CEAB /* BAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6648645318BAC53500A0CEAB /* BAAppDelegate.m */; };
 		6648645718BAC55200A0CEAB /* BASettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6648645618BAC55200A0CEAB /* BASettings.m */; };
@@ -30,16 +25,6 @@
 		66A4D728191ABEA50073FCE3 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66A4D727191ABEA50073FCE3 /* iAd.framework */; };
 		66FEFB0C18AEA75B0044853D /* BATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FEFB0B18AEA75B0044853D /* BATableViewController.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		662CA3CE18AD89AD00FC558A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 662CA39D18AD89AC00FC558A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 662CA3A418AD89AC00FC558A;
-			remoteInfo = "BTC Average";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6620853418FDC15000C32460 /* InAppProductIDs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InAppProductIDs.plist; sourceTree = "<group>"; };
@@ -56,11 +41,7 @@
 		662CA3C018AD89AD00FC558A /* BAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BAViewController.h; sourceTree = "<group>"; };
 		662CA3C118AD89AD00FC558A /* BAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BAViewController.m; sourceTree = "<group>"; };
 		662CA3C318AD89AD00FC558A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		662CA3C918AD89AD00FC558A /* BitcoinAverageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BitcoinAverageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		662CA3CA18AD89AD00FC558A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		662CA3D218AD89AD00FC558A /* BitcoinAverageTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BitcoinAverageTests-Info.plist"; sourceTree = "<group>"; };
-		662CA3D418AD89AD00FC558A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		662CA3D618AD89AD00FC558A /* BitcoinAverageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BitcoinAverageTests.m; sourceTree = "<group>"; };
 		6638D9C8194A9AB700D59B35 /* BARateAppAlertHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BARateAppAlertHandler.h; sourceTree = "<group>"; };
 		6638D9C9194A9AB700D59B35 /* BARateAppAlertHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BARateAppAlertHandler.m; sourceTree = "<group>"; };
 		6648645318BAC53500A0CEAB /* BAAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAAppDelegate.m; sourceTree = "<group>"; };
@@ -98,16 +79,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		662CA3C618AD89AD00FC558A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				662CA3CB18AD89AD00FC558A /* XCTest.framework in Frameworks */,
-				662CA3CD18AD89AD00FC558A /* UIKit.framework in Frameworks */,
-				662CA3CC18AD89AD00FC558A /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -115,7 +86,6 @@
 			isa = PBXGroup;
 			children = (
 				662CA3AE18AD89AD00FC558A /* BitcoinAverage */,
-				662CA3D018AD89AD00FC558A /* BitcoinAverageTests */,
 				662CA3A718AD89AC00FC558A /* Frameworks */,
 				662CA3A618AD89AC00FC558A /* Products */,
 			);
@@ -125,7 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				662CA3A518AD89AC00FC558A /* ฿ Average.app */,
-				662CA3C918AD89AD00FC558A /* BitcoinAverageTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -170,24 +139,6 @@
 				662CA3B418AD89AD00FC558A /* main.m */,
 				662CA3B618AD89AD00FC558A /* BitcoinAverage-Prefix.pch */,
 				6620853418FDC15000C32460 /* InAppProductIDs.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		662CA3D018AD89AD00FC558A /* BitcoinAverageTests */ = {
-			isa = PBXGroup;
-			children = (
-				662CA3D618AD89AD00FC558A /* BitcoinAverageTests.m */,
-				662CA3D118AD89AD00FC558A /* Supporting Files */,
-			);
-			path = BitcoinAverageTests;
-			sourceTree = "<group>";
-		};
-		662CA3D118AD89AD00FC558A /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				662CA3D218AD89AD00FC558A /* BitcoinAverageTests-Info.plist */,
-				662CA3D318AD89AD00FC558A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -283,24 +234,6 @@
 			productReference = 662CA3A518AD89AC00FC558A /* ฿ Average.app */;
 			productType = "com.apple.product-type.application";
 		};
-		662CA3C818AD89AD00FC558A /* BitcoinAverageTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 662CA3DD18AD89AD00FC558A /* Build configuration list for PBXNativeTarget "BitcoinAverageTests" */;
-			buildPhases = (
-				662CA3C518AD89AD00FC558A /* Sources */,
-				662CA3C618AD89AD00FC558A /* Frameworks */,
-				662CA3C718AD89AD00FC558A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				662CA3CF18AD89AD00FC558A /* PBXTargetDependency */,
-			);
-			name = BitcoinAverageTests;
-			productName = "BTC AverageTests";
-			productReference = 662CA3C918AD89AD00FC558A /* BitcoinAverageTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -319,9 +252,6 @@
 							};
 						};
 					};
-					662CA3C818AD89AD00FC558A = {
-						TestTargetID = 662CA3A418AD89AC00FC558A;
-					};
 				};
 			};
 			buildConfigurationList = 662CA3A018AD89AC00FC558A /* Build configuration list for PBXProject "BitcoinAverage" */;
@@ -338,7 +268,6 @@
 			projectRoot = "";
 			targets = (
 				662CA3A418AD89AC00FC558A /* ฿ Average */,
-				662CA3C818AD89AD00FC558A /* BitcoinAverageTests */,
 			);
 		};
 /* End PBXProject section */
@@ -351,14 +280,6 @@
 				662CA3C418AD89AD00FC558A /* Images.xcassets in Resources */,
 				662CA3BC18AD89AD00FC558A /* Main_iPhone.storyboard in Resources */,
 				662CA3B318AD89AD00FC558A /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		662CA3C718AD89AD00FC558A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				662CA3D518AD89AD00FC558A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,23 +303,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		662CA3C518AD89AD00FC558A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				662CA3D718AD89AD00FC558A /* BitcoinAverageTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		662CA3CF18AD89AD00FC558A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 662CA3A418AD89AC00FC558A /* ฿ Average */;
-			targetProxy = 662CA3CE18AD89AD00FC558A /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		662CA3B118AD89AD00FC558A /* InfoPlist.strings */ = {
@@ -415,14 +320,6 @@
 				662CA3BB18AD89AD00FC558A /* Base */,
 			);
 			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		662CA3D318AD89AD00FC558A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				662CA3D418AD89AD00FC558A /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -536,46 +433,6 @@
 			};
 			name = Release;
 		};
-		662CA3DE18AD89AD00FC558A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BTC Average.app/BTC Average";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BTC Average/BTC Average-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "BTC AverageTests/฿ AverageTests-Info.plist";
-				PRODUCT_NAME = BitcoinAverageTests;
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		662CA3DF18AD89AD00FC558A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BTC Average.app/BTC Average";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BTC Average/BTC Average-Prefix.pch";
-				INFOPLIST_FILE = "BTC AverageTests/฿ AverageTests-Info.plist";
-				PRODUCT_NAME = BitcoinAverageTests;
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -593,15 +450,6 @@
 			buildConfigurations = (
 				662CA3DB18AD89AD00FC558A /* Debug */,
 				662CA3DC18AD89AD00FC558A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		662CA3DD18AD89AD00FC558A /* Build configuration list for PBXNativeTarget "BitcoinAverageTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				662CA3DE18AD89AD00FC558A /* Debug */,
-				662CA3DF18AD89AD00FC558A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
