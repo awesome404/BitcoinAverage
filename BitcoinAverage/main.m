@@ -10,9 +10,12 @@
 
 #import "BAAppDelegate.h"
 
+double iOSVersion = 7;
+
 int main(int argc, char * argv[])
 {
     @autoreleasepool {
+        iOSVersion = [[[UIDevice currentDevice] systemVersion] doubleValue];
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([BAAppDelegate class]));
     }
 }
