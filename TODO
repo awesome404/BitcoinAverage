@@ -1,6 +1,9 @@
 -- High
 
 Improve transition to landscape to account for network delays
+Check if badge updates are enabled
+Check if background fetch is enabled
+Fix landscape in iOS 8
 
 
 -- Low
