@@ -47,7 +47,7 @@
             if(data) {
                 // Change the badge icon devided down to under 10000
                 double last = [[data valueForKey:@"last"] doubleValue];
-                while(last>=10000.0) last/=10.0;
+                if(iOSVersion<8) while(last>=10000.0) last/=10.0;
                 application.applicationIconBadgeNumber = (unsigned)(last+0.5);
                 lastUpdate = [NSDate date];
                 result = UIBackgroundFetchResultNewData;
