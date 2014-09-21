@@ -87,6 +87,17 @@
     _rateMe = [BARateAppAlertHandler alloc];
     if([_rateMe shouldShow]) [_rateMe showAlert];
     else _rateMe = nil;
+
+    // check to see if badges are enabled
+    if(iOSVersion>=8) {
+        UIUserNotificationSettings *notifications;
+        [[UIApplication sharedApplication] registerUserNotificationSettings:notifications];
+    } else {
+        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+        if((types|UIRemoteNotificationTypeBadge) == UIRemoteNotificationTypeBadge) {
+            // badges are disabled!
+        }
+     }
     
     // trivial value to start with
     _lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
