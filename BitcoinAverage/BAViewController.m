@@ -90,8 +90,7 @@
 
     // check to see if badges are enabled
     if(iOSVersion>=8) {
-        UIUserNotificationSettings *notifications;
-        [[UIApplication sharedApplication] registerUserNotificationSettings:notifications];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil]];
     } else {
         UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
         if((types|UIRemoteNotificationTypeBadge) == UIRemoteNotificationTypeBadge) {
