@@ -200,8 +200,8 @@
             }
             
             // Change the badge icon devided down to under 10000
-            double last_copy = _last;
-            if(iOSVersion<8) while(last_copy>=10000.0) last_copy/=10.0;
+            double last_copy = _last, limit = (iOSVersion<8)?100000.0:10000;
+            while(last_copy>=limit) last_copy/=10.0;
             [UIApplication sharedApplication].applicationIconBadgeNumber = (unsigned)(last_copy+0.5);
             
             _lastUpdate = [NSDate date];
