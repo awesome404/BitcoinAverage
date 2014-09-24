@@ -88,15 +88,15 @@
     if([_rateMe shouldShow]) [_rateMe showAlert];
     else _rateMe = nil;
 
-    // check to see if badges are enabled
+    // register for badges in iOS 8
     if(iOSVersion>=8) {
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil]];
-    } else {
+    } /*else { // check to see if badges are enabled
         UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
         if((types|UIRemoteNotificationTypeBadge) == UIRemoteNotificationTypeBadge) {
-            // badges are disabled!
+            [self simpleMessage:@"Please eable badge notifications." withTitle:@"Alert"];
         }
-     }
+     }*/
     
     // trivial value to start with
     _lastUpdate = [NSDate dateWithTimeIntervalSinceNow:-300.0];
