@@ -89,7 +89,7 @@
     else _rateMe = nil;
 
     // register for badges in iOS 8
-    if(iOSVersion>=8) {
+    if(iOSVersion._major>=8) {
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil]];
     } /*else { // check to see if badges are enabled
         UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
@@ -199,7 +199,7 @@
             }
             
             // Change the badge icon devided down to under 10000
-            double last_copy = _last, limit = (iOSVersion<8)?100000.0:10000;
+            double last_copy = _last, limit = (iOSVersion._major<8)?100000.0:10000;
             while(last_copy>=limit) last_copy/=10.0;
             [UIApplication sharedApplication].applicationIconBadgeNumber = (unsigned)(last_copy+0.5);
             
@@ -430,7 +430,7 @@
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 [self simpleMessage:@"Your purchase was successful!" withTitle:@"Thank You"];
                 break;
-            //case SKPaymentTransactionStateDeferred:
+            case SKPaymentTransactionStateDeferred:
             case SKPaymentTransactionStatePurchasing:
                 NSLogDebug(@"SKPaymentTransactionStatePurchasing",nil);
                 _removeAdsButton.hidden = YES;

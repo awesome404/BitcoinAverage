@@ -10,12 +10,14 @@
 
 #import "BAAppDelegate.h"
 
-double iOSVersion = 7;
+struct iOSVersionStruct iOSVersion = {7,0};
 
 int main(int argc, char * argv[])
 {
     @autoreleasepool {
-        iOSVersion = [[[UIDevice currentDevice] systemVersion] doubleValue];
+        NSArray *parts = [[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."];
+        iOSVersion._major = (int)[[NSString stringWithString:parts[0]] integerValue];
+        iOSVersion._minor = (int)[[NSString stringWithString:parts[1]] integerValue];
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([BAAppDelegate class]));
     }
 }
