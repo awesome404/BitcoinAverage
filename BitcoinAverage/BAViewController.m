@@ -167,6 +167,8 @@
     [_activityIndicator startAnimating];
     _activityIndicator.hidden = NO;
 
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    
     NSError *error=nil;
     NSString *currency = [BASettings getCurrency];
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]] options:NSDataReadingUncached error:&error];
@@ -180,6 +182,8 @@
             _last = [[data valueForKey:@"last"] doubleValue];
             NSString *timeStamp = [self reformatTimestamp:[data valueForKey:@"timestamp"]];
 
+            dispatch_async(dispatch_get_main_queue(), ^{
+            
             // Currency Buttons
             [_currencyButton setTitle:currency forState:UIControlStateNormal];
             [_smallCurrencyButton setTitle:currency forState:UIControlStateNormal];
@@ -204,18 +208,26 @@
             [UIApplication sharedApplication].applicationIconBadgeNumber = (unsigned)(last_copy+0.5);
             
             _lastUpdate = [NSDate date];
-
+        });
         } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
             _dateLabel.text = @"Failed to parse data.";
             NSLogDebug(@"JSON to NSDictionary failed: %@",error);
+            });
         }
     } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
         _dateLabel.text = @"Failed to fetch data.";
         NSLogDebug(@"No urlData: %@",error);
+        });
     }
 
+    dispatch_async(dispatch_get_main_queue(), ^{
     [_activityIndicator stopAnimating];
     NSLogDebug(@"refreshData %.2f",_last);
+    });
+    
+    });
 }
 
 - (NSString*)reformatTimestamp:(NSString*)stamp {
