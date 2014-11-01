@@ -46,7 +46,7 @@
             NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&error];
             if(data) {
                 // Change the badge icon devided down to under 10000
-                double last = [[data valueForKey:@"last"] doubleValue], limit = (iOSVersion._major<8)?100000.0:10000;
+                double last = [[data valueForKey:@"last"] doubleValue], limit = (iOSVersion._major<8)?10000:100000;
                 while(last>=limit) last/=10.0;
                 application.applicationIconBadgeNumber = (unsigned)(last+0.5);
                 lastUpdate = [NSDate date];
