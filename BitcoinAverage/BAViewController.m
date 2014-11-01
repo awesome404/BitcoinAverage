@@ -167,66 +167,66 @@
     [_activityIndicator startAnimating];
     _activityIndicator.hidden = NO;
 
-dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-    
-    NSError *error=nil;
-    NSString *currency = [BASettings getCurrency];
-    NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]] options:NSDataReadingUncached error:&error];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
 
-    if(urlData) {
-        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&error];
-        if(data) {
-            double bid  = [[data valueForKey:@"bid"]  doubleValue],
-                   ask  = [[data valueForKey:@"ask"]  doubleValue];
+        NSString *errorMessage = nil;
+        NSError *error=nil;
+        NSString *currency = [BASettings getCurrency];
+        NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]] options:NSDataReadingUncached error:&error];
 
-            _last = [[data valueForKey:@"last"] doubleValue];
-            NSString *timeStamp = [self reformatTimestamp:[data valueForKey:@"timestamp"]];
+        if(urlData) {
+            NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&error];
+            if(data) {
+                double bid  = [[data valueForKey:@"bid"]  doubleValue],
+                       ask  = [[data valueForKey:@"ask"]  doubleValue];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
-            
-            // Currency Buttons
-            [_currencyButton setTitle:currency forState:UIControlStateNormal];
-            [_smallCurrencyButton setTitle:currency forState:UIControlStateNormal];
-            
-            // Change the labels
-            _lastLabel.text = [NSString stringWithFormat:floatFormat,_last];
-            _bidLabel.text  = [NSString stringWithFormat:floatFormat,bid];
-            _askLabel.text  = [NSString stringWithFormat:floatFormat,ask];
-            _dateLabel.text = (timeStamp!=nil)?timeStamp:@"";
-            
-            // Change the edit boxes
-            _currencyEdit.placeholder = [NSString stringWithFormat:floatFormat,_last];
+                _last = [[data valueForKey:@"last"] doubleValue];
+                NSString *timeStamp = [self reformatTimestamp:[data valueForKey:@"timestamp"]];
+                _lastUpdate = [NSDate date];
 
-            if([_bitcoinEdit.text length]) {
-                double newval = [_bitcoinEdit.text doubleValue]*_last;
-                _currencyEdit.text = [NSString stringWithFormat:floatFormat,newval];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // Currency Buttons
+                    [_currencyButton setTitle:currency forState:UIControlStateNormal];
+                    [_smallCurrencyButton setTitle:currency forState:UIControlStateNormal];
+                    
+                    // Change the labels
+                    _lastLabel.text = [NSString stringWithFormat:floatFormat,_last];
+                    _bidLabel.text  = [NSString stringWithFormat:floatFormat,bid];
+                    _askLabel.text  = [NSString stringWithFormat:floatFormat,ask];
+                    _dateLabel.text = (timeStamp!=nil)?timeStamp:@"";
+                    
+                    // Change the edit boxes
+                    _currencyEdit.placeholder = [NSString stringWithFormat:floatFormat,_last];
+
+                    if([_bitcoinEdit.text length]) {
+                        double newval = [_bitcoinEdit.text doubleValue]*_last;
+                        _currencyEdit.text = [NSString stringWithFormat:floatFormat,newval];
+                    }
+                    
+                    // Change the badge icon devided down to under 10000
+                    double last_copy = _last, limit = (iOSVersion._major<8)?100000.0:10000;
+                    while(last_copy>=limit) last_copy/=10.0;
+                    [UIApplication sharedApplication].applicationIconBadgeNumber = (unsigned)(last_copy+0.5);
+                    
+                    [_activityIndicator stopAnimating];
+                    NSLogDebug(@"refreshData %.2f",_last);
+                });
+                return;
+            } else {
+                errorMessage = @"Failed to parse data.";
+                NSLogDebug(@"JSON to NSDictionary failed: %@",error);
             }
-            
-            // Change the badge icon devided down to under 10000
-            double last_copy = _last, limit = (iOSVersion._major<8)?100000.0:10000;
-            while(last_copy>=limit) last_copy/=10.0;
-            [UIApplication sharedApplication].applicationIconBadgeNumber = (unsigned)(last_copy+0.5);
-            
-            _lastUpdate = [NSDate date];
-        });
         } else {
+            errorMessage = @"Failed to fetch data.";
+            NSLogDebug(@"No urlData: %@",error);
+        }
+        
+        if(errorMessage!=nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
-            _dateLabel.text = @"Failed to parse data.";
-            NSLogDebug(@"JSON to NSDictionary failed: %@",error);
+                _dateLabel.text = errorMessage;
+                [_activityIndicator stopAnimating];
             });
         }
-    } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-        _dateLabel.text = @"Failed to fetch data.";
-        NSLogDebug(@"No urlData: %@",error);
-        });
-    }
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-    [_activityIndicator stopAnimating];
-    NSLogDebug(@"refreshData %.2f",_last);
-    });
-    
     });
 }
 
