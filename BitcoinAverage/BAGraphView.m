@@ -70,6 +70,8 @@
     CGContextAddLineToPoint(context, width, y);
     
     CGContextStrokePath(context);
+
+    _theData = [self refreshData];
     
     // graph data
     CGContextSetRGBStrokeColor(context, 0.2, 0.2, 0.8, 0.8);
