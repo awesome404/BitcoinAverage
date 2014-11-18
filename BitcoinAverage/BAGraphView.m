@@ -53,6 +53,8 @@
     
     CGContextStrokePath(context);
 
+    _theData = [self refreshData];
+    
     if(_theData==nil) {
         NSString *error = @"Error: Could not fetch graph data.";
         CGSize cgSize = [error sizeWithAttributes:nil];
@@ -70,8 +72,6 @@
     CGContextAddLineToPoint(context, width, y);
     
     CGContextStrokePath(context);
-
-    _theData = [self refreshData];
     
     // graph data
     CGContextSetRGBStrokeColor(context, 0.2, 0.2, 0.8, 0.8);
