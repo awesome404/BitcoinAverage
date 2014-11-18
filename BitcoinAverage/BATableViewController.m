@@ -59,6 +59,7 @@
 }
 
 - (void)refreshData {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
     
     NSError *error = nil;
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://api.bitcoinaverage.com/ticker/global/all"] options:NSDataReadingUncached error:&error];
@@ -79,14 +80,19 @@
 
             _theKeys = [NSArray arrayWithObjects:primaryKeys,secondaryKeys,[allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)],nil];
 
+            dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
+            });
 
         } else NSLogDebug(@"JSON to NSDictionary failed: %@",error);
     } else NSLogDebug(@"No urlData: %@",error);
 
     if(_theKeys == nil) _theKeys = [NSArray arrayWithObjects:primaryKeys,nil];
 
-    if(self.refreshControl.refreshing) [self.refreshControl endRefreshing];
+    if(self.refreshControl.refreshing) {
+        dispatch_async(dispatch_get_main_queue(), ^{[self.refreshControl endRefreshing];});
+    }
+    });
 }
 
 /*- (void)didReceiveMemoryWarning {
