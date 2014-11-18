@@ -61,37 +61,37 @@
 - (void)refreshData {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
     
-    NSError *error = nil;
-    NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://api.bitcoinaverage.com/ticker/global/all"] options:NSDataReadingUncached error:&error];
+        NSError *error = nil;
+        NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://api.bitcoinaverage.com/ticker/global/all"] options:NSDataReadingUncached error:&error];
 
-    _theKeys = nil;
-    _theData = nil;
-    
-    NSArray *primaryKeys = [NSArray arrayWithObjects:@"USD",@"CAD",@"EUR",@"CNY",@"GBP",nil];
-    
-    if(urlData) {
-        if((_theData = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&error])!=nil) {
+        _theKeys = nil;
+        _theData = nil;
+        
+        NSArray *primaryKeys = [NSArray arrayWithObjects:@"USD",@"CAD",@"EUR",@"CNY",@"GBP",nil];
+        
+        if(urlData) {
+            if((_theData = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&error])!=nil) {
 
-            NSArray *secondaryKeys = [NSArray arrayWithObjects:@"PLN",@"JPY",@"RUB",@"AUD",@"SEK",@"BRL",@"NZD",
-                                                               @"SGD",@"ZAR",@"NOK",@"ILS",@"CHF",@"TRY",nil];
-            NSMutableArray *allKeys = [[_theData allKeys] mutableCopy];
+                NSArray *secondaryKeys = [NSArray arrayWithObjects:@"PLN",@"JPY",@"RUB",@"AUD",@"SEK",@"BRL",@"NZD",
+                                                                   @"SGD",@"ZAR",@"NOK",@"ILS",@"CHF",@"TRY",nil];
+                NSMutableArray *allKeys = [[_theData allKeys] mutableCopy];
 
-            [allKeys removeObject:@"timestamp"];
+                [allKeys removeObject:@"timestamp"];
 
-            _theKeys = [NSArray arrayWithObjects:primaryKeys,secondaryKeys,[allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)],nil];
+                _theKeys = [NSArray arrayWithObjects:primaryKeys,secondaryKeys,[allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)],nil];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            });
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                });
 
-        } else NSLogDebug(@"JSON to NSDictionary failed: %@",error);
-    } else NSLogDebug(@"No urlData: %@",error);
+            } else NSLogDebug(@"JSON to NSDictionary failed: %@",error);
+        } else NSLogDebug(@"No urlData: %@",error);
 
-    if(_theKeys == nil) _theKeys = [NSArray arrayWithObjects:primaryKeys,nil];
+        if(_theKeys == nil) _theKeys = [NSArray arrayWithObjects:primaryKeys,nil];
 
-    if(self.refreshControl.refreshing) {
-        dispatch_async(dispatch_get_main_queue(), ^{[self.refreshControl endRefreshing];});
-    }
+        if(self.refreshControl.refreshing) {
+            dispatch_async(dispatch_get_main_queue(), ^{[self.refreshControl endRefreshing];});
+        }
     });
 }
 
