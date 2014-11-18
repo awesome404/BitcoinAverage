@@ -35,22 +35,18 @@
 
     // strong grey lines
     CGContextSetRGBStrokeColor(context, 0.9, 0.9, 0.9, 1);
-
     for(int i=2;i<=6;i+=2) {
         CGContextMoveToPoint(context, 0, eighth*i);
         CGContextAddLineToPoint(context, width, eighth*i);
     }
-
     CGContextStrokePath(context);
 
     // weak grey lines
     CGContextSetRGBStrokeColor(context, 0.95, 0.95, 0.95, 1);
-
     for(int i=3;i<=5;i+=2) {
         CGContextMoveToPoint(context, 0, eighth*i);
         CGContextAddLineToPoint(context, width, eighth*i);
     }
-    
     CGContextStrokePath(context);
 
     _theData = [self refreshData];
@@ -64,13 +60,9 @@
     
     // red daily average line
     CGContextSetRGBStrokeColor(context, 1, 0.8, 0.8, 1);
-
-    double x, y; // reusable coords
-
-    y = (_averagePosition * (eighth*4))+(eighth*2);
+    double x, y = (_averagePosition * (eighth*4))+(eighth*2); // reusable coords
     CGContextMoveToPoint(context, 0, y);
     CGContextAddLineToPoint(context, width, y);
-    
     CGContextStrokePath(context);
     
     // graph data
@@ -159,8 +151,7 @@
         range = [[lines lastObject] rangeOfString:@","];
         _endTime = [dateFormatter dateFromString:[[lines lastObject] substringToIndex:range.location]];
         
-        _averagePrice = 0.0;
-        _highPrice = 0.0;
+        _averagePrice = _highPrice = 0.0;
         _lowPrice = 100000000.0;
 
         unsigned long i=0,ii=0,c,base=5;
