@@ -10,6 +10,7 @@
 #import "BASettings.h"
 
 @interface BAGraphView () {
+    NSArray *_theData;
     NSDate *_startTime, *_endTime;
     double _averagePosition, _highPrice, _lowPrice, _averagePrice;
 }
@@ -28,8 +29,6 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    NSArray *theData = [self refreshData];
-    
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     double width = rect.size.width, eighth = rect.size.height/8;
@@ -54,7 +53,7 @@
     
     CGContextStrokePath(context);
 
-    if(theData==nil) {
+    if(_theData==nil) {
         NSString *error = @"Error: Could not fetch graph data.";
         CGSize cgSize = [error sizeWithAttributes:nil];
         [error drawAtPoint:CGPointMake((rect.size.width-cgSize.width)/2,(rect.size.height/2)-cgSize.height) withAttributes:nil];
@@ -75,9 +74,9 @@
     // graph data
     CGContextSetRGBStrokeColor(context, 0.2, 0.2, 0.8, 0.8);
         
-    for(unsigned long i=0, c=[theData count]-1; i<=c; i++) {
+    for(unsigned long i=0, c=[_theData count]-1; i<=c; i++) {
         x = ((double)i/(double)c) * width;
-        y = ([theData[i] doubleValue] * (eighth*4))+(eighth*2);
+        y = ([_theData[i] doubleValue] * (eighth*4))+(eighth*2);
         if(!i) CGContextMoveToPoint(context,x,y);
         else CGContextAddLineToPoint(context,x,y);
     }
