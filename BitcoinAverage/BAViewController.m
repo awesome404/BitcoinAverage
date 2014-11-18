@@ -162,7 +162,6 @@
 #pragma mark Data Management
 
 - (void)refreshData {
-    static NSString *urlFormat = @"https://api.bitcoinaverage.com/ticker/global/%@", *floatFormat = @"%0.2f";
     
     [_activityIndicator startAnimating];
     _activityIndicator.hidden = NO;
@@ -172,7 +171,7 @@
         NSString *errorMessage = nil;
         NSError *error=nil;
         NSString *currency = [BASettings getCurrency];
-        NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:urlFormat,currency]] options:NSDataReadingUncached error:&error];
+        NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.bitcoinaverage.com/ticker/global/%@",currency]] options:NSDataReadingUncached error:&error];
 
         if(urlData) {
             NSDictionary *data = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:&error];
@@ -190,17 +189,17 @@
                     [_smallCurrencyButton setTitle:currency forState:UIControlStateNormal];
                     
                     // Change the labels
-                    _lastLabel.text = [NSString stringWithFormat:floatFormat,_last];
-                    _bidLabel.text  = [NSString stringWithFormat:floatFormat,bid];
-                    _askLabel.text  = [NSString stringWithFormat:floatFormat,ask];
+                    _lastLabel.text = [NSString stringWithFormat:@"%0.2f",_last];
+                    _bidLabel.text  = [NSString stringWithFormat:@"%0.2f",bid];
+                    _askLabel.text  = [NSString stringWithFormat:@"%0.2f",ask];
                     _dateLabel.text = (timeStamp!=nil)?timeStamp:@"";
                     
                     // Change the edit boxes
-                    _currencyEdit.placeholder = [NSString stringWithFormat:floatFormat,_last];
+                    _currencyEdit.placeholder = [NSString stringWithFormat:@"%0.2f",_last];
 
                     if([_bitcoinEdit.text length]) {
                         double newval = [_bitcoinEdit.text doubleValue]*_last;
-                        _currencyEdit.text = [NSString stringWithFormat:floatFormat,newval];
+                        _currencyEdit.text = [NSString stringWithFormat:@"%0.2f",newval];
                     }
                     
                     // Change the badge icon devided down to under 10000

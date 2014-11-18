@@ -59,10 +59,9 @@
 }
 
 - (void)refreshData {
-    static NSString *stringURL = @"https://api.bitcoinaverage.com/ticker/global/all";
     
     NSError *error = nil;
-    NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:stringURL] options:NSDataReadingUncached error:&error];
+    NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://api.bitcoinaverage.com/ticker/global/all"] options:NSDataReadingUncached error:&error];
 
     _theKeys = nil;
     _theData = nil;
