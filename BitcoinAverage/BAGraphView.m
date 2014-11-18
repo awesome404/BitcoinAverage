@@ -32,14 +32,12 @@
     
     CGContextRef context = UIGraphicsGetCurrentContext();
 
-    unsigned long i,c; // reusable counters
-    double x, y; // reusable coords
     double width = rect.size.width, eighth = rect.size.height/8;
 
     // strong grey lines
     CGContextSetRGBStrokeColor(context, 0.9, 0.9, 0.9, 1);
 
-    for(i=2;i<=6;i+=2) {
+    for(int i=2;i<=6;i+=2) {
         CGContextMoveToPoint(context, 0, eighth*i);
         CGContextAddLineToPoint(context, width, eighth*i);
     }
@@ -49,7 +47,7 @@
     // weak grey lines
     CGContextSetRGBStrokeColor(context, 0.95, 0.95, 0.95, 1);
 
-    for(i=3;i<=5;i+=2) {
+    for(int i=3;i<=5;i+=2) {
         CGContextMoveToPoint(context, 0, eighth*i);
         CGContextAddLineToPoint(context, width, eighth*i);
     }
@@ -65,7 +63,9 @@
     
     // red daily average line
     CGContextSetRGBStrokeColor(context, 1, 0.8, 0.8, 1);
-    
+
+    double x, y; // reusable coords
+
     y = (_averagePosition * (eighth*4))+(eighth*2);
     CGContextMoveToPoint(context, 0, y);
     CGContextAddLineToPoint(context, width, y);
@@ -75,7 +75,7 @@
     // graph data
     CGContextSetRGBStrokeColor(context, 0.2, 0.2, 0.8, 0.8);
         
-    for(i=0, c=[theData count]-1; i<=c; i++) {
+    for(unsigned long i=0, c=[theData count]-1; i<=c; i++) {
         x = ((double)i/(double)c) * width;
         y = ([theData[i] doubleValue] * (eighth*4))+(eighth*2);
         if(!i) CGContextMoveToPoint(context,x,y);
