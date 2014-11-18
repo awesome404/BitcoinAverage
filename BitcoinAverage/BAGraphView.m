@@ -127,9 +127,8 @@
 - (NSArray*)getDataLines {
 
     NSError *error = nil;
-    NSString *urlFormat = @"https://api.bitcoinaverage.com/history/%@/per_minute_24h_sliding_window.csv";
     NSStringEncoding *encoding = nil;
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:urlFormat,[BASettings getCurrency]]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.bitcoinaverage.com/history/%@/per_minute_24h_sliding_window.csv",[BASettings getCurrency]]];
     NSString *urlData = [NSString stringWithContentsOfURL:url usedEncoding:encoding error:&error];
     
     if(urlData) {
