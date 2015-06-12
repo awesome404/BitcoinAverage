@@ -241,7 +241,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = BA;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Nullriver;
 				TargetAttributes = {
 					662CA3A418AD89AC00FC558A = {
@@ -343,6 +343,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -408,6 +409,7 @@
 				GCC_PREFIX_HEADER = "BitcoinAverage/BitcoinAverage-Prefix.pch";
 				INFOPLIST_FILE = "BitcoinAverage/BitcoinAverage-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nullriver.BitcoinAverage;
 				PRODUCT_NAME = "฿ Average";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -426,6 +428,7 @@
 				GCC_PREFIX_HEADER = "BitcoinAverage/BitcoinAverage-Prefix.pch";
 				INFOPLIST_FILE = "BitcoinAverage/BitcoinAverage-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nullriver.BitcoinAverage;
 				PRODUCT_NAME = "฿ Average";
 				PROVISIONING_PROFILE = "A3376044-76E4-4DAE-B157-5E03653F1302";
 				TARGETED_DEVICE_FAMILY = 1;
